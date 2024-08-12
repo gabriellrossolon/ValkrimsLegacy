@@ -14,6 +14,8 @@ public class EntityStats : MonoBehaviour
     public float max_hp;
     public float hp;
 
+    public float attack_speed;
+
     void Start()
     {
         actual_speed = base_speed;
