@@ -64,16 +64,6 @@ public class PlayerMovement : MonoBehaviour
         {
             entity_stats.actual_speed = entity_stats.original_speed;
         }
-
-        //Flipa o personagem a depender da direção que esta olhando
-        //if (horizontal > 0)
-        //{
-        //    sprite_renderer.flipX = false;
-        //}
-        //else if (horizontal < 0)
-        //{
-        //    sprite_renderer.flipX = true;
-        //}
     }
 
     private void Animate()
