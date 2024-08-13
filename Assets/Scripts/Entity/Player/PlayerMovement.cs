@@ -19,9 +19,7 @@ public class PlayerMovement : MonoBehaviour
         entity_stats = GetComponent<EntityStats>();
         sprite_renderer = GetComponentInChildren<SpriteRenderer>();
         animator = GetComponent<Animator>();
-
     }
-
 
     void FixedUpdate()
     {
@@ -37,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         //rigid_body.AddForce(new Vector2(horizontal * entity_stats.actual_speed * Time.deltaTime, vertical * entity_stats.actual_speed * Time.deltaTime));
         if (horizontal == 0 && vertical == 0)
         {
-            rigid_body.velocity = new Vector2(0, 0);
+            //rigid_body.velocity = new Vector2(0, 0);
             animator.SetBool("isWalk", false);
             return;
         }

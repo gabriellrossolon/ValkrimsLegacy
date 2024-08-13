@@ -19,13 +19,39 @@ public class SwordBehavior : MonoBehaviour
         
     }
 
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Colidiu");
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<EntityStats>().RemoveHp(player_status.attack_damage);
-            collision.GetComponent<Animator>().SetTrigger("isHurt");
+            StartCoroutine(DoDamage(collision, 0.2f));
+            EnemyHurtAnimation(collision);
         }
     }
+
+    private IEnumerator DoDamage(Collider2D collision, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        collision.GetComponent<EntityStats>().RemoveHp(player_status.attack_damage);
+        StartCoroutine(RedDamageIndicator(collision, 0.1f));
+    }
+
+    private void EnemyHurtAnimation(Collider2D collision)
+    {
+        collision.gameObject.GetComponent<Animator>().SetTrigger("isHurt");
+    }
+
+    private IEnumerator RedDamageIndicator(Collider2D collision, float delay)
+    {
+        collision.GetComponent<SpriteRenderer>().color = Color.red;
+        yield return new WaitForSeconds(delay);
+        if (collision != null)
+        {
+            collision.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+    }
+
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
 }

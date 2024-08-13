@@ -16,6 +16,8 @@ public class EntityStats : MonoBehaviour
 
     public float attack_speed;
 
+    public float knockback_force;
+
     void Start()
     {
         actual_speed = base_speed;
@@ -29,11 +31,21 @@ public class EntityStats : MonoBehaviour
         
     }
 
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
     void Death()
     {
         if(hp <= 0)
         {
-            Destroy(this.gameObject);
+            if (this.gameObject.CompareTag("Player"))
+            {
+                Time.timeScale = 0;
+            } 
+            else if (this.gameObject.CompareTag("Enemy"))
+            {
+                this.gameObject.GetComponent<Animator>().SetTrigger("isDie");
+                StartCoroutine(DestroyObject(4f));
+            }
         }
     }
 
@@ -42,4 +54,12 @@ public class EntityStats : MonoBehaviour
         hp -= hp_to_remove;
         Death();
     }
+
+    private IEnumerator DestroyObject(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(this.gameObject);
+    }
+
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 }
