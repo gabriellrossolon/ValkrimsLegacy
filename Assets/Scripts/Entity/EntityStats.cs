@@ -37,7 +37,7 @@ public class EntityStats : MonoBehaviour
         }
     }
 
-    void RemoveHp(float hp_to_remove)
+    public void RemoveHp(float hp_to_remove)
     {
         hp -= hp_to_remove;
         Death();

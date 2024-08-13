@@ -11,12 +11,14 @@ public class PlayerMeleeAttack : MonoBehaviour
     private float cooldown;
 
     private WeaponRotateController weap_rot_controller;
+    private SwordBehavior sword_behavior;
 
     void Start()
     {
         entity_stats = GetComponent<EntityStats>();
 
         weap_rot_controller = GetComponentInChildren<WeaponRotateController>();
+        sword_behavior = GetComponentInChildren<SwordBehavior>();
     }
 
     void Update()
@@ -29,18 +31,19 @@ public class PlayerMeleeAttack : MonoBehaviour
     {
         if(can_attack == true && Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Atacou");
             can_attack = false;
             cooldown = 0;
+
+            EnabledSwordCollider();
 
             if (weap_rot_controller.weaponFacingRight == true)
             {
                 player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackR");
-            } else
+            } 
+            else
             {
                 player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackL");
             }
-
         }
     }
 
@@ -54,5 +57,16 @@ public class PlayerMeleeAttack : MonoBehaviour
         {
             cooldown += Time.deltaTime;
         }
+    }
+
+    private void EnabledSwordCollider()
+    {
+        sword_behavior.sword_collider.enabled = true;
+        StartCoroutine(DisableSwordCollider(0.1f));
+    }
+    private IEnumerator DisableSwordCollider(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        sword_behavior.sword_collider.enabled = false;
     }
 }
