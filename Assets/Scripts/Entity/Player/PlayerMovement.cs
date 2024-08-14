@@ -9,9 +9,9 @@ public class PlayerMovement : MonoBehaviour
     private EntityStats entity_stats;
     private SpriteRenderer sprite_renderer;
     private Animator animator;
+    public ParticleSystem run_smoke;
 
     private Vector2 MovementInput;
-
     
     void Start()
     {
@@ -69,12 +69,27 @@ public class PlayerMovement : MonoBehaviour
 
     private void PlayerRun()
     {
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        bool isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+
+        if (isRunning)
         {
             entity_stats.actual_speed = entity_stats.max_speed;
-        } else
+            animator.SetBool("isRun", true);
+
+            if (!run_smoke.isPlaying)
+            {
+                run_smoke.Play();
+            }
+        }
+        else
         {
             entity_stats.actual_speed = entity_stats.base_speed;
+            animator.SetBool("isRun", false);
+
+            if (run_smoke.isPlaying)
+            {
+                run_smoke.Stop();
+            }
         }
     }
 }

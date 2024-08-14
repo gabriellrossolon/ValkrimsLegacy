@@ -6,6 +6,7 @@ public class SwordBehavior : MonoBehaviour
 {
     private EntityStats player_status;
     [HideInInspector] public PolygonCollider2D sword_collider;
+    public GameObject impact_fx;
 
     void Start()
     {
@@ -25,7 +26,7 @@ public class SwordBehavior : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            StartCoroutine(DoDamage(collision, 0.2f));
+            StartCoroutine(DoDamage(collision, 0.1f));
             EnemyHurtAnimation(collision);
         }
     }
@@ -34,6 +35,12 @@ public class SwordBehavior : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         collision.GetComponent<EntityStats>().RemoveHp(player_status.attack_damage);
+
+
+        Vector2 impactPoint = collision.ClosestPoint((Vector2)transform.position);
+        GameObject impact_fx_instance = Instantiate(impact_fx, impactPoint, impact_fx.transform.rotation);
+        impact_fx_instance.transform.SetParent(collision.transform);
+
         StartCoroutine(RedDamageIndicator(collision, 0.1f));
     }
 
