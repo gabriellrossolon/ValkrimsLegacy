@@ -27,21 +27,26 @@ public class PlayerMovement : MonoBehaviour
         Animate();
     }
 
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
     private void PlayerMove()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
         //rigid_body.AddForce(new Vector2(horizontal * entity_stats.actual_speed * Time.deltaTime, vertical * entity_stats.actual_speed * Time.deltaTime));
+
+        MovementInput = new Vector2(horizontal, vertical);
+        MovementInput.Normalize();
+        rigid_body.AddForce(MovementInput * entity_stats.actual_speed * Time.deltaTime);
+
+        PlayerRun();
+
         if (horizontal == 0 && vertical == 0)
         {
-            //rigid_body.velocity = new Vector2(0, 0);
             animator.SetBool("isWalk", false);
             return;
         }
-
-        MovementInput = new Vector2(horizontal, vertical);
-        rigid_body.AddForce(MovementInput * entity_stats.actual_speed * Time.deltaTime);
 
         if(horizontal != 0 || vertical != 0)
         {
@@ -52,16 +57,6 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isWalk", false);
         }
-
-        //Corta velocidade quando na diagonal.
-        if ((horizontal != 0 && vertical != 0))
-        {
-            entity_stats.actual_speed = entity_stats.original_speed * 0.66f;
-        }
-        else
-        {
-            entity_stats.actual_speed = entity_stats.original_speed;
-        }
     }
 
     private void Animate()
@@ -70,4 +65,16 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("MovementY", MovementInput.y);
     }
 
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
+    private void PlayerRun()
+    {
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            entity_stats.actual_speed = entity_stats.max_speed;
+        } else
+        {
+            entity_stats.actual_speed = entity_stats.base_speed;
+        }
+    }
 }

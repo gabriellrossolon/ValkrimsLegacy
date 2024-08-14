@@ -4,27 +4,37 @@ using UnityEngine;
 
 public class MeleeEnemyAttack : MonoBehaviour
 {
-    EntityStats entity_stats;
+    private EntityStats entity_stats;
+    public GameObject impact_fx;
+    private MeleeEnemyMove enemy_move;
+
+    private float cooldown;
+    private bool can_attack = true;
 
     void Start()
     {
         entity_stats = this.gameObject.GetComponent<EntityStats>();
+        enemy_move = this.gameObject.GetComponent<MeleeEnemyMove>();
     }
 
 
     void Update()
     {
-        
+        Cooldown();
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && can_attack == true)
         {
             StartCoroutine(DoDamage(collision, 0.2f));
-            AttackAnimation();       
+            StartCoroutine(AttackAnimation(collision));
+            can_attack = false;
+            cooldown = 0;
+
+            StartCoroutine(TimeToBreath());
         }
     }
 
@@ -36,9 +46,14 @@ public class MeleeEnemyAttack : MonoBehaviour
         Knockback(collision);
     }
 
-    private void AttackAnimation()
+    private IEnumerator AttackAnimation(Collision2D collision)
     {
-        this.gameObject.GetComponent<Animator>().SetTrigger("isAttack");
+        this.gameObject.GetComponent<Animator>().SetTrigger("isAttack");      
+        yield return new WaitForSeconds(0.1f);
+
+        ContactPoint2D contact = collision.contacts[0];
+        GameObject impact_fx_prefab = Instantiate(impact_fx, contact.point, Quaternion.identity);
+        impact_fx_prefab.transform.SetParent(collision.transform);
     }
 
     private IEnumerator RedDamageIndicator(Collision2D collision, float delay)
@@ -64,5 +79,25 @@ public class MeleeEnemyAttack : MonoBehaviour
         }
     }
 
+    private IEnumerator TimeToBreath()
+    {
+        enemy_move.can_move = false;
+        yield return new WaitForSeconds(1f);
+        enemy_move.can_move = true;
+
+    }
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
+    private void Cooldown()
+    {
+        if(cooldown >= entity_stats.attack_speed && can_attack == false)
+        {
+            can_attack = true;
+            cooldown = 0;
+        }
+        else
+        {
+            cooldown += Time.deltaTime;
+        }
+    }
 }

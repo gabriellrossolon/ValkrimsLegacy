@@ -22,6 +22,7 @@ public class EntityStats : MonoBehaviour
     {
         actual_speed = base_speed;
         original_speed = base_speed;
+        max_speed = base_speed * 1.5f;
         hp = max_hp;
     }
 
@@ -44,6 +45,10 @@ public class EntityStats : MonoBehaviour
             else if (this.gameObject.CompareTag("Enemy"))
             {
                 this.gameObject.GetComponent<Animator>().SetTrigger("isDie");
+                this.gameObject.GetComponent<MeleeEnemyMove>().enabled = false;
+                this.gameObject.GetComponent<MeleeEnemyAttack>().enabled = false;
+                this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                this.gameObject.GetComponent<SortingOrder>().enabled = false;
                 StartCoroutine(DestroyObject(4f));
             }
         }
