@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer sprite_renderer;
     private Animator animator;
     public ParticleSystem run_smoke;
-    public TrailRenderer dash_trail;
+    public ParticleSystem dash_smoke;
 
     private Vector2 movement_input;
     private bool is_moving;
@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private bool can_dash = true;
 
     private float dash_duration;
-    private bool is_dashing;
+    [HideInInspector] public bool is_dashing;
 
 
     void Start()
@@ -125,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
                 can_dash = false;
                 is_dashing = true;
                 timer = 0;
-                dash_trail.emitting = true;
+                dash_smoke.Play();
                 animator.SetTrigger("isDash");
                 StartCoroutine(EndDash(0.2f));
             }
@@ -146,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!is_dashing)
         {
-            dash_trail.emitting = false;
+            dash_smoke.Stop();
         }
     }
 
@@ -155,5 +155,7 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(delay);
         is_dashing = false;
     }
+
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
 }

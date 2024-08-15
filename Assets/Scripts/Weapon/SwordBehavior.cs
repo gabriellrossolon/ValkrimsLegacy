@@ -7,6 +7,7 @@ public class SwordBehavior : MonoBehaviour
     private EntityStats player_status;
     [HideInInspector] public PolygonCollider2D sword_collider;
     public GameObject impact_fx;
+    public GameObject circle_impact_fx;
 
     void Start()
     {
