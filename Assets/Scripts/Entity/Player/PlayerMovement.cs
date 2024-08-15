@@ -10,15 +10,32 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer sprite_renderer;
     private Animator animator;
     public ParticleSystem run_smoke;
+    public TrailRenderer dash_trail;
 
-    private Vector2 MovementInput;
-    
+    private Vector2 movement_input;
+    private bool is_moving;
+
+    public float dash_speed;
+    public float dash_cooldown;
+    private float timer;
+    private bool can_dash = true;
+
+    private float dash_duration;
+    private bool is_dashing;
+
+
     void Start()
     {
         rigid_body = GetComponent<Rigidbody2D>();
         entity_stats = GetComponent<EntityStats>();
         sprite_renderer = GetComponentInChildren<SpriteRenderer>();
         animator = GetComponent<Animator>();
+    }
+
+    void Update()
+    {
+        StartDash();
+        DashCooldown();
     }
 
     void FixedUpdate()
@@ -36,42 +53,45 @@ public class PlayerMovement : MonoBehaviour
 
         //rigid_body.AddForce(new Vector2(horizontal * entity_stats.actual_speed * Time.deltaTime, vertical * entity_stats.actual_speed * Time.deltaTime));
 
-        MovementInput = new Vector2(horizontal, vertical);
-        MovementInput.Normalize();
-        rigid_body.AddForce(MovementInput * entity_stats.actual_speed * Time.deltaTime);
+        movement_input = new Vector2(horizontal, vertical);
+        movement_input.Normalize();
+        rigid_body.AddForce(movement_input * entity_stats.actual_speed * Time.deltaTime);
 
         PlayerRun();
 
         if (horizontal == 0 && vertical == 0)
         {
             animator.SetBool("isWalk", false);
+            is_moving = false;
             return;
         }
 
         if(horizontal != 0 || vertical != 0)
         {
             animator.SetBool("isWalk", true);
-            
+            is_moving = true;
+
         }
         else
         {
             animator.SetBool("isWalk", false);
+            is_moving = false;
         }
     }
 
     private void Animate()
     {
-        animator.SetFloat("MovementX", MovementInput.x);
-        animator.SetFloat("MovementY", MovementInput.y);
+        animator.SetFloat("MovementX", movement_input.x);
+        animator.SetFloat("MovementY", movement_input.y);
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
     private void PlayerRun()
     {
-        bool isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        bool is_running = (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && (is_moving);
 
-        if (isRunning)
+        if (is_running)
         {
             entity_stats.actual_speed = entity_stats.max_speed;
             animator.SetBool("isRun", true);
@@ -92,4 +112,48 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
+    private void StartDash()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (is_moving && can_dash)
+            {
+                rigid_body.AddForce(movement_input * dash_speed);
+                can_dash = false;
+                is_dashing = true;
+                timer = 0;
+                dash_trail.emitting = true;
+                animator.SetTrigger("isDash");
+                StartCoroutine(EndDash(0.2f));
+            }
+        }
+    }
+
+    private void DashCooldown()
+    {
+        if(timer >= dash_cooldown && can_dash == false)
+        {
+            can_dash = true;
+            timer = 0;
+        }
+        else
+        {
+            timer += Time.deltaTime;
+        }
+
+        if (!is_dashing)
+        {
+            dash_trail.emitting = false;
+        }
+    }
+
+    private IEnumerator EndDash(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        is_dashing = false;
+    }
+
 }
