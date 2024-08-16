@@ -39,7 +39,7 @@ public class PlayerMeleeAttack : MonoBehaviour
             can_attack = false;
             cooldown = 0;
 
-            EnabledSwordCollider();
+            EnabledSwordCollider(0.1f);
 
             if (weap_rot_controller.weaponFacingRight == true)
             {
@@ -58,8 +58,7 @@ public class PlayerMeleeAttack : MonoBehaviour
     {
         if (can_attack == true && Input.GetMouseButtonDown(0) && player_movement.is_dashing == true)
         {
-            Debug.Log("AttackDash!");
-            EnabledSwordCollider();
+            EnabledSwordCollider(0.3f);
 
             if (weap_rot_controller.weaponFacingRight == true)
             {
@@ -91,10 +90,10 @@ public class PlayerMeleeAttack : MonoBehaviour
         }
     }
 
-    private void EnabledSwordCollider()
+    private void EnabledSwordCollider(float colision_actived_time)
     {
         sword_behavior.sword_collider.enabled = true;
-        StartCoroutine(DisableSwordCollider(0.3f));
+        StartCoroutine(DisableSwordCollider(colision_actived_time));
     }
     private IEnumerator DisableSwordCollider(float delay)
     {

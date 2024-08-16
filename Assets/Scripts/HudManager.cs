@@ -22,7 +22,8 @@ public class HudManager : MonoBehaviour
         }
     }
 
-    public Slider hp_bar;
+    public Slider player_hp_bar;
+    public GameObject damage_popup;
 
     private GameObject player_object;
 
@@ -43,8 +44,8 @@ public class HudManager : MonoBehaviour
 
     void PlayerHpHud()
     {
-        hp_bar.maxValue = player_object.gameObject.GetComponent<EntityStats>().max_hp;
-        hp_bar.value = player_object.gameObject.GetComponent<EntityStats>().hp;
+        player_hp_bar.maxValue = player_object.gameObject.GetComponent<EntityStats>().max_hp;
+        player_hp_bar.value = player_object.gameObject.GetComponent<EntityStats>().hp;
     }
 
     public void PlayAgain()
