@@ -83,7 +83,8 @@ MonoBehaviour:
   max_speed: 0
   original_speed: 0
   attack_damage: 1
-  max_hp: 6
+  strong_attack_cooldown: 0
+  max_hp: 20
   hp: 0
   attack_speed: 1
   knockback_force: 25

@@ -31197,6 +31197,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4939105373957036274, guid: f880d62758fa6cd4f8b92e017968b069, type: 3}
+      propertyPath: max_hp
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4939105373957036274, guid: f880d62758fa6cd4f8b92e017968b069, type: 3}
       propertyPath: base_speed
       value: 0
       objectReference: {fileID: 0}
@@ -31243,6 +31247,10 @@ PrefabInstance:
     - target: {fileID: 7086924440170228258, guid: f880d62758fa6cd4f8b92e017968b069, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9067422292495402102, guid: f880d62758fa6cd4f8b92e017968b069, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -31511,6 +31519,7 @@ MonoBehaviour:
   max_speed: 0
   original_speed: 0
   attack_damage: 1
+  strong_attack_cooldown: 4
   max_hp: 100
   hp: 0
   attack_speed: 1
@@ -31845,19 +31854,19 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.85659325, y: 0.93464583}
-      - {x: -0.87774134, y: 0.7736484}
-      - {x: -0.8123102, y: 0.62476933}
-      - {x: -0.6216212, y: 0.47714102}
-      - {x: -0.36726743, y: 0.22278722}
-      - {x: -0.21696572, y: 0.041321427}
-      - {x: -0.0502418, y: 0.106752604}
-      - {x: -0.05024171, y: 0.35097617}
-      - {x: -0.17562161, y: 0.32272106}
-      - {x: -0.36779356, y: 0.47296625}
-      - {x: -0.40056145, y: 0.6684781}
-      - {x: -0.48236609, y: 0.77704316}
-      - {x: -0.61282766, y: 0.85692453}
+    - - {x: -1.0201424, y: 0.9891622}
+      - {x: -0.97995955, y: 0.7055029}
+      - {x: -0.86001205, y: 0.5225511}
+      - {x: -0.68295217, y: 0.32722092}
+      - {x: -0.41496927, y: 0.08649631}
+      - {x: -0.24422394, y: -0.10859862}
+      - {x: 0.16100915, y: -0.16582933}
+      - {x: 0.13375112, y: 0.38504893}
+      - {x: -0.10066162, y: 0.5339721}
+      - {x: -0.26557535, y: 0.69784635}
+      - {x: -0.37330323, y: 0.80476904}
+      - {x: -0.54369694, y: 0.974665}
+      - {x: -0.6741586, y: 1.0204737}
   m_UseDelaunayMesh: 0
 --- !u!114 &1124999548
 MonoBehaviour:
@@ -32582,7 +32591,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.48}
+  m_Offset: {x: 0, y: -0.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -32593,7 +32602,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.49}
+  m_Size: {x: 0.74, y: 0.85}
   m_EdgeRadius: 0
 --- !u!212 &1532343536
 SpriteRenderer:
@@ -32676,6 +32685,7 @@ MonoBehaviour:
   max_speed: 0
   original_speed: 0
   attack_damage: 0
+  strong_attack_cooldown: 0
   max_hp: 1000
   hp: 0
   attack_speed: 0

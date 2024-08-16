@@ -11,6 +11,7 @@ public class EntityStats : MonoBehaviour
     [HideInInspector] public float original_speed;
 
     public float attack_damage;
+    public float strong_attack_cooldown;
 
     public float max_hp;
     public float hp;
@@ -46,31 +47,65 @@ public class EntityStats : MonoBehaviour
             else if (this.gameObject.CompareTag("Enemy"))
             {
                 this.gameObject.GetComponent<Animator>().SetTrigger("isDie");
-                this.gameObject.GetComponent<MeleeEnemyMove>().enabled = false;
-                this.gameObject.GetComponent<MeleeEnemyAttack>().enabled = false;
-                this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-                this.gameObject.GetComponent<SortingOrder>().enabled = false;
-                StartCoroutine(DestroyObject(4f));
+                this.gameObject.GetComponentInChildren<EnemyHpBar>().gameObject.SetActive(false);
+
+                DisableEnemyComponents(
+                  this.gameObject.GetComponent<MeleeEnemyMove>(),
+                  this.gameObject.GetComponent<MeleeEnemyAttack>(),
+                  this.gameObject.GetComponent<BoxCollider2D>(),
+                  this.gameObject.GetComponent<SortingOrder>(),
+                  this.gameObject.GetComponent<CircleCollider2D>()
+                );
+
+                Destroy(this.gameObject, 4f);
             }
         }
     }
 
+    void DisableEnemyComponents(params Behaviour[] components)
+    {
+        foreach (var component in components)
+        {
+            if (component != null)
+            {
+                component.enabled = false;
+            }
+        }
+    }
+
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
     public void RemoveHp(float hp_to_remove)
+    {
+        ShowDamageInCanvas(hp_to_remove);
+        RedDamageIndicator();
+
+        hp -= hp_to_remove;
+        Death(); 
+    }
+
+    private void ShowDamageInCanvas(float hp_to_remove)
     {
         GameObject new_popup = Instantiate(HudManager.Instance.damage_popup, this.gameObject.transform.position, Quaternion.identity);
         new_popup.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), 5f), ForceMode2D.Impulse);
         new_popup.GetComponentInChildren<Text>().text = hp_to_remove.ToString();
         Destroy(new_popup, 1);
-
-        hp -= hp_to_remove;
-
-        Death();
     }
 
-    private IEnumerator DestroyObject(float delay)
+    private void RedDamageIndicator()
+    {
+        SpriteRenderer spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
+        spriteRenderer.color = Color.red;
+        StartCoroutine(ResetColor(spriteRenderer, 0.1f));
+    }
+
+    private IEnumerator ResetColor(SpriteRenderer spriteRenderer, float delay)
     {
         yield return new WaitForSeconds(delay);
-        Destroy(this.gameObject);
+        if(spriteRenderer != null)
+        {
+            spriteRenderer.color = Color.white;
+        }
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//

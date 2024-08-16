@@ -14,6 +14,10 @@ public class PlayerMeleeAttack : MonoBehaviour
     private SwordBehavior sword_behavior;
     private PlayerMovement player_movement;
 
+    private Coroutine strongAttackCoroutine;
+    private bool can_strong_attack = true;
+    private float strongattack_cooldown;
+
     void Start()
     {
         entity_stats = GetComponent<EntityStats>();
@@ -25,14 +29,21 @@ public class PlayerMeleeAttack : MonoBehaviour
 
     void Update()
     {
-        AttackOne();
-        DashAttack();
-        AttackCooldown();
+        AllAtacks();
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+    private void AllAtacks()
+    {
+        AttackCooldown();
+        StrongAttackCooldown();
 
-    void AttackOne()
+        AttackOne();
+        AttackTwo();
+        DashAttack();
+    }
+
+    private void AttackOne()
     {
         if(can_attack == true && Input.GetMouseButtonDown(0) && player_movement.is_dashing == false)
         {
@@ -54,9 +65,73 @@ public class PlayerMeleeAttack : MonoBehaviour
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
-    void DashAttack()
+    private void AttackTwo()
     {
-        if (can_attack == true && Input.GetMouseButtonDown(0) && player_movement.is_dashing == true)
+        if (Input.GetMouseButton(1) && can_strong_attack == true)
+        {
+            can_attack = false;
+            // Se a corrotina não está em execução, inicia-a
+            if (strongAttackCoroutine == null)
+            {
+                Debug.Log("Check");
+                player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", true);
+                strongAttackCoroutine = StartCoroutine(ExecuteStrongAttack(2f));
+            }
+        }
+        else
+        {
+            // Cancela a corrotina se o botão for solto
+            if (strongAttackCoroutine != null)
+            {
+                StopCoroutine(strongAttackCoroutine);
+                strongAttackCoroutine = null;
+                player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", false);
+            }
+        }
+    }
+
+    private IEnumerator ExecuteStrongAttack(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        float original_attack_damage = entity_stats.attack_damage;
+        float original_knockback_force = entity_stats.knockback_force;
+
+        StartCoroutine(ChangeAttackValues(original_attack_damage, original_knockback_force));
+
+        EnabledSwordCollider(0.1f);
+
+        player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", false);
+        if (weap_rot_controller.weaponFacingRight == true)
+        {
+            player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackR");
+        }
+        else
+        {
+            player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackL");
+        }
+        // Reseta a referência da corrotina após o término
+        strongAttackCoroutine = null;
+
+        can_strong_attack = false;
+        strongattack_cooldown = 0;
+    }
+
+    private IEnumerator ChangeAttackValues(float original_attack_damage, float original_knockback_force)
+    {
+        yield return new WaitForSeconds(0.1f);
+        entity_stats.attack_damage *= 3;
+        entity_stats.knockback_force = 15;
+
+        yield return new WaitForSeconds(0.1f);
+        entity_stats.attack_damage = original_attack_damage;
+        entity_stats.knockback_force = original_knockback_force;
+    }
+
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
+    private void DashAttack()
+    {
+        if (Input.GetMouseButtonDown(0) && player_movement.is_dashing == true)
         {
             EnabledSwordCollider(0.3f);
 
@@ -78,7 +153,7 @@ public class PlayerMeleeAttack : MonoBehaviour
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
-    void AttackCooldown()
+    private void AttackCooldown()
     {
         if(cooldown >= entity_stats.attack_speed && can_attack == false)
         {
@@ -90,10 +165,25 @@ public class PlayerMeleeAttack : MonoBehaviour
         }
     }
 
-    private void EnabledSwordCollider(float colision_actived_time)
+    private void StrongAttackCooldown()
+    {
+        if (strongattack_cooldown >= entity_stats.strong_attack_cooldown && can_strong_attack == false)
+        {
+            can_strong_attack = true;
+            strongattack_cooldown = 0;
+        }
+        else
+        {
+            strongattack_cooldown += Time.deltaTime;
+        }
+    }
+
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
+    private void EnabledSwordCollider(float collision_actived_time)
     {
         sword_behavior.sword_collider.enabled = true;
-        StartCoroutine(DisableSwordCollider(colision_actived_time));
+        StartCoroutine(DisableSwordCollider(collision_actived_time));
     }
     private IEnumerator DisableSwordCollider(float delay)
     {

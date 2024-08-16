@@ -42,7 +42,6 @@ public class MeleeEnemyAttack : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         collision.gameObject.GetComponent<EntityStats>().RemoveHp(entity_stats.attack_damage);
-        StartCoroutine(RedDamageIndicator(collision, 0.1f));
         Knockback(collision);
     }
 
@@ -50,17 +49,7 @@ public class MeleeEnemyAttack : MonoBehaviour
     {
         this.gameObject.GetComponent<Animator>().SetTrigger("isAttack");      
         yield return new WaitForSeconds(0.1f);
-
-        ContactPoint2D contact = collision.contacts[0];
-        GameObject impact_fx_prefab = Instantiate(impact_fx, contact.point, Quaternion.identity);
-        impact_fx_prefab.transform.SetParent(collision.transform);
-    }
-
-    private IEnumerator RedDamageIndicator(Collision2D collision, float delay)
-    {
-        collision.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-        yield return new WaitForSeconds(delay);
-        collision.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        EnemyImpactPointAnim(collision);
     }
 
     private void Knockback(Collision2D collision)
@@ -84,7 +73,13 @@ public class MeleeEnemyAttack : MonoBehaviour
         enemy_move.can_move = false;
         yield return new WaitForSeconds(1f);
         enemy_move.can_move = true;
+    }
 
+    private void EnemyImpactPointAnim(Collision2D collision)
+    {
+        ContactPoint2D contact = collision.contacts[0];
+        GameObject impact_fx_prefab = Instantiate(impact_fx, contact.point, Quaternion.identity);
+        impact_fx_prefab.transform.SetParent(collision.transform);
     }
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 

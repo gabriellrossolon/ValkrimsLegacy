@@ -130,19 +130,6 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(EndDash(0.2f));
             }
         }
-    }
-
-    private void DashCooldown()
-    {
-        if(timer >= dash_cooldown && can_dash == false)
-        {
-            can_dash = true;
-            timer = 0;
-        }
-        else
-        {
-            timer += Time.deltaTime;
-        }
 
         if (!is_dashing)
         {
@@ -154,6 +141,19 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         is_dashing = false;
+    }
+
+    private void DashCooldown()
+    {
+        if (timer >= dash_cooldown && can_dash == false)
+        {
+            can_dash = true;
+            timer = 0;
+        }
+        else
+        {
+            timer += Time.deltaTime;
+        }
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
