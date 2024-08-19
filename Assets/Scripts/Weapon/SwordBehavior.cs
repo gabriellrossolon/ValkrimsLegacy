@@ -8,6 +8,7 @@ public class SwordBehavior : MonoBehaviour
     [HideInInspector] public PolygonCollider2D sword_collider;
     public GameObject impact_fx;
     public GameObject circle_impact_fx;
+    public GameObject strong_attack_charging_fx;
 
     private HashSet<Collider2D> damagedEnemies = new HashSet<Collider2D>();
 
@@ -35,7 +36,7 @@ public class SwordBehavior : MonoBehaviour
     //Remove o Objeto da lista de Objetos que levaram dano depois do delay
     private IEnumerator RemoveDamagedEnemy(Collider2D collision)
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         damagedEnemies.Remove(collision);
     }
 
@@ -79,4 +80,7 @@ public class SwordBehavior : MonoBehaviour
             rb.AddForce(knockbackDirection * player_status.knockback_force, ForceMode2D.Impulse);
         }
     }
+
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 }
+

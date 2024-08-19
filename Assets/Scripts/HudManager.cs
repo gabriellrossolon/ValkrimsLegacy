@@ -27,6 +27,11 @@ public class HudManager : MonoBehaviour
 
     private GameObject player_object;
 
+    public GameObject pausedgame_hud;
+    private bool isPaused;
+
+    public GameObject gameover_hud;
+
     void Start()
     {
         player_object = GameObject.FindGameObjectWithTag("Player");
@@ -34,10 +39,10 @@ public class HudManager : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    PauseGame();
-        //}
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseGame();
+        }
 
         PlayerHpHud();
     }
@@ -55,19 +60,27 @@ public class HudManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    //public void PauseGame()
-    //{
-    //    isPaused = !isPaused;
+    public void PauseGame()
+    {
+        isPaused = !isPaused;
 
-    //    if (isPaused)
-    //    {
-    //        Time.timeScale = 0;
-    //        pausedgame_hud.SetActive(true);
-    //    }
-    //    else
-    //    {
-    //        Time.timeScale = 1;
-    //        pausedgame_hud.SetActive(false);
-    //    }
-    //}
+        if (isPaused)
+        {
+            Time.timeScale = 0;
+            pausedgame_hud.SetActive(true);
+        }
+        else
+        {
+            Time.timeScale = 1;
+            pausedgame_hud.SetActive(false);
+        }
+    }
+
+    public void QuiteGame()
+    {
+        //Ajustar pro Application Quit na build final.
+
+        //Application.Quit();
+        UnityEditor.EditorApplication.isPlaying = false;
+    }
 }

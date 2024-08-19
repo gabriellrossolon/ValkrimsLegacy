@@ -42,7 +42,8 @@ public class EntityStats : MonoBehaviour
         {
             if (this.gameObject.CompareTag("Player"))
             {
-                Time.timeScale = 0;
+                StartCoroutine(ShowGameOverHud(0.5f));
+                
             } 
             else if (this.gameObject.CompareTag("Enemy"))
             {
@@ -77,8 +78,16 @@ public class EntityStats : MonoBehaviour
 
     public void RemoveHp(float hp_to_remove)
     {
-        ShowDamageInCanvas(hp_to_remove);
         RedDamageIndicator();
+        if (this.gameObject.CompareTag("Enemy"))
+        {
+            ShowDamageInCanvas(hp_to_remove);
+        }
+
+        if (this.gameObject.CompareTag("Player"))
+        {
+
+        }
 
         hp -= hp_to_remove;
         Death(); 
@@ -109,4 +118,12 @@ public class EntityStats : MonoBehaviour
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
+    private IEnumerator ShowGameOverHud(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Time.timeScale = 0;
+        HudManager.Instance.gameover_hud.SetActive(true);
+
+    }
 }

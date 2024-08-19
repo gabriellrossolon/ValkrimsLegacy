@@ -17,6 +17,7 @@ public class PlayerMeleeAttack : MonoBehaviour
     private Coroutine strongAttackCoroutine;
     private bool can_strong_attack = true;
     private float strongattack_cooldown;
+    public GameObject strong_attack_anim;
 
     void Start()
     {
@@ -73,9 +74,9 @@ public class PlayerMeleeAttack : MonoBehaviour
             // Se a corrotina não está em execução, inicia-a
             if (strongAttackCoroutine == null)
             {
-                Debug.Log("Check");
                 player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", true);
                 strongAttackCoroutine = StartCoroutine(ExecuteStrongAttack(2f));
+                strong_attack_anim.GetComponent<ParticleSystem>().Play();
             }
         }
         else
@@ -86,9 +87,11 @@ public class PlayerMeleeAttack : MonoBehaviour
                 StopCoroutine(strongAttackCoroutine);
                 strongAttackCoroutine = null;
                 player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", false);
+                strong_attack_anim.GetComponent<ParticleSystem>().Stop();
             }
         }
     }
+
 
     private IEnumerator ExecuteStrongAttack(float delay)
     {
@@ -99,15 +102,16 @@ public class PlayerMeleeAttack : MonoBehaviour
         StartCoroutine(ChangeAttackValues(original_attack_damage, original_knockback_force));
 
         EnabledSwordCollider(0.1f);
+        strong_attack_anim.GetComponent<ParticleSystem>().Stop();
 
         player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", false);
         if (weap_rot_controller.weaponFacingRight == true)
         {
-            player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackR");
+            player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isStrongAttackR");
         }
         else
         {
-            player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackL");
+            player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isStrongAttackL");
         }
         // Reseta a referência da corrotina após o término
         strongAttackCoroutine = null;
@@ -142,7 +146,7 @@ public class PlayerMeleeAttack : MonoBehaviour
                 dashimpact_fx_instance.transform.SetParent(transform);
 
             }
-            else
+            else if(weap_rot_controller.weaponFacingRight == false)
             {
                 player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackDashL");
                 GameObject dashimpact_fx_instance = Instantiate(sword_behavior.circle_impact_fx, transform.position, Quaternion.Euler(0, -180, 0));

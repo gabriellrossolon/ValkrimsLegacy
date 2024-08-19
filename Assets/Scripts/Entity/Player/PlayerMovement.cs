@@ -72,11 +72,11 @@ public class PlayerMovement : MonoBehaviour
             is_moving = true;
 
         }
-        else
-        {
-            animator.SetBool("isWalk", false);
-            is_moving = false;
-        }
+        //else
+        //{
+        //    animator.SetBool("isWalk", false);
+        //    is_moving = false;
+        //}
     }
 
     private void Animate()
