@@ -12,26 +12,34 @@ public class EntityStats : MonoBehaviour
 
     public float attack_damage;
     public float strong_attack_cooldown;
+    public float attack_speed;
+    public float knockback_force;
 
     public float max_hp;
     public float hp;
 
-    public float attack_speed;
+    public float max_stamina;
+    public float stamina;
+    public bool can_regen_stamina;
+    public float stamina_regen_rate;
 
-    public float knockback_force;
+    private Coroutine regen_coroutine;
 
     void Start()
     {
         actual_speed = base_speed;
         original_speed = base_speed;
         max_speed = base_speed * 1.5f;
+
         hp = max_hp;
+        stamina = max_stamina;
+        can_regen_stamina = true;
     }
 
 
     void Update()
     {
-        
+        StaminaControl();
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
@@ -125,5 +133,59 @@ public class EntityStats : MonoBehaviour
         Time.timeScale = 0;
         HudManager.Instance.gameover_hud.SetActive(true);
 
+    }
+
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
+
+    private void StaminaControl()
+    {
+        if (stamina > max_stamina)
+        {
+            stamina = max_stamina;
+        }
+
+        if (stamina < 0)
+        {
+            stamina = 0;
+        }
+
+        if (stamina < max_stamina && can_regen_stamina && regen_coroutine == null)
+        {
+            regen_coroutine = StartCoroutine(StaminaRegen());
+        }
+
+        if ((stamina >= max_stamina || !can_regen_stamina) && regen_coroutine != null)
+        {
+            StopCoroutine(regen_coroutine);
+            regen_coroutine = null;
+        }
+    }
+
+    private IEnumerator StaminaRegen()
+    {
+        while (can_regen_stamina && stamina < max_stamina)
+        {
+            stamina += stamina_regen_rate * Time.deltaTime;
+            yield return null;
+        }
+        regen_coroutine = null;
+
+    }
+
+    public void RemoveStamina(float stamina_to_remove)
+    {
+        if (this.gameObject.CompareTag("Player"))
+        {
+            stamina -= stamina_to_remove;
+        }
+    }
+
+    public void AddStamina(float stamina_to_add)
+    {
+        if (this.gameObject.CompareTag("Player"))
+        {
+            stamina += stamina_to_add;
+        }
     }
 }

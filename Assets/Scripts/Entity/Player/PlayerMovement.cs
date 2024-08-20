@@ -119,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (is_moving && can_dash)
+            if (is_moving && can_dash && entity_stats.stamina >= 15f)
             {
                 rigid_body.AddForce(movement_input * dash_speed);
                 can_dash = false;
@@ -128,6 +128,8 @@ public class PlayerMovement : MonoBehaviour
                 dash_smoke.Play();
                 animator.SetTrigger("isDash");
                 StartCoroutine(EndDash(0.2f));
+
+                entity_stats.RemoveStamina(15f);
             }
         }
 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3c19539a60c8f844cbe70b03a783026d
+guid: 1d5f1d26ca58cce4bb739a4778fc889c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -121,7 +121,70 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: ui_preview_2-removebg-preview (2)_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 80
+        width: 71
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcbf51d8b461fdc42b26958b4004e51b
+      internalID: -877083156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_preview_2-removebg-preview (2)_2
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 82
+        width: 16
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5474b964d5216864b95ae264627f7781
+      internalID: 562878317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_preview_2-removebg-preview (2)_3
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 16
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c3a05f8cf0a60244b943d4dbf021be7
+      internalID: -1448774508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +195,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ui_preview_2-removebg-preview (2)_0: -877083156
+      ui_preview_2-removebg-preview (2)_1: -1694160441
+      ui_preview_2-removebg-preview (2)_2: 562878317
+      ui_preview_2-removebg-preview (2)_3: -1448774508
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

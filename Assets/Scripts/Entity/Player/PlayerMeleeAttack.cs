@@ -46,7 +46,7 @@ public class PlayerMeleeAttack : MonoBehaviour
 
     private void AttackOne()
     {
-        if(can_attack == true && Input.GetMouseButtonDown(0) && player_movement.is_dashing == false)
+        if (can_attack == true && Input.GetMouseButtonDown(0) && player_movement.is_dashing == false)
         {
             can_attack = false;
             cooldown = 0;
@@ -61,6 +61,8 @@ public class PlayerMeleeAttack : MonoBehaviour
             {
                 player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackL");
             }
+
+            entity_stats.AddStamina(5f);
         }
     }
 
@@ -68,7 +70,7 @@ public class PlayerMeleeAttack : MonoBehaviour
 
     private void AttackTwo()
     {
-        if (Input.GetMouseButton(1) && can_strong_attack == true)
+        if (Input.GetMouseButton(1) && can_strong_attack == true && entity_stats.stamina >= 15f)
         {
             can_attack = false;
             // Se a corrotina não está em execução, inicia-a
@@ -77,6 +79,8 @@ public class PlayerMeleeAttack : MonoBehaviour
                 player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", true);
                 strongAttackCoroutine = StartCoroutine(ExecuteStrongAttack(2f));
                 strong_attack_anim.GetComponent<ParticleSystem>().Play();
+
+                entity_stats.RemoveStamina(5f);
             }
         }
         else
@@ -118,6 +122,8 @@ public class PlayerMeleeAttack : MonoBehaviour
 
         can_strong_attack = false;
         strongattack_cooldown = 0;
+
+        entity_stats.RemoveStamina(10f);
     }
 
     private IEnumerator ChangeAttackValues(float original_attack_damage, float original_knockback_force)
@@ -135,7 +141,7 @@ public class PlayerMeleeAttack : MonoBehaviour
 
     private void DashAttack()
     {
-        if (Input.GetMouseButtonDown(0) && player_movement.is_dashing == true)
+        if (Input.GetMouseButtonDown(0) && player_movement.is_dashing == true && entity_stats.stamina >= 10f)
         {
             EnabledSwordCollider(0.3f);
 
@@ -152,6 +158,8 @@ public class PlayerMeleeAttack : MonoBehaviour
                 GameObject dashimpact_fx_instance = Instantiate(sword_behavior.circle_impact_fx, transform.position, Quaternion.Euler(0, -180, 0));
                 dashimpact_fx_instance.transform.SetParent(transform);
             }
+
+            entity_stats.RemoveStamina(10f);
         }
     }
 
