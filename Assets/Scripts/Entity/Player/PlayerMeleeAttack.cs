@@ -34,17 +34,22 @@ public class PlayerMeleeAttack : MonoBehaviour
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
     private void AllAtacks()
     {
         AttackCooldown();
         StrongAttackCooldown();
 
-        AttackOne();
-        AttackTwo();
-        DashAttack();
+        BasicAttack();
+        PowerCutter();
+        BladeDance();
     }
 
-    private void AttackOne()
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+    //=====//=====//=====//=====//=====//=====//=====//--ATAQUES DE BOTÃO ESQUERDO--//=====//=====//=====//=====//=====//=====//
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
+    private void BasicAttack()
     {
         if (can_attack == true && Input.GetMouseButtonDown(0) && player_movement.is_dashing == false)
         {
@@ -67,8 +72,10 @@ public class PlayerMeleeAttack : MonoBehaviour
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+    //=====//=====//=====//=====//=====//=====//=====//--ATAQUES DE BOTÃO DIREITO--//=====//=====//=====//=====//=====//=====//
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
-    private void AttackTwo()
+    private void PowerCutter()
     {
         if (Input.GetMouseButton(1) && can_strong_attack == true && entity_stats.stamina >= 15f)
         {
@@ -80,7 +87,7 @@ public class PlayerMeleeAttack : MonoBehaviour
                 strongAttackCoroutine = StartCoroutine(ExecuteStrongAttack(2f));
                 strong_attack_anim.GetComponent<ParticleSystem>().Play();
 
-                entity_stats.RemoveStamina(5f);
+                entity_stats.RemoveStamina(10f);
             }
         }
         else
@@ -122,8 +129,6 @@ public class PlayerMeleeAttack : MonoBehaviour
 
         can_strong_attack = false;
         strongattack_cooldown = 0;
-
-        entity_stats.RemoveStamina(10f);
     }
 
     private IEnumerator ChangeAttackValues(float original_attack_damage, float original_knockback_force)
@@ -138,8 +143,9 @@ public class PlayerMeleeAttack : MonoBehaviour
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
-
-    private void DashAttack()
+    //=====//=====//=====//=====//=====//=====//=====//--ATAQUES DE DASH + BOTÃO ESQUERDO--//=====//=====//=====//=====//=====//=====//
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+    private void BladeDance()
     {
         if (Input.GetMouseButtonDown(0) && player_movement.is_dashing == true && entity_stats.stamina >= 10f)
         {

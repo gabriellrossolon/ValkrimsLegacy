@@ -37,7 +37,7 @@ public class EntityStats : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         StaminaControl();
     }
