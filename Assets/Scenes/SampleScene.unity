@@ -32551,7 +32551,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 726587734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4403d3b1fa19635459be27ff965029ed, type: 3}
+  m_Script: {fileID: 11500000, guid: d0820ca171516ca4da26098e737d1e53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &741044701
@@ -33265,7 +33265,7 @@ MonoBehaviour:
   max_stamina: 100
   stamina: 0
   can_regen_stamina: 0
-  stamina_regen_rate: 5
+  stamina_regen_rate: 10
 --- !u!114 &992634261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33382,6 +33382,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d8a8bc84af788a46aea2bf32cf3f8c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile_selected: {fileID: 0}
+  projectile_instance: {fileID: 0}
 --- !u!1 &994094339
 GameObject:
   m_ObjectHideFlags: 0

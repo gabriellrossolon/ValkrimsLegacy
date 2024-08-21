@@ -149,6 +149,11 @@ public class InventoryManager : MonoBehaviour
             rotate_controller.weapon = rotate_controller.staff_transform;
             player_object.GetComponent<PlayerMeleeAttack>().enabled = false;
             player_object.GetComponent<PlayerRangedAttack>().enabled = true;
+            if (selected_weapon.ranged_projectile != null)
+            {
+                player_object.GetComponent<PlayerRangedAttack>().projectile_selected = selected_weapon.ranged_projectile;
+                selected_weapon.ranged_projectile.gameObject.GetComponent<ProjectileBehavior>().projectile_speed = selected_weapon.projectile_speed;
+            }
         }
         else if (selected_weapon.bow == true)
         {
@@ -159,6 +164,11 @@ public class InventoryManager : MonoBehaviour
             rotate_controller.weapon = rotate_controller.bow_transform;
             player_object.GetComponent<PlayerMeleeAttack>().enabled = false;
             player_object.GetComponent<PlayerRangedAttack>().enabled = true;
+            if (selected_weapon.ranged_projectile != null)
+            {
+                player_object.GetComponent<PlayerRangedAttack>().projectile_selected = selected_weapon.ranged_projectile;
+                selected_weapon.ranged_projectile.gameObject.GetComponent<ProjectileBehavior>().projectile_speed = selected_weapon.projectile_speed;
+            }
         }
     }
 }

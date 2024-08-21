@@ -90,6 +90,7 @@ public class EntityStats : MonoBehaviour
         if (this.gameObject.CompareTag("Enemy"))
         {
             ShowDamageInCanvas(hp_to_remove);
+            this.gameObject.GetComponent<Animator>().SetTrigger("isHurt");
         }
 
         if (this.gameObject.CompareTag("Player"))

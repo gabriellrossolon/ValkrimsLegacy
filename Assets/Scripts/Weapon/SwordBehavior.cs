@@ -25,7 +25,6 @@ public class SwordBehavior : MonoBehaviour
         if (collision.CompareTag("Enemy") && !damagedEnemies.Contains(collision))
         {
             StartCoroutine(DoDamage(collision, 0.1f));
-            EnemyHurtAnimation(collision);
 
             //Adiciona o Objeto Enemy que colidiu a uma lista de Objetos que levaram dano
             damagedEnemies.Add(collision);
@@ -46,11 +45,6 @@ public class SwordBehavior : MonoBehaviour
         collision.GetComponent<EntityStats>().RemoveHp(player_status.attack_damage);
         ImpactPointAnim(collision);
         Knockback(collision);
-    }
-
-    private void EnemyHurtAnimation(Collider2D collision)
-    {
-        collision.gameObject.GetComponent<Animator>().SetTrigger("isHurt");
     }
 
     private void ImpactPointAnim(Collider2D collision)
