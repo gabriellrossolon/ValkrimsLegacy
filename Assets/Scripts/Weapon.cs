@@ -13,6 +13,8 @@ public class Weapon : ScriptableObject
     public bool staff;
     public bool bow;
 
+    public GameObject weapon_impact_anim;
+
     //Caso seja uma arma ranged
     public GameObject ranged_projectile;
     public float projectile_speed;

@@ -23,11 +23,13 @@ public class HudManager : MonoBehaviour
     }
 
     public Slider player_hp_bar;
+    public Slider player_stamina_bar;
+    public Slider player_mana_bar;
+
     public GameObject damage_popup;
 
-    public Slider player_stamina_bar;
-
     private GameObject player_object;
+    private EntityStats player_stats;
 
     public GameObject pausedgame_hud;
     private bool isPaused;
@@ -37,6 +39,7 @@ public class HudManager : MonoBehaviour
     void Start()
     {
         player_object = GameObject.FindGameObjectWithTag("Player");
+        player_stats = GameObject.FindWithTag("Player").gameObject.GetComponent<EntityStats>();
     }
 
     void Update()
@@ -48,18 +51,25 @@ public class HudManager : MonoBehaviour
 
         PlayerHpHudBar();
         PlayerStaminaHudBar();
+        PlayerManaHudBar();
     }
 
     private void PlayerHpHudBar()
     {
-        player_hp_bar.maxValue = player_object.gameObject.GetComponent<EntityStats>().max_hp;
-        player_hp_bar.value = player_object.gameObject.GetComponent<EntityStats>().hp;
+        player_hp_bar.maxValue = player_stats.max_hp;
+        player_hp_bar.value = player_stats.hp;
     }
 
     private void PlayerStaminaHudBar()
     {
-        player_stamina_bar.maxValue = player_object.gameObject.GetComponent<EntityStats>().max_stamina;
-        player_stamina_bar.value = player_object.gameObject.GetComponent<EntityStats>().stamina;
+        player_stamina_bar.maxValue = player_stats.max_stamina;
+        player_stamina_bar.value = player_stats.stamina;
+    }
+
+    private void PlayerManaHudBar()
+    {
+        player_mana_bar.maxValue = player_stats.max_mana;
+        player_mana_bar.value = player_stats.mana;
     }
 
     public void PlayAgain()

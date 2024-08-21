@@ -13,6 +13,9 @@ public class PlayerRangedAttack : MonoBehaviour
 
     [HideInInspector] public GameObject projectile_instance;
 
+    public bool using_staff;
+    public bool using_bow;
+
     void Start()
     {
         entity_stats = GetComponent<EntityStats>();
@@ -52,6 +55,16 @@ public class PlayerRangedAttack : MonoBehaviour
 
             can_attack = false;
             cooldown = 0;
+
+            if (using_staff)
+            {
+                entity_stats.RemoveMana(15f);
+            } 
+            else if (using_bow)
+            {
+                entity_stats.RemoveStamina(8f);
+            }
+            
         }
     }
 

@@ -17,13 +17,22 @@ public class EntityStats : MonoBehaviour
 
     public float max_hp;
     public float hp;
+    public bool can_regen_hp;
+    public float hp_regen_rate;
+    private Coroutine hp_regen_coroutine;
 
     public float max_stamina;
     public float stamina;
     public bool can_regen_stamina;
     public float stamina_regen_rate;
+    private Coroutine stamina_regen_coroutine;
 
-    private Coroutine regen_coroutine;
+    public float max_mana;
+    public float mana;
+    public bool can_regen_mana;
+    public float mana_regen_rate;
+    private Coroutine mana_regen_coroutine;
+
 
     void Start()
     {
@@ -32,14 +41,21 @@ public class EntityStats : MonoBehaviour
         max_speed = base_speed * 1.5f;
 
         hp = max_hp;
+        can_regen_hp = true;
+
         stamina = max_stamina;
         can_regen_stamina = true;
+
+        mana = max_mana;
+        can_regen_mana = true;
     }
 
 
     void FixedUpdate()
     {
         StaminaControl();
+        ManaControl();
+        HpControl();
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
@@ -138,6 +154,52 @@ public class EntityStats : MonoBehaviour
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
+    private void HpControl()
+    {
+        if (hp > max_hp)
+        {
+            hp = max_hp;
+        }
+
+        if (hp < 0)
+        {
+            hp = 0;
+        }
+
+        if (hp < max_hp && can_regen_hp && hp_regen_coroutine == null)
+        {
+            hp_regen_coroutine = StartCoroutine(HpRegen());
+        }
+
+        if ((hp >= max_hp || !can_regen_hp) && hp_regen_coroutine != null)
+        {
+            StopCoroutine(hp_regen_coroutine);
+            hp_regen_coroutine = null;
+        }
+    }
+
+    private IEnumerator HpRegen()
+    {
+        while (can_regen_hp && hp < max_hp)
+        {
+            hp += hp_regen_rate * Time.deltaTime;
+            yield return null;
+        }
+        hp_regen_coroutine = null;
+
+    }
+
+    //REMOVE HP ESTA SEPARADO, A CIMA
+
+    public void AddHp(float hp_to_add)
+    {
+        if (this.gameObject.CompareTag("Player"))
+        {
+            hp += hp_to_add;
+        }
+    }
+
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
     private void StaminaControl()
     {
@@ -151,15 +213,15 @@ public class EntityStats : MonoBehaviour
             stamina = 0;
         }
 
-        if (stamina < max_stamina && can_regen_stamina && regen_coroutine == null)
+        if (stamina < max_stamina && can_regen_stamina && stamina_regen_coroutine == null)
         {
-            regen_coroutine = StartCoroutine(StaminaRegen());
+            stamina_regen_coroutine = StartCoroutine(StaminaRegen());
         }
 
-        if ((stamina >= max_stamina || !can_regen_stamina) && regen_coroutine != null)
+        if ((stamina >= max_stamina || !can_regen_stamina) && stamina_regen_coroutine != null)
         {
-            StopCoroutine(regen_coroutine);
-            regen_coroutine = null;
+            StopCoroutine(stamina_regen_coroutine);
+            stamina_regen_coroutine = null;
         }
     }
 
@@ -170,7 +232,7 @@ public class EntityStats : MonoBehaviour
             stamina += stamina_regen_rate * Time.deltaTime;
             yield return null;
         }
-        regen_coroutine = null;
+        stamina_regen_coroutine = null;
 
     }
 
@@ -187,6 +249,59 @@ public class EntityStats : MonoBehaviour
         if (this.gameObject.CompareTag("Player"))
         {
             stamina += stamina_to_add;
+        }
+    }
+
+    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
+    private void ManaControl()
+    {
+        if (mana > max_mana)
+        {
+            mana = max_mana;
+        }
+
+        if (mana < 0)
+        {
+            mana = 0;
+        }
+
+        if (mana < max_mana && can_regen_mana && mana_regen_coroutine == null)
+        {
+            mana_regen_coroutine = StartCoroutine(ManaRegen());
+        }
+
+        if ((mana >= max_mana || !can_regen_mana) && mana_regen_coroutine != null)
+        {
+            StopCoroutine(mana_regen_coroutine);
+            mana_regen_coroutine = null;
+        }
+    }
+
+    private IEnumerator ManaRegen()
+    {
+        while (can_regen_mana && mana < max_mana)
+        {
+            mana += mana_regen_rate * Time.deltaTime;
+            yield return null;
+        }
+        mana_regen_coroutine = null;
+
+    }
+
+    public void RemoveMana(float mana_to_remove)
+    {
+        if (this.gameObject.CompareTag("Player"))
+        {
+            mana -= mana_to_remove;
+        }
+    }
+
+    public void AddMana(float mana_to_add)
+    {
+        if (this.gameObject.CompareTag("Player"))
+        {
+            mana += mana_to_add;
         }
     }
 }

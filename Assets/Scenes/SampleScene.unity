@@ -32232,11 +32232,19 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4939105373957036274, guid: f880d62758fa6cd4f8b92e017968b069, type: 3}
+      propertyPath: hp
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4939105373957036274, guid: f880d62758fa6cd4f8b92e017968b069, type: 3}
       propertyPath: max_hp
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4939105373957036274, guid: f880d62758fa6cd4f8b92e017968b069, type: 3}
       propertyPath: base_speed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4939105373957036274, guid: f880d62758fa6cd4f8b92e017968b069, type: 3}
+      propertyPath: can_regen_hp
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5733378919632207724, guid: f880d62758fa6cd4f8b92e017968b069, type: 3}
@@ -32753,8 +32761,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_hp_bar: {fileID: 1445925533}
-  damage_popup: {fileID: 2122683369331715196, guid: e0a8ba728612d154693eb8624de2ca6d, type: 3}
   player_stamina_bar: {fileID: 1752996824}
+  player_mana_bar: {fileID: 394661131}
+  damage_popup: {fileID: 2122683369331715196, guid: e0a8ba728612d154693eb8624de2ca6d, type: 3}
   pausedgame_hud: {fileID: 517885485}
   gameover_hud: {fileID: 1414365431}
 --- !u!1 &843015237
@@ -33260,12 +33269,18 @@ MonoBehaviour:
   strong_attack_cooldown: 3
   attack_speed: 0.7
   knockback_force: 0
-  max_hp: 100
-  hp: 0
+  max_hp: 20
+  hp: 0.05
+  can_regen_hp: 0
+  hp_regen_rate: 0.1
   max_stamina: 100
   stamina: 0
   can_regen_stamina: 0
   stamina_regen_rate: 10
+  max_mana: 100
+  mana: 0
+  can_regen_mana: 0
+  mana_regen_rate: 5
 --- !u!114 &992634261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33384,6 +33399,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile_selected: {fileID: 0}
   projectile_instance: {fileID: 0}
+  using_staff: 0
+  using_bow: 0
 --- !u!1 &994094339
 GameObject:
   m_ObjectHideFlags: 0
@@ -33949,7 +33966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sword_collider: {fileID: 0}
-  impact_fx: {fileID: 3561149551515574134, guid: 9f0906483d99d2a4ea2165171de9296f, type: 3}
+  impact_fx: {fileID: 0}
   circle_impact_fx: {fileID: 7633647673430650463, guid: 38ba0fe094d0d2646b6dc517edc7d760, type: 3}
   strong_attack_charging_fx: {fileID: 6262045188337307367, guid: cfd4283931a5a544595a8c6c8e428a83, type: 3}
 --- !u!1 &1128564210
@@ -35699,10 +35716,16 @@ MonoBehaviour:
   knockback_force: 0
   max_hp: 1000
   hp: 0
+  can_regen_hp: 0
+  hp_regen_rate: 0
   max_stamina: 0
   stamina: 0
   can_regen_stamina: 0
   stamina_regen_rate: 0
+  max_mana: 0
+  mana: 0
+  can_regen_mana: 0
+  mana_regen_rate: 0
 --- !u!114 &1532343539
 MonoBehaviour:
   m_ObjectHideFlags: 0

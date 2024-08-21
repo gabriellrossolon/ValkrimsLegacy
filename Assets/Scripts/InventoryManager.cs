@@ -29,6 +29,8 @@ public class InventoryManager : MonoBehaviour
 
     private EntityStats player_stats;
     private GameObject player_object;
+    private PlayerRangedAttack player_ranged_attack;
+    private PlayerMeleeAttack player_melee_attack;
 
     public GameObject weapon_in_hands;
 
@@ -42,6 +44,10 @@ public class InventoryManager : MonoBehaviour
     {
         player_stats = GameObject.FindGameObjectWithTag("Player").GetComponent<EntityStats>();
         player_object = GameObject.FindGameObjectWithTag("Player");
+
+        player_ranged_attack = player_object.GetComponent<PlayerRangedAttack>();
+        player_melee_attack = player_object.GetComponent<PlayerMeleeAttack>();
+
         SelectWeapon(1);
     }
 
@@ -137,8 +143,11 @@ public class InventoryManager : MonoBehaviour
             weapon_staff.SetActive(false);
             weapon_bow.SetActive(false);
             rotate_controller.weapon = rotate_controller.sword_transform;
-            player_object.GetComponent<PlayerMeleeAttack>().enabled = true;
-            player_object.GetComponent<PlayerRangedAttack>().enabled = false;
+            player_melee_attack.enabled = true;
+            player_ranged_attack.enabled = false;
+            player_ranged_attack.using_staff = false; player_ranged_attack.using_bow = false;
+            player_object.GetComponentInChildren<SwordBehavior>().impact_fx = selected_weapon.weapon_impact_anim;
+
         } 
         else if (selected_weapon.staff == true)
         {
@@ -147,13 +156,15 @@ public class InventoryManager : MonoBehaviour
             weapon_staff.SetActive(true);
             weapon_bow.SetActive(false);
             rotate_controller.weapon = rotate_controller.staff_transform;
-            player_object.GetComponent<PlayerMeleeAttack>().enabled = false;
-            player_object.GetComponent<PlayerRangedAttack>().enabled = true;
+            player_melee_attack.enabled = false;
+            player_ranged_attack.enabled = true;
             if (selected_weapon.ranged_projectile != null)
             {
                 player_object.GetComponent<PlayerRangedAttack>().projectile_selected = selected_weapon.ranged_projectile;
                 selected_weapon.ranged_projectile.gameObject.GetComponent<ProjectileBehavior>().projectile_speed = selected_weapon.projectile_speed;
             }
+            player_ranged_attack.using_staff = true; player_ranged_attack.using_bow = false;
+            selected_weapon.ranged_projectile.gameObject.GetComponent<ProjectileBehavior>().impact_fx = selected_weapon.weapon_impact_anim;
         }
         else if (selected_weapon.bow == true)
         {
@@ -162,13 +173,15 @@ public class InventoryManager : MonoBehaviour
             weapon_staff.SetActive(false);
             weapon_bow.SetActive(true);
             rotate_controller.weapon = rotate_controller.bow_transform;
-            player_object.GetComponent<PlayerMeleeAttack>().enabled = false;
-            player_object.GetComponent<PlayerRangedAttack>().enabled = true;
+            player_melee_attack.enabled = false;
+            player_ranged_attack.enabled = true;
             if (selected_weapon.ranged_projectile != null)
             {
                 player_object.GetComponent<PlayerRangedAttack>().projectile_selected = selected_weapon.ranged_projectile;
                 selected_weapon.ranged_projectile.gameObject.GetComponent<ProjectileBehavior>().projectile_speed = selected_weapon.projectile_speed;
             }
+            player_ranged_attack.using_staff = false; player_ranged_attack.using_bow = true;
+            selected_weapon.ranged_projectile.gameObject.GetComponent<ProjectileBehavior>().impact_fx = selected_weapon.weapon_impact_anim;
         }
     }
 }
