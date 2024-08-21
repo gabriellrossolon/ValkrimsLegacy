@@ -28,12 +28,20 @@ public class InventoryManager : MonoBehaviour
     private int selected_inv_slot = 0;
 
     private EntityStats player_stats;
+    private GameObject player_object;
 
     public GameObject weapon_in_hands;
+
+    public GameObject weapon_sword;
+    public GameObject weapon_staff;
+    public GameObject weapon_bow;
+
+    public GameObject weapon_parent;
 
     void Start()
     {
         player_stats = GameObject.FindGameObjectWithTag("Player").GetComponent<EntityStats>();
+        player_object = GameObject.FindGameObjectWithTag("Player");
         SelectWeapon(1);
     }
 
@@ -81,6 +89,9 @@ public class InventoryManager : MonoBehaviour
     private void SelectWeapon(int hotkey)
     {
         Weapon selected_weapon = inventory[hotkey - 1];
+
+        VerifyWeaponActive(selected_weapon);
+
         player_stats.attack_damage = selected_weapon.weapon_damage;
         player_stats.attack_speed = selected_weapon.weapon_attack_speed;
 
@@ -110,6 +121,44 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             SelectWeapon(5);
+        }
+    }
+
+    //Gerenciamento de Mudança das armas Sword/Staff/Bow
+
+    private void VerifyWeaponActive(Weapon selected_weapon)
+    {
+        WeaponRotateController rotate_controller = weapon_parent.GetComponent<WeaponRotateController>();
+        
+        if (selected_weapon.sword == true)
+        {
+            weapon_in_hands = weapon_sword;
+            weapon_sword.SetActive(true);
+            weapon_staff.SetActive(false);
+            weapon_bow.SetActive(false);
+            rotate_controller.weapon = rotate_controller.sword_transform;
+            player_object.GetComponent<PlayerMeleeAttack>().enabled = true;
+            player_object.GetComponent<PlayerRangedAttack>().enabled = false;
+        } 
+        else if (selected_weapon.staff == true)
+        {
+            weapon_in_hands = weapon_staff;
+            weapon_sword.SetActive(false);
+            weapon_staff.SetActive(true);
+            weapon_bow.SetActive(false);
+            rotate_controller.weapon = rotate_controller.staff_transform;
+            player_object.GetComponent<PlayerMeleeAttack>().enabled = false;
+            player_object.GetComponent<PlayerRangedAttack>().enabled = true;
+        }
+        else if (selected_weapon.bow == true)
+        {
+            weapon_in_hands = weapon_bow;
+            weapon_sword.SetActive(false);
+            weapon_staff.SetActive(false);
+            weapon_bow.SetActive(true);
+            rotate_controller.weapon = rotate_controller.bow_transform;
+            player_object.GetComponent<PlayerMeleeAttack>().enabled = false;
+            player_object.GetComponent<PlayerRangedAttack>().enabled = true;
         }
     }
 }

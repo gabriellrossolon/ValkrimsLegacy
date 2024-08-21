@@ -10,8 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf3723194584c0943b722616302b0f0a, type: 3}
-  m_Name: NoneWeapon
+  m_Name: WoodenStaff
   m_EditorClassIdentifier: 
   weapon_damage: 0
   weapon_attack_speed: 0
-  weapon_icon: {fileID: 1254868679, guid: 6817a0583ba72c341b440af9b2c92c6c, type: 3}
+  weapon_icon: {fileID: -148713120, guid: faad781fb63d6b64fb7d72bf4504643f, type: 3}
+  sword: 0
+  staff: 1
+  bow: 0

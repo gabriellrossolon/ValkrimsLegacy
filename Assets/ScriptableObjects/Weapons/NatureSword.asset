@@ -15,3 +15,6 @@ MonoBehaviour:
   weapon_damage: 3
   weapon_attack_speed: 0.5
   weapon_icon: {fileID: 509996094, guid: 9f8ce43324babbb4085ac2dfab8a9798, type: 3}
+  sword: 1
+  staff: 0
+  bow: 0
