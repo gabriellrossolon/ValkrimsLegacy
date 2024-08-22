@@ -26,7 +26,6 @@ public class ProjectileBehavior : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Debug.Log("Deu dano");
             collision.GetComponent<EntityStats>().RemoveHp(player_stats.attack_damage);
         }
         ImpactPointAnim(collision);

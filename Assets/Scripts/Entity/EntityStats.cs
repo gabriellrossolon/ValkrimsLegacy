@@ -252,6 +252,11 @@ public class EntityStats : MonoBehaviour
         }
     }
 
+    public void DrainStamina()
+    {
+        stamina -= 1.5f;
+    }
+
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
     private void ManaControl()

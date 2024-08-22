@@ -37,12 +37,14 @@ public class PlayerMeleeAttack : MonoBehaviour
 
     private void AllAtacks()
     {
+        BasicAttack();
+
+        BladeDance(10f);
+
+        //PowerCutter();
+
         AttackCooldown();
         StrongAttackCooldown();
-
-        BasicAttack();
-        PowerCutter();
-        BladeDance();
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
@@ -67,7 +69,7 @@ public class PlayerMeleeAttack : MonoBehaviour
                 player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackL");
             }
 
-            entity_stats.AddStamina(5f);
+            entity_stats.AddStamina(3f);
         }
     }
 
@@ -77,17 +79,25 @@ public class PlayerMeleeAttack : MonoBehaviour
 
     private void PowerCutter()
     {
-        if (Input.GetMouseButton(1) && can_strong_attack == true && entity_stats.stamina >= 15f)
+        if (Input.GetMouseButton(1) && can_strong_attack == true)
         {
-            can_attack = false;
-            // Se a corrotina não está em execução, inicia-a
-            if (strongAttackCoroutine == null)
+            if (entity_stats.stamina >= 10f)
             {
-                player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", true);
-                strongAttackCoroutine = StartCoroutine(ExecuteStrongAttack(2f));
-                strong_attack_anim.GetComponent<ParticleSystem>().Play();
+                can_attack = false;
+                // Se a corrotina não está em execução, inicia-a
+                if (strongAttackCoroutine == null)
+                {
+                    player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", true);
+                    strongAttackCoroutine = StartCoroutine(ExecuteStrongAttack(2f));
+                    strong_attack_anim.GetComponent<ParticleSystem>().Play();
 
-                entity_stats.RemoveStamina(10f);
+                    entity_stats.RemoveStamina(10f);
+                }
+            }
+            else
+            {
+                GameObject stamina_warn_instance = Instantiate(HudManager.Instance.stamina_warn, transform.position, Quaternion.identity);
+                Destroy(stamina_warn_instance, 1f);
             }
         }
         else
@@ -102,8 +112,6 @@ public class PlayerMeleeAttack : MonoBehaviour
             }
         }
     }
-
-
     private IEnumerator ExecuteStrongAttack(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -130,7 +138,6 @@ public class PlayerMeleeAttack : MonoBehaviour
         can_strong_attack = false;
         strongattack_cooldown = 0;
     }
-
     private IEnumerator ChangeAttackValues(float original_attack_damage, float original_knockback_force)
     {
         yield return new WaitForSeconds(0.1f);
@@ -145,27 +152,36 @@ public class PlayerMeleeAttack : MonoBehaviour
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
     //=====//=====//=====//=====//=====//=====//=====//--ATAQUES DE DASH + BOTÃO ESQUERDO--//=====//=====//=====//=====//=====//=====//
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
-    private void BladeDance()
+    private void BladeDance(float stamina_cost)
     {
-        if (Input.GetMouseButtonDown(0) && player_movement.is_dashing == true && entity_stats.stamina >= 10f)
+        if (Input.GetMouseButtonDown(0) && player_movement.is_dashing == true)
         {
-            EnabledSwordCollider(0.3f);
-
-            if (weap_rot_controller.weaponFacingRight == true)
+            if (entity_stats.stamina >= stamina_cost)
             {
-                player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackDashR");
-                GameObject dashimpact_fx_instance = Instantiate(sword_behavior.circle_impact_fx, transform.position, Quaternion.Euler(0, 0, 0));
-                dashimpact_fx_instance.transform.SetParent(transform);
+                EnabledSwordCollider(0.3f);
 
+                if (weap_rot_controller.weaponFacingRight == true)
+                {
+                    player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackDashR");
+                    GameObject dashimpact_fx_instance = Instantiate(sword_behavior.circle_impact_fx, transform.position, Quaternion.Euler(0, 0, 0));
+                    dashimpact_fx_instance.transform.SetParent(transform);
+
+                }
+                else if (weap_rot_controller.weaponFacingRight == false)
+                {
+                    player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackDashL");
+                    GameObject dashimpact_fx_instance = Instantiate(sword_behavior.circle_impact_fx, transform.position, Quaternion.Euler(0, -180, 0));
+                    dashimpact_fx_instance.transform.SetParent(transform);
+                }
+
+                entity_stats.RemoveStamina(stamina_cost);
             }
-            else if(weap_rot_controller.weaponFacingRight == false)
+            else
             {
-                player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackDashL");
-                GameObject dashimpact_fx_instance = Instantiate(sword_behavior.circle_impact_fx, transform.position, Quaternion.Euler(0, -180, 0));
-                dashimpact_fx_instance.transform.SetParent(transform);
+                GameObject stamina_warn_instance = Instantiate(HudManager.Instance.stamina_warn, transform.position, Quaternion.identity);
+                Destroy(stamina_warn_instance, 1f);
             }
-
-            entity_stats.RemoveStamina(10f);
+            
         }
     }
 

@@ -34,7 +34,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        StartDash();
+        StartDash(10f);
+
         DashCooldown();
     }
 
@@ -42,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerMove();
         Animate();
+        PlayerRun();
+
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
@@ -57,7 +60,6 @@ public class PlayerMovement : MonoBehaviour
         movement_input.Normalize();
         rigid_body.AddForce(movement_input * entity_stats.actual_speed * Time.deltaTime);
 
-        PlayerRun();
 
         if (horizontal == 0 && vertical == 0)
         {
@@ -100,6 +102,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 run_smoke.Play();
             }
+
+            if (!IsInvoking("DrainStamina"))
+            {
+                InvokeRepeating("DrainStamina", 0f, 0.1f); // Drena a stamina a cada 1 segundo
+            }
         }
         else
         {
@@ -110,27 +117,46 @@ public class PlayerMovement : MonoBehaviour
             {
                 run_smoke.Stop();
             }
+
+            if (IsInvoking("DrainStamina"))
+            {
+                CancelInvoke("DrainStamina");
+            }
         }
+    }
+
+    private void DrainStamina()
+    {
+        entity_stats.DrainStamina();
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
-    private void StartDash()
+    private void StartDash(float stamina_cost)
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (is_moving && can_dash && entity_stats.stamina >= 15f)
+            if (entity_stats.stamina >= stamina_cost)
             {
-                rigid_body.AddForce(movement_input * dash_speed);
-                can_dash = false;
-                is_dashing = true;
-                timer = 0;
-                dash_smoke.Play();
-                animator.SetTrigger("isDash");
-                StartCoroutine(EndDash(0.2f));
+                if (is_moving && can_dash && entity_stats.stamina >= 15f)
+                {
+                    rigid_body.AddForce(movement_input * dash_speed);
+                    can_dash = false;
+                    is_dashing = true;
+                    timer = 0;
+                    dash_smoke.Play();
+                    animator.SetTrigger("isDash");
+                    StartCoroutine(EndDash(0.2f));
 
-                entity_stats.RemoveStamina(15f);
+                    entity_stats.RemoveStamina(stamina_cost);
+                }
             }
+            else
+            {
+                GameObject stamina_warn_instance = Instantiate(HudManager.Instance.stamina_warn, transform.position, Quaternion.identity);
+                Destroy(stamina_warn_instance, 1f);
+            }
+
         }
 
         if (!is_dashing)
