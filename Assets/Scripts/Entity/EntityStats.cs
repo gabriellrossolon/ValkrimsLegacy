@@ -50,12 +50,16 @@ public class EntityStats : MonoBehaviour
         can_regen_mana = true;
     }
 
-
-    void FixedUpdate()
+    void Update()
     {
         StaminaControl();
         ManaControl();
         HpControl();
+    }
+
+    void FixedUpdate()
+    {
+        
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//

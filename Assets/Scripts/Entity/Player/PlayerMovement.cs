@@ -105,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (!IsInvoking("DrainStamina"))
             {
-                InvokeRepeating("DrainStamina", 0f, 0.1f); // Drena a stamina a cada 1 segundo
+                InvokeRepeating("DrainStamina", 0f, 0.1f); // Drena a stamina a cada 0.1 segundo
             }
         }
         else
