@@ -38,6 +38,7 @@ public class HudManager : MonoBehaviour
 
     public GameObject mana_warn;
     public GameObject stamina_warn;
+    public GameObject cooldown_warn;
 
     void Start()
     {

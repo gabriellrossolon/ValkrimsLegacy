@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        StartDash(10f);
+        if (SkillManager.Instance.can_use_dashSkill) { StartDash(10f); }
 
         DashCooldown();
     }

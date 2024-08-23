@@ -84,10 +84,20 @@ MonoBehaviour:
   original_speed: 0
   attack_damage: 1
   strong_attack_cooldown: 0
-  max_hp: 20
-  hp: 0
   attack_speed: 1
   knockback_force: 25
+  max_hp: 30
+  hp: 0
+  can_regen_hp: 0
+  hp_regen_rate: 0
+  max_stamina: 0
+  stamina: 0
+  can_regen_stamina: 0
+  stamina_regen_rate: 0
+  max_mana: 0
+  mana: 0
+  can_regen_mana: 0
+  mana_regen_rate: 0
 --- !u!114 &5622342499591276596
 MonoBehaviour:
   m_ObjectHideFlags: 0
