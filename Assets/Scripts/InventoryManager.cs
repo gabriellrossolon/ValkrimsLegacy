@@ -22,6 +22,11 @@ public class InventoryManager : MonoBehaviour
     }
 
     public List<Weapon> inventory;
+    public Potion potion;
+
+    public GameObject potion_slot;
+    public int potion_quantity;
+    public Text potion_quantity_text;
 
     public GameObject inv_background;
     public GameObject inv_slot;
@@ -59,12 +64,27 @@ public class InventoryManager : MonoBehaviour
 
     private void RefreshInventory()
     {
+        //Slot da Poção
+        Image potion_icon_image = potion_slot.transform.Find("Icon").GetComponent<Image>();
+        if(potion != null)
+        {
+            potion_icon_image.enabled = true;
+            potion_icon_image.sprite = potion.potion_icon;
+            potion_quantity_text.text = potion_quantity.ToString();
+        }
+        else
+        {
+            potion_icon_image.enabled = false;
+        }
+       
+
+        //Slots das Armas
         GameObject[] destroy_slots = GameObject.FindGameObjectsWithTag("InventorySlot");
         foreach (GameObject slot in destroy_slots) { Destroy(slot); }
 
-        int hotkey = 1; 
+        int hotkey = 1;
 
-        foreach(Weapon w in inventory)
+        foreach (Weapon w in inventory)
         {
             GameObject slot_instance = Instantiate(inv_slot, inv_background.transform);
 
@@ -93,7 +113,7 @@ public class InventoryManager : MonoBehaviour
             }
 
             slot_instance.GetComponentInChildren<Text>().text = hotkey.ToString();
-            hotkey++;
+            hotkey++;     
         }
     }
 
@@ -137,9 +157,9 @@ public class InventoryManager : MonoBehaviour
         {
             SelectWeapon(4);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            SelectWeapon(5);
+            UsePotion();
         }
     }
 
@@ -211,4 +231,23 @@ public class InventoryManager : MonoBehaviour
             player_ranged_attack.using_staff = false; player_ranged_attack.using_bow = false;
         }
     }
+
+    private void UsePotion()
+    {
+        if (potion != null && potion_quantity > 0)
+        {
+            player_stats.AddHp(potion.hp_added);
+            player_stats.AddMana(potion.mana_added);
+            player_stats.AddStamina(potion.stamina_added);
+
+            potion_quantity -= 1;
+
+            RefreshInventory();
+        }
+        else
+        {
+            Debug.Log("Sem poções");
+        }
+    }
+       
 }
