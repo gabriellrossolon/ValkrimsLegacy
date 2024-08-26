@@ -5,8 +5,8 @@ using UnityEngine;
 public class SortingOrder : MonoBehaviour
 {
     //Objetos
-    GameObject player_object;
-    SpriteRenderer sprite_renderer;
+    private GameObject player_object;
+    private SpriteRenderer sprite_renderer;
 
     public float transparence_distance;
 

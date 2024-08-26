@@ -699,7 +699,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 267e4ab5e7e2873449c3958bd4e045f1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 68e8bb2c417465b4a8dd319f7614f509, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1088,6 +1088,10 @@ PrefabInstance:
     - target: {fileID: 4333446249732777638, guid: 9f3cdcea57f20c54ba0cc9efbb4d896d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4428652927964617281, guid: 9f3cdcea57f20c54ba0cc9efbb4d896d, type: 3}
+      propertyPath: detection_distance
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7972241837561965816, guid: 9f3cdcea57f20c54ba0cc9efbb4d896d, type: 3}
       propertyPath: m_Name
@@ -33019,7 +33023,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4939105373957036274, guid: f880d62758fa6cd4f8b92e017968b069, type: 3}
       propertyPath: base_speed
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4939105373957036274, guid: f880d62758fa6cd4f8b92e017968b069, type: 3}
       propertyPath: can_regen_hp
@@ -34298,13 +34302,13 @@ MonoBehaviour:
   attack_speed: 0.7
   knockback_force: 0
   max_hp: 20
-  hp: 0.05
+  hp: 0
   can_regen_hp: 0
   hp_regen_rate: 0.1
   max_stamina: 100
   stamina: 0
   can_regen_stamina: 0
-  stamina_regen_rate: 10
+  stamina_regen_rate: 5
   max_mana: 100
   mana: 0
   can_regen_mana: 0
@@ -34651,7 +34655,7 @@ GameObject:
   - component: {fileID: 1071501714}
   - component: {fileID: 1071501716}
   m_Layer: 5
-  m_Name: Background
+  m_Name: BackgroundHotbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36462,6 +36466,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4428652927964617281, guid: 9f3cdcea57f20c54ba0cc9efbb4d896d, type: 3}
+      propertyPath: detection_distance
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 7972241837561965816, guid: 9f3cdcea57f20c54ba0cc9efbb4d896d, type: 3}
       propertyPath: m_Name
       value: Tree_two (1)
@@ -36662,7 +36670,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 3a378465756983e469fbdb651c1f9e69, type: 3}
-    m_FontSize: 40
+    m_FontSize: 50
     m_FontStyle: 2
     m_BestFit: 0
     m_MinSize: 0
@@ -37460,7 +37468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1c4ddb1d9ebc284cb6e8d4568f09f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transparence_distance: 0.6
+  transparence_distance: 0
 --- !u!50 &1532343540
 Rigidbody2D:
   serializedVersion: 4
@@ -37556,6 +37564,10 @@ PrefabInstance:
     - target: {fileID: 4333446249732777638, guid: 9f3cdcea57f20c54ba0cc9efbb4d896d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4428652927964617281, guid: 9f3cdcea57f20c54ba0cc9efbb4d896d, type: 3}
+      propertyPath: detection_distance
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 4428652927964617281, guid: 9f3cdcea57f20c54ba0cc9efbb4d896d, type: 3}
       propertyPath: transparence_distance
@@ -37930,6 +37942,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4428652927964617281, guid: 9f3cdcea57f20c54ba0cc9efbb4d896d, type: 3}
+      propertyPath: detection_distance
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 7972241837561965816, guid: 9f3cdcea57f20c54ba0cc9efbb4d896d, type: 3}
       propertyPath: m_Name
       value: Tree_two (2)
@@ -38074,6 +38090,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1269748634}
     m_Modifications:
+    - target: {fileID: 6472033704735934487, guid: b9b61fb3e9a891b49a183f066a23f98d, type: 3}
+      propertyPath: detection_distance
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 6921944665363365438, guid: b9b61fb3e9a891b49a183f066a23f98d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.773776
@@ -38267,6 +38287,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1269748634}
     m_Modifications:
+    - target: {fileID: 6472033704735934487, guid: b9b61fb3e9a891b49a183f066a23f98d, type: 3}
+      propertyPath: detection_distance
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 6921944665363365438, guid: b9b61fb3e9a891b49a183f066a23f98d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.188743
@@ -38521,6 +38545,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1269748634}
     m_Modifications:
+    - target: {fileID: 6472033704735934487, guid: b9b61fb3e9a891b49a183f066a23f98d, type: 3}
+      propertyPath: detection_distance
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 6921944665363365438, guid: b9b61fb3e9a891b49a183f066a23f98d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 27.442135
@@ -38648,6 +38676,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1269748634}
     m_Modifications:
+    - target: {fileID: 6472033704735934487, guid: b9b61fb3e9a891b49a183f066a23f98d, type: 3}
+      propertyPath: detection_distance
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 6921944665363365438, guid: b9b61fb3e9a891b49a183f066a23f98d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 30.716255
@@ -38705,6 +38737,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1269748634}
     m_Modifications:
+    - target: {fileID: 6472033704735934487, guid: b9b61fb3e9a891b49a183f066a23f98d, type: 3}
+      propertyPath: detection_distance
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 6921944665363365438, guid: b9b61fb3e9a891b49a183f066a23f98d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.0488229
@@ -39215,6 +39251,10 @@ PrefabInstance:
     - target: {fileID: 4333446249732777638, guid: 9f3cdcea57f20c54ba0cc9efbb4d896d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4428652927964617281, guid: 9f3cdcea57f20c54ba0cc9efbb4d896d, type: 3}
+      propertyPath: detection_distance
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 4428652927964617281, guid: 9f3cdcea57f20c54ba0cc9efbb4d896d, type: 3}
       propertyPath: transparence_distance

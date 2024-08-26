@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf3723194584c0943b722616302b0f0a, type: 3}
   m_Name: NatureSword
   m_EditorClassIdentifier: 
-  weapon_damage: 3
-  weapon_attack_speed: 0.5
+  weapon_damage: 2
+  weapon_attack_speed: 0.4
   weapon_icon: {fileID: 509996094, guid: 9f8ce43324babbb4085ac2dfab8a9798, type: 3}
   sword: 1
   staff: 0

@@ -11,6 +11,17 @@ public class MeleeEnemyMove : MonoBehaviour
 
     private Vector3 previousPosition;
     [HideInInspector] public bool can_move = true;
+    private float detection_range = 8f;
+
+
+    private Vector3 targetPosition;
+    private float randomMoveRange = 3f;
+    private float changeDirectionInterval = 2f;
+    private float timeSinceLastChange;
+    private bool isMovingTowardsPlayer;
+    private float waitTime = 2f;
+    private float waitTimer;
+    private bool isWaiting;
 
     void Start()
     {
@@ -18,6 +29,8 @@ public class MeleeEnemyMove : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         player_object = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponent<Animator>();
+
+        SetRandomTargetPosition();
     }
 
     private void Update()
@@ -27,18 +40,19 @@ public class MeleeEnemyMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        MoveToPlayer();
+        Move();
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
+    //Legacy Movement
     private void MoveToPlayer()
     {
-        if (can_move == true)
+        float distance_to_player = Vector3.Distance(transform.position, player_object.transform.position);
+
+        if (can_move == true && distance_to_player <= detection_range)
         {
             transform.position = Vector3.MoveTowards(transform.position, player_object.transform.position, entity_stats.actual_speed * Time.deltaTime);
-            //Vector2 direction = (player_object.transform.position - transform.position).normalized;
-            //rb.velocity = (direction * entity_stats.actual_speed);
         }
 
         if (transform.position.x > player_object.transform.position.x)
@@ -50,11 +64,79 @@ public class MeleeEnemyMove : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
 
-        //isMoving retorna true ou false
         bool isMoving = transform.position != previousPosition;
-        //bool isMoving = entity_stats.actual_speed > 0;
-
         isWalkAnim(isMoving);
+    }
+
+    private void Move()
+    {
+        bool isMoving = false; // Inicializa isMoving como false
+
+        if (!can_move) // Verifica se o inimigo pode se mover
+        {
+            isWalkAnim(isMoving); // Atualiza animação de espera
+            return; // Sai do método se não puder se mover
+        }
+
+        if (isWaiting)
+        {
+            waitTimer += Time.deltaTime;
+            if (waitTimer >= waitTime)
+            {
+                isWaiting = false;
+                waitTimer = 0f;
+                SetRandomTargetPosition(); // Define nova posição aleatória após espera
+            }
+            isWalkAnim(isMoving); // Atualiza animação de espera
+            return;
+        }
+
+        float distance_to_player = Vector3.Distance(transform.position, player_object.transform.position);
+
+        if (distance_to_player <= detection_range)
+        {
+            isMovingTowardsPlayer = true;
+            MoveTowards(player_object.transform.position);
+            isMoving = true; // Marca como movendo-se em direção ao jogador
+        }
+        else
+        {
+            isMovingTowardsPlayer = false;
+            timeSinceLastChange += Time.deltaTime;
+
+            if (timeSinceLastChange >= changeDirectionInterval)
+            {
+                SetRandomTargetPosition(); // Atualiza a posição aleatória
+                timeSinceLastChange = 0f;
+            }
+
+            MoveTowards(targetPosition);
+            isMoving = true; // Marca como movendo-se para a posição aleatória
+        }
+
+        // Verifica se chegou perto da posição alvo
+        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        {
+            isWaiting = true; // Inicia a pausa
+        }
+
+        FlipSprite(isMovingTowardsPlayer ? player_object.transform.position : targetPosition);
+        isWalkAnim(isMoving); // Atualiza animação de movimento
+    }
+
+    private void MoveTowards(Vector3 destination)
+    {
+        transform.position = Vector3.MoveTowards(transform.position, destination, entity_stats.actual_speed * Time.deltaTime);
+    }
+
+    private void SetRandomTargetPosition()
+    {
+        targetPosition = transform.position + new Vector3(Random.Range(-randomMoveRange, randomMoveRange), Random.Range(-randomMoveRange, randomMoveRange), 0);
+    }
+
+    private void FlipSprite(Vector3 target)
+    {
+        GetComponent<SpriteRenderer>().flipX = transform.position.x < target.x;
     }
 
     private void isWalkAnim(bool isMoving)
