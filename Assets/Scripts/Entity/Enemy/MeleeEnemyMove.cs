@@ -70,12 +70,12 @@ public class MeleeEnemyMove : MonoBehaviour
 
     private void Move()
     {
-        bool isMoving = false; // Inicializa isMoving como false
+        bool isMoving = false;
 
-        if (!can_move) // Verifica se o inimigo pode se mover
+        if (!can_move)
         {
-            isWalkAnim(isMoving); // Atualiza animação de espera
-            return; // Sai do método se não puder se mover
+            isWalkAnim(isMoving);
+            return;
         }
 
         if (isWaiting)
@@ -85,9 +85,9 @@ public class MeleeEnemyMove : MonoBehaviour
             {
                 isWaiting = false;
                 waitTimer = 0f;
-                SetRandomTargetPosition(); // Define nova posição aleatória após espera
+                SetRandomTargetPosition();
             }
-            isWalkAnim(isMoving); // Atualiza animação de espera
+            isWalkAnim(isMoving);
             return;
         }
 
@@ -97,7 +97,7 @@ public class MeleeEnemyMove : MonoBehaviour
         {
             isMovingTowardsPlayer = true;
             MoveTowards(player_object.transform.position);
-            isMoving = true; // Marca como movendo-se em direção ao jogador
+            isMoving = true;
         }
         else
         {
@@ -106,22 +106,21 @@ public class MeleeEnemyMove : MonoBehaviour
 
             if (timeSinceLastChange >= changeDirectionInterval)
             {
-                SetRandomTargetPosition(); // Atualiza a posição aleatória
+                SetRandomTargetPosition();
                 timeSinceLastChange = 0f;
             }
 
             MoveTowards(targetPosition);
-            isMoving = true; // Marca como movendo-se para a posição aleatória
+            isMoving = true;
         }
 
-        // Verifica se chegou perto da posição alvo
         if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
         {
-            isWaiting = true; // Inicia a pausa
+            isWaiting = true;
         }
 
         FlipSprite(isMovingTowardsPlayer ? player_object.transform.position : targetPosition);
-        isWalkAnim(isMoving); // Atualiza animação de movimento
+        isWalkAnim(isMoving);
     }
 
     private void MoveTowards(Vector3 destination)
