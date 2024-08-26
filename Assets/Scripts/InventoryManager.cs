@@ -72,6 +72,12 @@ public class InventoryManager : MonoBehaviour
             {
                 Image icon_image = slot_instance.transform.Find("Icon").GetComponent<Image>();
                 icon_image.enabled = false;
+
+                slot_instance.GetComponent<Image>().color = Color.white;
+                if (selected_inv_slot == hotkey)
+                {
+                    slot_instance.GetComponent<Image>().color = Color.red;
+                }
             }
             else
             {
@@ -80,7 +86,6 @@ public class InventoryManager : MonoBehaviour
                 icon_image.enabled = true;
 
                 slot_instance.GetComponent<Image>().color = Color.white;
-
                 if (selected_inv_slot == hotkey)
                 {
                     slot_instance.GetComponent<Image>().color = Color.red;
@@ -96,13 +101,21 @@ public class InventoryManager : MonoBehaviour
     {
         Weapon selected_weapon = inventory[hotkey - 1];
 
-        VerifyWeaponActive(selected_weapon);
+        if(selected_weapon != null)
+        {
+            VerifyWeaponActive(selected_weapon);
 
-        player_stats.attack_damage = selected_weapon.weapon_damage;
-        player_stats.attack_speed = selected_weapon.weapon_attack_speed;
+            player_stats.attack_damage = selected_weapon.weapon_damage;
+            player_stats.attack_speed = selected_weapon.weapon_attack_speed;
 
-        selected_inv_slot = hotkey;
-        weapon_in_hands.GetComponent<SpriteRenderer>().sprite = inventory[selected_inv_slot - 1].weapon_icon;
+            selected_inv_slot = hotkey;
+            weapon_in_hands.GetComponent<SpriteRenderer>().sprite = inventory[selected_inv_slot - 1].weapon_icon;
+        } else
+        {
+            VerifyWeaponActive(selected_weapon);
+            selected_inv_slot = hotkey;
+        }
+
         RefreshInventory();
     }
 
@@ -136,52 +149,66 @@ public class InventoryManager : MonoBehaviour
     {
         WeaponRotateController rotate_controller = weapon_parent.GetComponent<WeaponRotateController>();
         
-        if (selected_weapon.sword == true)
+        if(selected_weapon != null)
         {
-            weapon_in_hands = weapon_sword;
-            weapon_sword.SetActive(true);
+            if (selected_weapon.sword == true)
+            {
+                weapon_in_hands = weapon_sword;
+                weapon_sword.SetActive(true);
+                weapon_staff.SetActive(false);
+                weapon_bow.SetActive(false);
+                rotate_controller.weapon = rotate_controller.sword_transform;
+                player_melee_attack.enabled = true;
+                player_ranged_attack.enabled = false;
+                player_ranged_attack.using_staff = false; player_ranged_attack.using_bow = false;
+                player_object.GetComponentInChildren<SwordBehavior>().impact_fx = selected_weapon.weapon_impact_anim;
+
+            }
+            else if (selected_weapon.staff == true)
+            {
+                weapon_in_hands = weapon_staff;
+                weapon_sword.SetActive(false);
+                weapon_staff.SetActive(true);
+                weapon_bow.SetActive(false);
+                rotate_controller.weapon = rotate_controller.staff_transform;
+                player_melee_attack.enabled = false;
+                player_ranged_attack.enabled = true;
+                if (selected_weapon.ranged_projectile != null)
+                {
+                    player_object.GetComponent<PlayerRangedAttack>().projectile_selected = selected_weapon.ranged_projectile;
+                    selected_weapon.ranged_projectile.gameObject.GetComponent<ProjectileBehavior>().projectile_speed = selected_weapon.projectile_speed;
+                }
+                player_ranged_attack.using_staff = true; player_ranged_attack.using_bow = false;
+                selected_weapon.ranged_projectile.gameObject.GetComponent<ProjectileBehavior>().impact_fx = selected_weapon.weapon_impact_anim;
+            }
+            else if (selected_weapon.bow == true)
+            {
+                weapon_in_hands = weapon_bow;
+                weapon_sword.SetActive(false);
+                weapon_staff.SetActive(false);
+                weapon_bow.SetActive(true);
+                rotate_controller.weapon = rotate_controller.bow_transform;
+                player_melee_attack.enabled = false;
+                player_ranged_attack.enabled = true;
+                if (selected_weapon.ranged_projectile != null)
+                {
+                    player_object.GetComponent<PlayerRangedAttack>().projectile_selected = selected_weapon.ranged_projectile;
+                    selected_weapon.ranged_projectile.gameObject.GetComponent<ProjectileBehavior>().projectile_speed = selected_weapon.projectile_speed;
+                }
+                player_ranged_attack.using_staff = false; player_ranged_attack.using_bow = true;
+                selected_weapon.ranged_projectile.gameObject.GetComponent<ProjectileBehavior>().impact_fx = selected_weapon.weapon_impact_anim;
+            }
+        }
+        else
+        {
+            weapon_in_hands = null;
+            weapon_sword.SetActive(false);
             weapon_staff.SetActive(false);
             weapon_bow.SetActive(false);
             rotate_controller.weapon = rotate_controller.sword_transform;
-            player_melee_attack.enabled = true;
+            player_melee_attack.enabled = false;
             player_ranged_attack.enabled = false;
             player_ranged_attack.using_staff = false; player_ranged_attack.using_bow = false;
-            player_object.GetComponentInChildren<SwordBehavior>().impact_fx = selected_weapon.weapon_impact_anim;
-
-        } 
-        else if (selected_weapon.staff == true)
-        {
-            weapon_in_hands = weapon_staff;
-            weapon_sword.SetActive(false);
-            weapon_staff.SetActive(true);
-            weapon_bow.SetActive(false);
-            rotate_controller.weapon = rotate_controller.staff_transform;
-            player_melee_attack.enabled = false;
-            player_ranged_attack.enabled = true;
-            if (selected_weapon.ranged_projectile != null)
-            {
-                player_object.GetComponent<PlayerRangedAttack>().projectile_selected = selected_weapon.ranged_projectile;
-                selected_weapon.ranged_projectile.gameObject.GetComponent<ProjectileBehavior>().projectile_speed = selected_weapon.projectile_speed;
-            }
-            player_ranged_attack.using_staff = true; player_ranged_attack.using_bow = false;
-            selected_weapon.ranged_projectile.gameObject.GetComponent<ProjectileBehavior>().impact_fx = selected_weapon.weapon_impact_anim;
-        }
-        else if (selected_weapon.bow == true)
-        {
-            weapon_in_hands = weapon_bow;
-            weapon_sword.SetActive(false);
-            weapon_staff.SetActive(false);
-            weapon_bow.SetActive(true);
-            rotate_controller.weapon = rotate_controller.bow_transform;
-            player_melee_attack.enabled = false;
-            player_ranged_attack.enabled = true;
-            if (selected_weapon.ranged_projectile != null)
-            {
-                player_object.GetComponent<PlayerRangedAttack>().projectile_selected = selected_weapon.ranged_projectile;
-                selected_weapon.ranged_projectile.gameObject.GetComponent<ProjectileBehavior>().projectile_speed = selected_weapon.projectile_speed;
-            }
-            player_ranged_attack.using_staff = false; player_ranged_attack.using_bow = true;
-            selected_weapon.ranged_projectile.gameObject.GetComponent<ProjectileBehavior>().impact_fx = selected_weapon.weapon_impact_anim;
         }
     }
 }
