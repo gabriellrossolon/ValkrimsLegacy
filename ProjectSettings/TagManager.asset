@@ -8,6 +8,7 @@ TagManager:
   - FxTemporaire
   - InventorySlot
   - Transitioner
+  - CMCam
   layers:
   - Default
   - TransparentFX

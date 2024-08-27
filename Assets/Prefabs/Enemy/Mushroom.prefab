@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   can_move: 1
+  patrolRadius: 5
 --- !u!114 &2185186964645744229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,7 +87,7 @@ MonoBehaviour:
   strong_attack_cooldown: 0
   attack_speed: 1
   knockback_force: 25
-  max_hp: 25
+  max_hp: 20
   hp: 0
   can_regen_hp: 0
   hp_regen_rate: 0

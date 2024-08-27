@@ -46,7 +46,7 @@ public class SortingOrder : MonoBehaviour
 
         if (player_object.transform.position.y > transform.position.y)
         {
-            sprite_renderer.sortingOrder = 11;
+            sprite_renderer.sortingOrder = 13;
         }
         else
         {

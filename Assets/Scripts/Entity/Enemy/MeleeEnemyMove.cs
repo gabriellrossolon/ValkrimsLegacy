@@ -101,12 +101,6 @@ public class MeleeEnemyMove : MonoBehaviour
             isMovingTowardsPlayer = true;
             Vector3 playerPosition = player_object.transform.position;
 
-            //// Limita a posição do jogador para dentro do raio de patrulha
-            //if (Vector3.Distance(playerPosition, originPosition) > patrolRadius)
-            //{
-            //    playerPosition = originPosition + (playerPosition - originPosition).normalized * patrolRadius;
-            //}
-
             MoveTowards(playerPosition);
             isMoving = true;
         }
