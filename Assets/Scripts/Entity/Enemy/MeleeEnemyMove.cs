@@ -23,6 +23,8 @@ public class MeleeEnemyMove : MonoBehaviour
     private float waitTimer;
     private bool isWaiting;
 
+    private Vector3 originPosition;
+    public float patrolRadius = 5f;
     void Start()
     {
         entity_stats = GetComponent<EntityStats>();
@@ -31,6 +33,7 @@ public class MeleeEnemyMove : MonoBehaviour
         anim = GetComponent<Animator>();
 
         SetRandomTargetPosition();
+        originPosition = transform.position;
     }
 
     private void Update()
@@ -96,7 +99,15 @@ public class MeleeEnemyMove : MonoBehaviour
         if (distance_to_player <= detection_range)
         {
             isMovingTowardsPlayer = true;
-            MoveTowards(player_object.transform.position);
+            Vector3 playerPosition = player_object.transform.position;
+
+            //// Limita a posição do jogador para dentro do raio de patrulha
+            //if (Vector3.Distance(playerPosition, originPosition) > patrolRadius)
+            //{
+            //    playerPosition = originPosition + (playerPosition - originPosition).normalized * patrolRadius;
+            //}
+
+            MoveTowards(playerPosition);
             isMoving = true;
         }
         else
@@ -131,6 +142,12 @@ public class MeleeEnemyMove : MonoBehaviour
     private void SetRandomTargetPosition()
     {
         targetPosition = transform.position + new Vector3(Random.Range(-randomMoveRange, randomMoveRange), Random.Range(-randomMoveRange, randomMoveRange), 0);
+
+        // Limita a posição alvo dentro do raio de patrulha
+        if (Vector3.Distance(targetPosition, originPosition) > patrolRadius)
+        {
+            targetPosition = originPosition + (targetPosition - originPosition).normalized * patrolRadius;
+        }
     }
 
     private void FlipSprite(Vector3 target)
