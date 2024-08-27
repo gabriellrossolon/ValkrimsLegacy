@@ -34,20 +34,15 @@ public class WeaponRotateController : MonoBehaviour
         {
             WeaponFlipController(mousePos);
         } 
-        else if (weapon.gameObject.name == "Staff")
-        {
-
-        }
-        
     }
 
     private void WeaponFlipController(Vector3 mousePos)
     {
-        if (mousePos.x < weapon.position.x && weaponFacingRight)
+        if (mousePos.x < transform.position.x && weaponFacingRight)
         {
             WeaponFlip();
         }
-        else if (mousePos.x > weapon.position.x && !weaponFacingRight)
+        else if (mousePos.x > transform.position.x && !weaponFacingRight)
         {
             WeaponFlip();
         }

@@ -23,6 +23,9 @@ public class PlayerMovement : MonoBehaviour
     private float dash_duration;
     [HideInInspector] public bool is_dashing;
 
+    private float last_input_x;
+    private float last_input_y;
+
 
     void Start()
     {
@@ -73,18 +76,17 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isWalk", true);
             is_moving = true;
 
+            last_input_x = horizontal;
+            last_input_y = vertical;
         }
-        //else
-        //{
-        //    animator.SetBool("isWalk", false);
-        //    is_moving = false;
-        //}
     }
 
     private void Animate()
     {
-        animator.SetFloat("MovementX", movement_input.x);
-        animator.SetFloat("MovementY", movement_input.y);
+        //animator.SetFloat("MovementX", movement_input.x);
+        //animator.SetFloat("MovementY", movement_input.y);
+        animator.SetFloat("MovementX", last_input_x);
+        animator.SetFloat("MovementY", last_input_y);
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
