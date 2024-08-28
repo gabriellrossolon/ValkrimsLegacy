@@ -36,7 +36,7 @@ public class SwordBehavior : MonoBehaviour
     //Remove o Objeto da lista de Objetos que levaram dano depois do delay
     private IEnumerator RemoveDamagedEnemy(Collider2D collision)
     {
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.1f);
         damagedEnemies.Remove(collision);
     }
 

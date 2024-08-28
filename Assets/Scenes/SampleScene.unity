@@ -5227,8 +5227,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.06940001, y: 0.05094999, z: 0}
-    m_Extent: {x: 1.4003, y: 1.1724501, z: 0}
+    m_Center: {x: -0.064800024, y: 0.050450027, z: 0}
+    m_Extent: {x: 1.3936, y: 1.1652501, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -132816,10 +132816,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03, y: -0.48}
+  m_Offset: {x: -0.03, y: -0.03}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.4}
     oldSize: {x: 4, y: 4}
     newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
@@ -134877,19 +134877,24 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -1.0201424, y: 0.9891622}
-      - {x: -0.97995955, y: 0.7055029}
-      - {x: -0.86001205, y: 0.5225511}
-      - {x: -0.68295217, y: 0.32722092}
-      - {x: -0.41496927, y: 0.08649631}
-      - {x: -0.24422394, y: -0.10859862}
-      - {x: 0.16100915, y: -0.16582933}
-      - {x: 0.13375112, y: 0.38504893}
-      - {x: -0.10066162, y: 0.5339721}
-      - {x: -0.26557535, y: 0.69784635}
-      - {x: -0.37330323, y: 0.80476904}
-      - {x: -0.54369694, y: 0.974665}
-      - {x: -0.6741586, y: 1.0204737}
+    - - {x: -0.9737942, y: 0.7914133}
+      - {x: -0.9441331, y: 0.65057516}
+      - {x: -0.8630476, y: 0.4917462}
+      - {x: -0.73120177, y: 0.35309598}
+      - {x: -0.6319842, y: 0.25306347}
+      - {x: -0.5102037, y: 0.1682924}
+      - {x: -0.44951892, y: 0.072676435}
+      - {x: -0.36860278, y: -0.067139}
+      - {x: -0.2297854, y: -0.13478425}
+      - {x: 0.09190972, y: -0.22801879}
+      - {x: 0.19658445, y: -0.064739615}
+      - {x: -0.02360715, y: 0.21159488}
+      - {x: 0.009372264, y: 0.3021297}
+      - {x: -0.16976105, y: 0.51324224}
+      - {x: -0.36231446, y: 0.68402654}
+      - {x: -0.5391417, y: 0.86695826}
+      - {x: -0.74408513, y: 0.9332053}
+      - {x: -0.8952766, y: 0.92373455}
   m_UseDelaunayMesh: 0
 --- !u!114 &1124999548
 MonoBehaviour:
@@ -135519,7 +135524,7 @@ Transform:
   m_GameObject: {fileID: 1146690136}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.052, y: 0, z: 0}
+  m_LocalPosition: {x: -0.052, y: 0.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -148690,7 +148695,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3390694791907652092, guid: 99b2c2f122cbe2045a49edb5791495f6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.67
+      value: -0.261
       objectReference: {fileID: 0}
     - target: {fileID: 3390694791907652092, guid: 99b2c2f122cbe2045a49edb5791495f6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -148972,7 +148977,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 763906243628849945, guid: 115ee5f7b454bc642be771bf50e19ded, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.16
+      value: 0.31
       objectReference: {fileID: 0}
     - target: {fileID: 763906243628849945, guid: 115ee5f7b454bc642be771bf50e19ded, type: 3}
       propertyPath: m_LocalPosition.z

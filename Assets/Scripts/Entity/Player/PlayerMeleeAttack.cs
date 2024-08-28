@@ -71,21 +71,22 @@ public class PlayerMeleeAttack : MonoBehaviour
             cooldown = 0;
             entity_stats.RemoveStamina(stamina_to_remove);
 
-            EnabledSwordCollider(0.1f);
+            //EnabledSwordCollider(0.1f);
             if (attack_step == 1)
             {
                 if (weap_rot_controller.weaponFacingRight == true)
                 {
                     weapon_animator.SetTrigger("isAttackR");
-                    can_attack = true;
                     attack_step++;
+                    can_attack = true;
                 }
                 else
                 {
                     weapon_animator.SetTrigger("isAttackL");
-                    can_attack = true;
                     attack_step++;
+                    can_attack = true;
                 }
+                Invoke("InvokeCollider", 0.1f);
                 StartResetCoroutine();
             } 
             else if (attack_step == 2)
@@ -93,21 +94,22 @@ public class PlayerMeleeAttack : MonoBehaviour
                 if (weap_rot_controller.weaponFacingRight == true)
                 {
                     weapon_animator.SetTrigger("isAttackR2");
+                    attack_step++;
                     can_attack = true;
                     cooldown = 0;
-                    attack_step++;
                     StopCoroutine(ResetSequence());
                     StartCoroutine(ResetSequence());
                 }
                 else
                 {
                     weapon_animator.SetTrigger("isAttackL2");
+                    attack_step++;
                     can_attack = true;
                     cooldown = 0;
-                    attack_step++;
                     StopCoroutine(ResetSequence());
                     StartCoroutine(ResetSequence());
                 }
+                Invoke("InvokeCollider", 0.1f);
                 StartResetCoroutine();
             }
             else if (attack_step == 3)
@@ -115,9 +117,9 @@ public class PlayerMeleeAttack : MonoBehaviour
                 if (weap_rot_controller.weaponFacingRight == true)
                 {
                     weapon_animator.SetTrigger("isAttackR3");
+                    attack_step = 1;
                     can_attack = false;
                     cooldown = 0;
-                    attack_step = 1;
                     StopCoroutine(ResetSequence());
                 }
                 else
@@ -128,9 +130,15 @@ public class PlayerMeleeAttack : MonoBehaviour
                     attack_step = 1;
                     StopCoroutine(ResetSequence());
                 }
+                Invoke("InvokeCollider", 0.1f);
                 StopCoroutineIfNeeded();
             }
         }
+    }
+
+    private void InvokeCollider()
+    {
+        EnabledSwordCollider(0.1f);
     }
 
     private void StartResetCoroutine()
