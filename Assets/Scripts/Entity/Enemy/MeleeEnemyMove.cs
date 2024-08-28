@@ -11,7 +11,7 @@ public class MeleeEnemyMove : MonoBehaviour
 
     private Vector3 previousPosition;
     [HideInInspector] public bool can_move = true;
-    private float detection_range = 8f;
+    [SerializeField] private float detection_range = 8f;
 
 
     private Vector3 targetPosition;
@@ -24,7 +24,7 @@ public class MeleeEnemyMove : MonoBehaviour
     private bool isWaiting;
 
     private Vector3 originPosition;
-    public float patrolRadius = 5f;
+    [SerializeField] private float patrolRadius = 5f;
     void Start()
     {
         entity_stats = GetComponent<EntityStats>();

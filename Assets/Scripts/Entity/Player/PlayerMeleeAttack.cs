@@ -10,6 +10,7 @@ public class PlayerMeleeAttack : MonoBehaviour
     private PlayerMovement player_movement;
 
     public GameObject player_weapon;
+    private Animator weapon_animator;
 
     public bool can_attack = true;
     private float cooldown;
@@ -19,6 +20,8 @@ public class PlayerMeleeAttack : MonoBehaviour
     private float strongattack_cooldown;
     public GameObject strong_attack_anim;
 
+    private int attack_step = 1;
+
     void Start()
     {
         entity_stats = GetComponent<EntityStats>();
@@ -26,6 +29,7 @@ public class PlayerMeleeAttack : MonoBehaviour
         weap_rot_controller = GetComponentInChildren<WeaponRotateController>();
         sword_behavior = GetComponentInChildren<SwordBehavior>();
         player_movement = GetComponent<PlayerMovement>();
+        weapon_animator = player_weapon.gameObject.GetComponent<Animator>();
     }
 
     void Update()
@@ -59,21 +63,60 @@ public class PlayerMeleeAttack : MonoBehaviour
     {
         if (can_attack == true && Input.GetMouseButtonDown(0) && player_movement.is_dashing == false)
         {
+            player_weapon.gameObject.GetComponent<Animator>().enabled = true;
             can_attack = false;
             cooldown = 0;
+            entity_stats.AddStamina(3f);
 
             EnabledSwordCollider(0.1f);
-
-            if (weap_rot_controller.weaponFacingRight == true)
+            if (attack_step == 1)
             {
-                player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackR");
-            } 
-            else
+                if (weap_rot_controller.weaponFacingRight == true)
+                {
+                    weapon_animator.SetTrigger("isAttackR");
+                    can_attack = true;
+                    attack_step++;
+                }
+                else
+                {
+                    weapon_animator.SetTrigger("isAttackL");
+                    can_attack = true;
+                    attack_step++;
+                }
+            } else if (attack_step == 2)
             {
-                player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackL");
+                if (weap_rot_controller.weaponFacingRight == true)
+                {
+                    weapon_animator.SetTrigger("isAttackR2");
+                    can_attack = true;
+                    cooldown = 0;
+                    attack_step++;
+                }
+                else
+                {
+                    weapon_animator.SetTrigger("isAttackL2");
+                    can_attack = true;
+                    cooldown = 0;
+                    attack_step++;
+                }
             }
-
-            entity_stats.AddStamina(3f);
+            else if (attack_step == 3)
+            {
+                if (weap_rot_controller.weaponFacingRight == true)
+                {
+                    weapon_animator.SetTrigger("isAttackR3");
+                    can_attack = false;
+                    cooldown = 0;
+                    attack_step = 1;
+                }
+                else
+                {
+                    weapon_animator.SetTrigger("isAttackL3");
+                    can_attack = false;
+                    cooldown = 0;
+                    attack_step = 1;
+                }
+            }
         }
     }
 
@@ -179,14 +222,14 @@ public class PlayerMeleeAttack : MonoBehaviour
                 if (weap_rot_controller.weaponFacingRight == true)
                 {
                     player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackDashR");
-                    GameObject dashimpact_fx_instance = Instantiate(sword_behavior.circle_impact_fx, transform.position, Quaternion.Euler(0, 0, 0));
+                    GameObject dashimpact_fx_instance = Instantiate(sword_behavior.circle_impact_fx, sword_behavior.transform.position, Quaternion.Euler(0, 0, 0));
                     dashimpact_fx_instance.transform.SetParent(transform);
 
                 }
                 else if (weap_rot_controller.weaponFacingRight == false)
                 {
                     player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isAttackDashL");
-                    GameObject dashimpact_fx_instance = Instantiate(sword_behavior.circle_impact_fx, transform.position, Quaternion.Euler(0, -180, 0));
+                    GameObject dashimpact_fx_instance = Instantiate(sword_behavior.circle_impact_fx, sword_behavior.transform.position, Quaternion.Euler(0, -180, 0));
                     dashimpact_fx_instance.transform.SetParent(transform);
                 }
 

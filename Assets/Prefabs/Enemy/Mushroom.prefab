@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   can_move: 1
+  detection_range: 10
   patrolRadius: 5
 --- !u!114 &2185186964645744229
 MonoBehaviour:

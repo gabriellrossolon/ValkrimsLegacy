@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MetalSword
   m_EditorClassIdentifier: 
   weapon_damage: 3
-  weapon_attack_speed: 0.6
+  weapon_attack_speed: 1.5
   weapon_icon: {fileID: 1141525709, guid: 977690a507cad5a43bddf92644b2d31a, type: 3}
   sword: 1
   staff: 0

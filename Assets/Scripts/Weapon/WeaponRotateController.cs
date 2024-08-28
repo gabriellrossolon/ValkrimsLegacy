@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponRotateController : MonoBehaviour
 {
     public Transform weapon;
+    public Transform sword_parent;
     public float weaponDistance = 0.5f;
 
     public Transform sword_transform;
@@ -25,15 +26,17 @@ public class WeaponRotateController : MonoBehaviour
         Vector3 direction = mousePos - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        weapon.rotation = Quaternion.Euler(weapon.rotation.eulerAngles.x, weapon.rotation.eulerAngles.y, angle);
-
-        
-        weapon.position = transform.position + Quaternion.Euler(0, 0, angle) * new Vector3(weaponDistance, 0, 0);
-
+       
         if (weapon.gameObject.name == "Sword")
         {
             WeaponFlipController(mousePos);
-        } 
+            weapon.rotation = Quaternion.Euler(weapon.rotation.eulerAngles.x, weapon.rotation.eulerAngles.y, 0);
+            sword_parent.position = transform.position + Quaternion.Euler(0, 0, angle) * new Vector3(weaponDistance, 0, 0);
+        } else
+        {
+            weapon.rotation = Quaternion.Euler(weapon.rotation.eulerAngles.x, weapon.rotation.eulerAngles.y, angle);
+            weapon.position = transform.position + Quaternion.Euler(0, 0, angle) * new Vector3(weaponDistance, 0, 0);
+        }
     }
 
     private void WeaponFlipController(Vector3 mousePos)
