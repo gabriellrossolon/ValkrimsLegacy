@@ -25,6 +25,7 @@ public class SwordBehavior : MonoBehaviour
         if (collision.CompareTag("Enemy") && !damagedEnemies.Contains(collision))
         {
             StartCoroutine(DoDamage(collision, 0.1f));
+            player_status.AddStamina(3f);
 
             //Adiciona o Objeto Enemy que colidiu a uma lista de Objetos que levaram dano
             damagedEnemies.Add(collision);

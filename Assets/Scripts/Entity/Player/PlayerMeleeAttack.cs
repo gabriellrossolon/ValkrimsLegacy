@@ -42,7 +42,7 @@ public class PlayerMeleeAttack : MonoBehaviour
 
     private void AllAtacks()
     {
-        BasicAttack();
+        BasicAttack(3f);
 
         if (SkillManager.Instance.can_use_powerCutter) { PowerCutter(10f); }
 
@@ -59,14 +59,14 @@ public class PlayerMeleeAttack : MonoBehaviour
     //=====//=====//=====//=====//=====//=====//=====//--ATAQUES DE BOTÃO ESQUERDO--//=====//=====//=====//=====//=====//=====//
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
-    private void BasicAttack()
+    private void BasicAttack(float stamina_to_remove)
     {
         if (can_attack == true && Input.GetMouseButtonDown(0) && player_movement.is_dashing == false)
         {
             player_weapon.gameObject.GetComponent<Animator>().enabled = true;
             can_attack = false;
             cooldown = 0;
-            entity_stats.AddStamina(3f);
+            entity_stats.RemoveStamina(stamina_to_remove);
 
             EnabledSwordCollider(0.1f);
             if (attack_step == 1)
