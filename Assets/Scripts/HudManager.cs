@@ -22,23 +22,25 @@ public class HudManager : MonoBehaviour
         }
     }
 
+    [Header("Status Bar")]
     public Slider player_hp_bar;
     public Slider player_stamina_bar;
     public Slider player_mana_bar;
 
-    public GameObject damage_popup;
-
     private GameObject player_object;
     private EntityStats player_stats;
 
+    [Header("HUDs")]
     public GameObject pausedgame_hud;
     private bool isPaused;
 
     public GameObject gameover_hud;
 
+    [Header("Popups")]
     public GameObject mana_warn;
     public GameObject stamina_warn;
     public GameObject cooldown_warn;
+    public GameObject damage_popup;
 
     void Start()
     {

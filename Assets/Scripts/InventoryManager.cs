@@ -21,13 +21,16 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    [Header("Inventory Itens")]
     public List<Weapon> inventory;
     public Potion potion;
 
+    [Header("Potion Hud")]
     public GameObject potion_slot;
     public int potion_quantity;
     public Text potion_quantity_text;
 
+    [Header("Inventory Hud")]
     public GameObject inv_background;
     public GameObject inv_slot;
     private int selected_inv_slot = 0;
@@ -37,12 +40,12 @@ public class InventoryManager : MonoBehaviour
     private PlayerRangedAttack player_ranged_attack;
     private PlayerMeleeAttack player_melee_attack;
 
-    public GameObject weapon_in_hands;
-
+    [Header("Weapons Object")]
     public GameObject weapon_sword;
     public GameObject weapon_staff;
     public GameObject weapon_bow;
 
+    public GameObject weapon_in_hands;
     public GameObject weapon_parent;
 
     void Start()

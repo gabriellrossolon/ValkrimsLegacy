@@ -5227,8 +5227,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.06670004, y: 0.0582, z: 0}
-    m_Extent: {x: 1.4012, y: 1.1669, z: 0}
+    m_Center: {x: -0.06940001, y: 0.05094999, z: 0}
+    m_Extent: {x: 1.4003, y: 1.1724501, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -130586,12 +130586,12 @@ MonoBehaviour:
   player_hp_bar: {fileID: 1428574158}
   player_stamina_bar: {fileID: 831593071}
   player_mana_bar: {fileID: 94733658}
-  damage_popup: {fileID: 2122683369331715196, guid: e0a8ba728612d154693eb8624de2ca6d, type: 3}
   pausedgame_hud: {fileID: 517885485}
   gameover_hud: {fileID: 1414365431}
   mana_warn: {fileID: 3456344120277807034, guid: aa31a10937ebc0b4cb2e26bea6e03574, type: 3}
   stamina_warn: {fileID: 7840611378217669874, guid: 3fe3f91c91ed3b04e940e88a7049918b, type: 3}
   cooldown_warn: {fileID: 71040020470735359, guid: 76ca17013c97a8f43b17508d8d52b8f3, type: 3}
+  damage_popup: {fileID: 2122683369331715196, guid: e0a8ba728612d154693eb8624de2ca6d, type: 3}
 --- !u!4 &788252997 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6921944665363365438, guid: b9b61fb3e9a891b49a183f066a23f98d, type: 3}
@@ -132991,8 +132991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_weapon: {fileID: 1124999543}
-  can_attack: 1
-  strong_attack_anim: {fileID: 1386192714}
+  strong_attack_fx: {fileID: 1386192714}
 --- !u!114 &992634265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140541,8 +140540,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   can_use_powerCutter: 1
+  powerCutter_damageMultiplier: 3
   can_use_dashSkill: 1
   can_use_bladeDance: 1
+  bladeDance_damageMultiplier: 2
 --- !u!4 &1456965428
 Transform:
   m_ObjectHideFlags: 0
@@ -148454,10 +148455,10 @@ MonoBehaviour:
   potion_quantity_text: {fileID: 1396025149}
   inv_background: {fileID: 1071501712}
   inv_slot: {fileID: 7978444449033515617, guid: 6c7aa43d99577e145be020a1b41a9876, type: 3}
-  weapon_in_hands: {fileID: 1124999543}
   weapon_sword: {fileID: 1124999543}
   weapon_staff: {fileID: 1128564210}
   weapon_bow: {fileID: 726587734}
+  weapon_in_hands: {fileID: 1124999543}
   weapon_parent: {fileID: 1146690136}
 --- !u!4 &2133547612
 Transform:

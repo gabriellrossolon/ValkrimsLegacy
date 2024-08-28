@@ -9,18 +9,21 @@ public class PlayerMeleeAttack : MonoBehaviour
     private SwordBehavior sword_behavior;
     private PlayerMovement player_movement;
 
+    [Header("Weapons Ref")]
     public GameObject player_weapon;
     private Animator weapon_animator;
 
-    public bool can_attack = true;
+    private bool can_attack = true;
     private float cooldown;
 
+    [Header("Strong Attack Refs")]
+    public GameObject strong_attack_fx;
     private Coroutine strongAttackCoroutine;
     private bool can_strong_attack = true;
     private float strongattack_cooldown;
-    public GameObject strong_attack_anim;
 
     private int attack_step = 1;
+    private Coroutine basicAttackCoroutine;
 
     void Start()
     {
@@ -83,7 +86,9 @@ public class PlayerMeleeAttack : MonoBehaviour
                     can_attack = true;
                     attack_step++;
                 }
-            } else if (attack_step == 2)
+                StartResetCoroutine();
+            } 
+            else if (attack_step == 2)
             {
                 if (weap_rot_controller.weaponFacingRight == true)
                 {
@@ -91,6 +96,8 @@ public class PlayerMeleeAttack : MonoBehaviour
                     can_attack = true;
                     cooldown = 0;
                     attack_step++;
+                    StopCoroutine(ResetSequence());
+                    StartCoroutine(ResetSequence());
                 }
                 else
                 {
@@ -98,7 +105,10 @@ public class PlayerMeleeAttack : MonoBehaviour
                     can_attack = true;
                     cooldown = 0;
                     attack_step++;
+                    StopCoroutine(ResetSequence());
+                    StartCoroutine(ResetSequence());
                 }
+                StartResetCoroutine();
             }
             else if (attack_step == 3)
             {
@@ -108,6 +118,7 @@ public class PlayerMeleeAttack : MonoBehaviour
                     can_attack = false;
                     cooldown = 0;
                     attack_step = 1;
+                    StopCoroutine(ResetSequence());
                 }
                 else
                 {
@@ -115,9 +126,32 @@ public class PlayerMeleeAttack : MonoBehaviour
                     can_attack = false;
                     cooldown = 0;
                     attack_step = 1;
+                    StopCoroutine(ResetSequence());
                 }
+                StopCoroutineIfNeeded();
             }
         }
+    }
+
+    private void StartResetCoroutine()
+    {
+        StopCoroutineIfNeeded();
+        basicAttackCoroutine = StartCoroutine(ResetSequence());
+    }
+
+    private void StopCoroutineIfNeeded()
+    {
+        if (basicAttackCoroutine != null)
+        {
+            StopCoroutine(basicAttackCoroutine);
+            basicAttackCoroutine = null;
+        }
+    }
+
+    private IEnumerator ResetSequence()
+    {
+        yield return new WaitForSeconds(2f);
+        attack_step = 1;
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
@@ -139,7 +173,7 @@ public class PlayerMeleeAttack : MonoBehaviour
                     {
                         player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", true);
                         strongAttackCoroutine = StartCoroutine(ExecuteStrongAttack(2f));
-                        strong_attack_anim.GetComponent<ParticleSystem>().Play();
+                        strong_attack_fx.GetComponent<ParticleSystem>().Play();
 
                         entity_stats.RemoveStamina(stamina_cost);
                     }
@@ -177,10 +211,10 @@ public class PlayerMeleeAttack : MonoBehaviour
         float original_attack_damage = entity_stats.attack_damage;
         float original_knockback_force = entity_stats.knockback_force;
 
-        StartCoroutine(ChangeAttackValues(original_attack_damage, original_knockback_force));
+        StartCoroutine(ChangeStrongAttackValues(original_attack_damage, original_knockback_force));
 
         EnabledSwordCollider(0.1f);
-        strong_attack_anim.GetComponent<ParticleSystem>().Stop();
+        strong_attack_fx.GetComponent<ParticleSystem>().Stop();
 
         player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", false);
         if (weap_rot_controller.weaponFacingRight == true)
@@ -197,10 +231,10 @@ public class PlayerMeleeAttack : MonoBehaviour
         can_strong_attack = false;
         strongattack_cooldown = 0;
     }
-    private IEnumerator ChangeAttackValues(float original_attack_damage, float original_knockback_force)
+    private IEnumerator ChangeStrongAttackValues(float original_attack_damage, float original_knockback_force)
     {
         yield return new WaitForSeconds(0.1f);
-        entity_stats.attack_damage *= 3;
+        entity_stats.attack_damage *= SkillManager.Instance.powerCutter_damageMultiplier;
         entity_stats.knockback_force = 15;
 
         yield return new WaitForSeconds(0.1f);
@@ -217,6 +251,11 @@ public class PlayerMeleeAttack : MonoBehaviour
         {
             if (entity_stats.stamina >= stamina_cost)
             {
+                float original_attack_damage = entity_stats.attack_damage;
+                float original_knockback_force = entity_stats.knockback_force;
+
+                StartCoroutine(ChangeDashAttackValues(original_attack_damage, original_knockback_force));
+
                 EnabledSwordCollider(0.3f);
 
                 if (weap_rot_controller.weaponFacingRight == true)
@@ -242,6 +281,17 @@ public class PlayerMeleeAttack : MonoBehaviour
             }
             
         }
+    }
+
+    private IEnumerator ChangeDashAttackValues(float original_attack_damage, float original_knockback_force)
+    {
+        yield return new WaitForSeconds(0.1f);
+        entity_stats.attack_damage *= SkillManager.Instance.bladeDance_damageMultiplier;
+        entity_stats.knockback_force = 10;
+
+        yield return new WaitForSeconds(0.1f);
+        entity_stats.attack_damage = original_attack_damage;
+        entity_stats.knockback_force = original_knockback_force;
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//

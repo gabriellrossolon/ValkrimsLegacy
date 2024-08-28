@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    //Acesso a outros componentes do Player
+    [Header("Movement Particles")]
+    public ParticleSystem run_smoke;
+    public ParticleSystem dash_smoke;
     private Rigidbody2D rigid_body;
     private EntityStats entity_stats;
     private SpriteRenderer sprite_renderer;
     private Animator animator;
-    public ParticleSystem run_smoke;
-    public ParticleSystem dash_smoke;
 
     private Vector2 movement_input;
     private bool is_moving;
 
+    [Header("Dash Controll")]
     public float dash_speed;
     public float dash_cooldown;
     private float timer;
@@ -25,7 +26,6 @@ public class PlayerMovement : MonoBehaviour
 
     private float last_input_x;
     private float last_input_y;
-
 
     void Start()
     {

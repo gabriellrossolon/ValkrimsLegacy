@@ -22,12 +22,16 @@ public class SkillManager : MonoBehaviour
     //=====//=====//=====//=====//=====//=====//=====//=====//>>SKILLS MELEE<<//=====//=====//=====//=====//=====//=====//=====//=====//
     //Basic Attacks
 
-    //Strong Attacks
+    [Header("Power Cutter")]
     public bool can_use_powerCutter;
+    public float powerCutter_damageMultiplier;
 
-    //Dash Attacks
+    [Header("Dash")]
     public bool can_use_dashSkill;
+
+    [Header("Dash Attacks")]
     public bool can_use_bladeDance;
+    public float bladeDance_damageMultiplier;
 
 
     //=====//=====//=====//=====//=====//=====//=====//=====//>>SKILLS RANGED<<//=====//=====//=====//=====//=====//=====//=====//=====//

@@ -5,28 +5,33 @@ using UnityEngine.UI;
 
 public class EntityStats : MonoBehaviour
 {
+    [Header("Movement Stats")]
     public float base_speed;
     public float actual_speed;
     public float max_speed;
     [HideInInspector] public float original_speed;
 
+    [Header("Attack Stats")]
     public float attack_damage;
     public float strong_attack_cooldown;
     public float attack_speed;
     public float knockback_force;
 
+    [Header("Health Stats")]
     public float max_hp;
     public float hp;
     public bool can_regen_hp;
     public float hp_regen_rate;
     private Coroutine hp_regen_coroutine;
 
+    [Header("Stamina Stats")]
     public float max_stamina;
     public float stamina;
     public bool can_regen_stamina;
     public float stamina_regen_rate;
     private Coroutine stamina_regen_coroutine;
 
+    [Header("Mana Stats")]
     public float max_mana;
     public float mana;
     public bool can_regen_mana;
