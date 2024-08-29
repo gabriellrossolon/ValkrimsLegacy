@@ -26,6 +26,7 @@ public class HudManager : MonoBehaviour
     public Slider player_hp_bar;
     public Slider player_stamina_bar;
     public Slider player_mana_bar;
+    public Slider player_xp_bar;
 
     private GameObject player_object;
     private EntityStats player_stats;
@@ -42,10 +43,15 @@ public class HudManager : MonoBehaviour
     public GameObject cooldown_warn;
     public GameObject damage_popup;
 
+    [Header("Texts")]
+    public Text level_text;
+
     void Start()
     {
         player_object = GameObject.FindGameObjectWithTag("Player");
         player_stats = GameObject.FindWithTag("Player").gameObject.GetComponent<EntityStats>();
+
+        level_text.text = player_stats.level.ToString();
     }
 
     void Update()
@@ -55,9 +61,15 @@ public class HudManager : MonoBehaviour
             PauseGame();
         }
 
+        ShowPlayerHud();
+    }
+
+    private void ShowPlayerHud()
+    {
         PlayerHpHudBar();
         PlayerStaminaHudBar();
         PlayerManaHudBar();
+        PlayerXpHudBar();
     }
 
     private void PlayerHpHudBar()
@@ -76,6 +88,12 @@ public class HudManager : MonoBehaviour
     {
         player_mana_bar.maxValue = player_stats.max_mana;
         player_mana_bar.value = player_stats.mana;
+    }
+
+    private void PlayerXpHudBar()
+    {
+        player_xp_bar.maxValue = player_stats.xp_to_up;
+        player_xp_bar.value = player_stats.xp;
     }
 
     public void PlayAgain()

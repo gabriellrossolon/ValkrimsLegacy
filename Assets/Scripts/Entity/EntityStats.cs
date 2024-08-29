@@ -38,6 +38,10 @@ public class EntityStats : MonoBehaviour
     public float mana_regen_rate;
     private Coroutine mana_regen_coroutine;
 
+    [Header("Xp Stats")]
+    public int level = 1;
+    public float xp = 0;
+    [HideInInspector] public float xp_to_up;
 
     void Start()
     {
@@ -53,6 +57,8 @@ public class EntityStats : MonoBehaviour
 
         mana = max_mana;
         can_regen_mana = true;
+
+        xp_to_up = level * 10f;
     }
 
     void Update()
@@ -83,9 +89,13 @@ public class EntityStats : MonoBehaviour
                 this.gameObject.GetComponent<Animator>().SetTrigger("isDie");
                 this.gameObject.GetComponentInChildren<EnemyHpBar>().gameObject.SetActive(false);
 
+                GameObject.FindGameObjectWithTag("Player").GetComponent<EntityStats>().AddExp(xp);
+
                 DisableEnemyComponents(
                   this.gameObject.GetComponent<MeleeEnemyMove>(),
                   this.gameObject.GetComponent<MeleeEnemyAttack>(),
+                  //this.gameObject.GetComponent<RangedEnemyMove>(),
+                  //this.gameObject.GetComponent<RangedEnemyAttack>(),
                   this.gameObject.GetComponent<BoxCollider2D>(),
                   this.gameObject.GetComponent<SortingOrder>(),
                   this.gameObject.GetComponent<CircleCollider2D>()
@@ -108,24 +118,6 @@ public class EntityStats : MonoBehaviour
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
-
-    public void RemoveHp(float hp_to_remove)
-    {
-        RedDamageIndicator();
-        if (this.gameObject.CompareTag("Enemy"))
-        {
-            ShowDamageInCanvas(hp_to_remove);
-            this.gameObject.GetComponent<Animator>().SetTrigger("isHurt");
-        }
-
-        if (this.gameObject.CompareTag("Player"))
-        {
-
-        }
-
-        hp -= hp_to_remove;
-        Death(); 
-    }
 
     private void ShowDamageInCanvas(float hp_to_remove)
     {
@@ -161,7 +153,7 @@ public class EntityStats : MonoBehaviour
 
     }
 
-    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+    //=====//=====//=====//=====//=====//=====//=====//=====--> Health Control <--=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
     private void HpControl()
     {
@@ -195,10 +187,25 @@ public class EntityStats : MonoBehaviour
             yield return null;
         }
         hp_regen_coroutine = null;
-
     }
 
-    //REMOVE HP ESTA SEPARADO, A CIMA
+    public void RemoveHp(float hp_to_remove)
+    {
+        RedDamageIndicator();
+        if (this.gameObject.CompareTag("Enemy"))
+        {
+            ShowDamageInCanvas(hp_to_remove);
+            this.gameObject.GetComponent<Animator>().SetTrigger("isHurt");
+        }
+
+        if (this.gameObject.CompareTag("Player"))
+        {
+
+        }
+
+        hp -= hp_to_remove;
+        Death();
+    }
 
     public void AddHp(float hp_to_add)
     {
@@ -208,7 +215,7 @@ public class EntityStats : MonoBehaviour
         }
     }
 
-    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+    //=====//=====//=====//=====//=====//=====//=====//=====--> Stamina Control <--=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
     private void StaminaControl()
     {
@@ -266,7 +273,7 @@ public class EntityStats : MonoBehaviour
         stamina -= 1.5f;
     }
 
-    //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+    //=====//=====//=====//=====//=====//=====//=====//=====--> Mana Control <--=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
     private void ManaControl()
     {
@@ -316,6 +323,26 @@ public class EntityStats : MonoBehaviour
         if (this.gameObject.CompareTag("Player"))
         {
             mana += mana_to_add;
+        }
+    }
+
+    //=====//=====//=====//=====//=====//=====//=====//=====--> Experience Control <--=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
+    private void AddExp(float xp_gained)
+    {
+        xp += xp_gained;
+        LevelUp();
+    }
+
+    private void LevelUp()
+    {
+        if(xp >= xp_to_up)
+        {
+            xp -= xp_to_up;
+            level++;
+
+            xp_to_up = level * 10f;
+            HudManager.Instance.level_text.text = level.ToString();
         }
     }
 }

@@ -101,6 +101,9 @@ MonoBehaviour:
   mana: 0
   can_regen_mana: 0
   mana_regen_rate: 0
+  level: 1
+  xp: 7
+  xp_to_up: 0
 --- !u!114 &5622342499591276596
 MonoBehaviour:
   m_ObjectHideFlags: 0
