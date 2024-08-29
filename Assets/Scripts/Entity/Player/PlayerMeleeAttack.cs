@@ -22,7 +22,7 @@ public class PlayerMeleeAttack : MonoBehaviour
     private bool can_strong_attack = true;
     private float strongattack_cooldown;
 
-    private int attack_step = 1;
+    private int attack_step;
     private Coroutine basicAttackCoroutine;
 
     void Start()
@@ -33,6 +33,8 @@ public class PlayerMeleeAttack : MonoBehaviour
         sword_behavior = GetComponentInChildren<SwordBehavior>();
         player_movement = GetComponent<PlayerMovement>();
         weapon_animator = player_weapon.gameObject.GetComponent<Animator>();
+
+        attack_step = 1;
     }
 
     void Update()
@@ -66,12 +68,8 @@ public class PlayerMeleeAttack : MonoBehaviour
     {
         if (can_attack == true && Input.GetMouseButtonDown(0) && player_movement.is_dashing == false)
         {
-            player_weapon.gameObject.GetComponent<Animator>().enabled = true;
-            can_attack = false;
-            cooldown = 0;
             entity_stats.RemoveStamina(stamina_to_remove);
 
-            //EnabledSwordCollider(0.1f);
             if (attack_step == 1)
             {
                 if (weap_rot_controller.weaponFacingRight == true)
@@ -79,12 +77,14 @@ public class PlayerMeleeAttack : MonoBehaviour
                     weapon_animator.SetTrigger("isAttackR");
                     attack_step++;
                     can_attack = true;
+                    cooldown = 0;
                 }
                 else
                 {
                     weapon_animator.SetTrigger("isAttackL");
                     attack_step++;
                     can_attack = true;
+                    cooldown = 0;
                 }
                 Invoke("InvokeCollider", 0.1f);
                 StartResetCoroutine();

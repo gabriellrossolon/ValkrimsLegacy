@@ -9,11 +9,12 @@ TagManager:
   - InventorySlot
   - Transitioner
   - CMCam
+  - MapPointer
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Minimap Render
   - Water
   - UI
   - 
