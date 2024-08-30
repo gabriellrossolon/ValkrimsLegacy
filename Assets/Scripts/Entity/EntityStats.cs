@@ -113,7 +113,7 @@ public class EntityStats : MonoBehaviour
                   this.gameObject.GetComponent<CircleCollider2D>()
                 );
 
-                Destroy(this.gameObject, 4f);
+                Destroy(this.gameObject, 2f);
             }
         }
     }
