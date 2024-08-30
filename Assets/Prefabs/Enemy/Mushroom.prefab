@@ -104,6 +104,9 @@ MonoBehaviour:
   level: 1
   xp: 7
   xp_to_up: 0
+  gold_carry: 0
+  min_gold_chance: 1
+  max_gold_chance: 5
 --- !u!114 &5622342499591276596
 MonoBehaviour:
   m_ObjectHideFlags: 0

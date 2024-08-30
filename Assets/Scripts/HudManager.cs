@@ -45,6 +45,7 @@ public class HudManager : MonoBehaviour
 
     [Header("Texts")]
     public Text level_text;
+    public Text gold_text;
 
     void Start()
     {

@@ -43,6 +43,12 @@ public class EntityStats : MonoBehaviour
     public float xp = 0;
     [HideInInspector] public float xp_to_up;
 
+    [Header("Gold Stats")]
+    public float gold_carry;
+    public int min_gold_chance;
+    public int max_gold_chance;
+
+
     void Start()
     {
         actual_speed = base_speed;
@@ -59,6 +65,8 @@ public class EntityStats : MonoBehaviour
         can_regen_mana = true;
 
         xp_to_up = level * 10f;
+
+        EnemyGoldRandomizer();
     }
 
     void Update()
@@ -90,6 +98,10 @@ public class EntityStats : MonoBehaviour
                 this.gameObject.GetComponentInChildren<EnemyHpBar>().gameObject.SetActive(false);
 
                 GameObject.FindGameObjectWithTag("Player").GetComponent<EntityStats>().AddExp(xp);
+
+                GameObject gold_drop = Instantiate(DropManager.Instance.gold_pilon, transform.position, Quaternion.identity);
+                gold_drop.gameObject.GetComponent<DropItemBehavior>().gold_to_give = gold_carry;
+
 
                 DisableEnemyComponents(
                   this.gameObject.GetComponent<MeleeEnemyMove>(),
@@ -345,4 +357,24 @@ public class EntityStats : MonoBehaviour
             HudManager.Instance.level_text.text = level.ToString();
         }
     }
+
+    //=====//=====//=====//=====//=====//=====//=====//=====--> Gold Control <--=====//=====//=====//=====//=====//=====//=====//=====//=====//
+    
+    public void AddGold(float gold_gained)
+    {
+        if (this.gameObject.CompareTag("Player"))
+        {
+            gold_carry += gold_gained;
+            HudManager.Instance.gold_text.text = gold_carry.ToString();
+        }
+    }
+
+    private void EnemyGoldRandomizer()
+    {
+        if (this.gameObject.CompareTag("Enemy"))
+        {
+            gold_carry = Random.Range(min_gold_chance, max_gold_chance + 1);
+        }
+    }
+
 }

@@ -5230,8 +5230,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.06624997, y: 0.053900003, z: 0}
-    m_Extent: {x: 1.40845, y: 1.1747, z: 0}
+    m_Center: {x: -0.058749974, y: 0.05799997, z: 0}
+    m_Extent: {x: 1.4044499, y: 1.1724, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -5715,6 +5715,7 @@ Transform:
   - {fileID: 774379284}
   - {fileID: 2133547612}
   - {fileID: 1456965428}
+  - {fileID: 1758165494}
   - {fileID: 345255419}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -131119,6 +131120,7 @@ MonoBehaviour:
   cooldown_warn: {fileID: 71040020470735359, guid: 76ca17013c97a8f43b17508d8d52b8f3, type: 3}
   damage_popup: {fileID: 2122683369331715196, guid: e0a8ba728612d154693eb8624de2ca6d, type: 3}
   level_text: {fileID: 1695847883}
+  gold_text: {fileID: 2090177980}
 --- !u!4 &788252997 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6921944665363365438, guid: b9b61fb3e9a891b49a183f066a23f98d, type: 3}
@@ -133434,6 +133436,9 @@ MonoBehaviour:
   level: 1
   xp: 0
   xp_to_up: 0
+  gold_carry: 0
+  min_gold_chance: 0
+  max_gold_chance: 0
 --- !u!114 &992634261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142921,6 +142926,9 @@ MonoBehaviour:
   level: 1
   xp: 0
   xp_to_up: 0
+  gold_carry: 0
+  min_gold_chance: 0
+  max_gold_chance: 0
 --- !u!114 &1532343539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145875,6 +145883,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 54886463458124603, guid: 9b649dff6ddc1b344b074c5e65fc4298, type: 3}
   m_PrefabInstance: {fileID: 2144529686}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1758165493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1758165494}
+  - component: {fileID: 1758165495}
+  m_Layer: 0
+  m_Name: DropsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1758165494
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758165493}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 303089464}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1758165495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758165493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc2f92dc8d74834bbeb1192391cdb54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gold_pilon: {fileID: 3119579134087477070, guid: 888d9e3a19243c54a9ce8d8cbf435c07, type: 3}
 --- !u!1001 &1764338631
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -149063,7 +149116,7 @@ GameObject:
   - component: {fileID: 2090177980}
   - component: {fileID: 2090177982}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: Gold Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149121,7 +149174,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 73
+  m_Text: 0
 --- !u!222 &2090177981
 CanvasRenderer:
   m_ObjectHideFlags: 0

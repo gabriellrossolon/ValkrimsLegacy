@@ -10,6 +10,7 @@ TagManager:
   - Transitioner
   - CMCam
   - MapPointer
+  - GoldDrop
   layers:
   - Default
   - TransparentFX
