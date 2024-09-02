@@ -82,10 +82,12 @@ public class PlayerRangedAttack : MonoBehaviour
         projectile_instance.transform.position = spawn_position;
 
         float angle = Mathf.Atan2(projectile_direction.y, projectile_direction.x) * Mathf.Rad2Deg;
-
-        projectile_direction.Normalize();
-        projectile_instance.GetComponent<Rigidbody2D>().AddForce(projectile_direction * projectile_instance.GetComponent<ProjectileBehavior>().projectile_speed, ForceMode2D.Impulse);
         projectile_instance.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        projectile_direction.Normalize();
+
+        projectile_instance.GetComponent<Rigidbody2D>().AddForce(projectile_direction * projectile_instance.GetComponent<ProjectileBehavior>().projectile_speed, ForceMode2D.Impulse);
+
+        SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip);
 
         can_attack = false;
         cooldown = 0;

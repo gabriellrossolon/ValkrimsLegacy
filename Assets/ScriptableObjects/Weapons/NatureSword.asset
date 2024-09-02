@@ -18,6 +18,8 @@ MonoBehaviour:
   sword: 1
   staff: 0
   bow: 0
+  attack_soundClip: {fileID: 8300000, guid: 5e4f9adff939c6e4bb61e8634efff2a1, type: 3}
   weapon_impact_anim: {fileID: 3561149551515574134, guid: 9f0906483d99d2a4ea2165171de9296f, type: 3}
   ranged_projectile: {fileID: 0}
   projectile_speed: 0
+  impact_soundClip: {fileID: 8300000, guid: 0979bdf0ea624ec4eaf0aab410e33df6, type: 3}

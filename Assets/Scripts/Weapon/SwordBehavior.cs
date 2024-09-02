@@ -27,6 +27,8 @@ public class SwordBehavior : MonoBehaviour
             StartCoroutine(DoDamage(collision, 0.1f));
             player_status.AddStamina(3f);
 
+            SoundManager.Instance.impact_soundSource.PlayOneShot(SoundManager.Instance.impact_soundClip);
+
             //Adiciona o Objeto Enemy que colidiu a uma lista de Objetos que levaram dano
             damagedEnemies.Add(collision);
             StartCoroutine(RemoveDamagedEnemy(collision));

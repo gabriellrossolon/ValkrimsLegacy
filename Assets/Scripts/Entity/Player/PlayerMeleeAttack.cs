@@ -68,21 +68,23 @@ public class PlayerMeleeAttack : MonoBehaviour
     {
         if (can_attack == true && Input.GetMouseButtonDown(0) && player_movement.is_dashing == false)
         {
+            SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip);
+
             entity_stats.RemoveStamina(stamina_to_remove);
 
             if (attack_step == 1)
             {
                 if (weap_rot_controller.weaponFacingRight == true)
                 {
-                    weapon_animator.SetTrigger("isAttackR");
                     attack_step++;
+                    weapon_animator.SetTrigger("isAttackR");
                     can_attack = true;
                     cooldown = 0;
                 }
                 else
                 {
-                    weapon_animator.SetTrigger("isAttackL");
                     attack_step++;
+                    weapon_animator.SetTrigger("isAttackL");   
                     can_attack = true;
                     cooldown = 0;
                 }
@@ -93,8 +95,8 @@ public class PlayerMeleeAttack : MonoBehaviour
             {
                 if (weap_rot_controller.weaponFacingRight == true)
                 {
-                    weapon_animator.SetTrigger("isAttackR2");
                     attack_step++;
+                    weapon_animator.SetTrigger("isAttackR2");
                     can_attack = true;
                     cooldown = 0;
                     StopCoroutine(ResetSequence());
@@ -102,8 +104,8 @@ public class PlayerMeleeAttack : MonoBehaviour
                 }
                 else
                 {
-                    weapon_animator.SetTrigger("isAttackL2");
                     attack_step++;
+                    weapon_animator.SetTrigger("isAttackL2");
                     can_attack = true;
                     cooldown = 0;
                     StopCoroutine(ResetSequence());
@@ -116,18 +118,20 @@ public class PlayerMeleeAttack : MonoBehaviour
             {
                 if (weap_rot_controller.weaponFacingRight == true)
                 {
-                    weapon_animator.SetTrigger("isAttackR3");
                     attack_step = 1;
-                    can_attack = false;
+                    weapon_animator.SetTrigger("isAttackR3");
                     cooldown = 0;
+                    can_attack = false;
+
                     StopCoroutine(ResetSequence());
                 }
                 else
                 {
-                    weapon_animator.SetTrigger("isAttackL3");
-                    can_attack = false;
-                    cooldown = 0;
                     attack_step = 1;
+                    weapon_animator.SetTrigger("isAttackL3");
+                    cooldown = 0;
+                    can_attack = false;
+
                     StopCoroutine(ResetSequence());
                 }
                 Invoke("InvokeCollider", 0.1f);

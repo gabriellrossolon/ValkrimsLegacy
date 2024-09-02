@@ -10,16 +10,13 @@ public class ProjectileBehavior : MonoBehaviour
 
     [HideInInspector] public float projectile_speed;
 
+    private AudioClip impact_soundClip;
+
     void Start()
     {
         player_stats = GameObject.FindWithTag("Player").GetComponent<EntityStats>();
         Destroy(this.gameObject, 4f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        impact_soundClip = SoundManager.Instance.impact_soundClip;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -27,9 +24,11 @@ public class ProjectileBehavior : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             collision.GetComponent<EntityStats>().RemoveHp(player_stats.attack_damage);
+            ImpactPointAnim(collision);
+            SoundManager.Instance.impact_soundSource.PlayOneShot(impact_soundClip);
+            Destroy(this.gameObject, 0.1f);
         }
-        ImpactPointAnim(collision);
-        Destroy(this.gameObject, 0.1f);
+        
     }
 
     private void ImpactPointAnim(Collider2D collision)

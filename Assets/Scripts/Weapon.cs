@@ -17,6 +17,8 @@ public class Weapon : ScriptableObject
     public bool staff;
     public bool bow;
 
+    [Header("Start Attack Sound")]
+    public AudioClip attack_soundClip;
 
     [Header("Impact Animation")]
     public GameObject weapon_impact_anim;
@@ -24,5 +26,8 @@ public class Weapon : ScriptableObject
     [Header("Only if Ranged")]
     public GameObject ranged_projectile;
     public float projectile_speed;
+
+    [Header("Only if Melee")]
+    public AudioClip impact_soundClip;
 
 }

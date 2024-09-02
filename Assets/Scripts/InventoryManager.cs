@@ -131,6 +131,9 @@ public class InventoryManager : MonoBehaviour
             player_stats.attack_damage = selected_weapon.weapon_damage;
             player_stats.attack_speed = selected_weapon.weapon_attack_speed;
 
+            SoundManager.Instance.weaponAttack_audioClip = selected_weapon.attack_soundClip;
+            SoundManager.Instance.impact_soundClip = selected_weapon.impact_soundClip;
+
             selected_inv_slot = hotkey;
             weapon_in_hands.GetComponent<SpriteRenderer>().sprite = inventory[selected_inv_slot - 1].weapon_icon;
         } else
@@ -239,6 +242,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (potion != null && potion_quantity > 0)
         {
+            SoundManager.Instance.potion_soundSource.PlayOneShot(SoundManager.Instance.potion_drinkClip);
             player_stats.AddHp(potion.hp_added);
             player_stats.AddMana(potion.mana_added);
             player_stats.AddStamina(potion.stamina_added);

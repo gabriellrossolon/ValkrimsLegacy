@@ -68,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isWalk", false);
             is_moving = false;
+            SoundManager.Instance.step_grass.volume = 0;
             return;
         }
 
@@ -75,6 +76,9 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isWalk", true);
             is_moving = true;
+
+            SoundManager.Instance.step_grass.volume = 0.3f;
+            SoundManager.Instance.step_grass.pitch = 1.5f;
 
             last_input_x = horizontal;
             last_input_y = vertical;
@@ -97,6 +101,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (is_running)
         {
+            SoundManager.Instance.step_grass.pitch = 2.5f;
+
             entity_stats.actual_speed = entity_stats.max_speed;
             animator.SetBool("isRun", true);
 
@@ -149,6 +155,8 @@ public class PlayerMovement : MonoBehaviour
                     dash_smoke.Play();
                     animator.SetTrigger("isDash");
                     StartCoroutine(EndDash(0.2f));
+
+                    SoundManager.Instance.dash_soundSource.PlayOneShot(SoundManager.Instance.dash_soundClip);
 
                     entity_stats.RemoveStamina(stamina_cost);
                 }

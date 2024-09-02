@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61efe8289d2b4a649814c9fa46c9a8e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  impact_soundClip: {fileID: 8300000, guid: ce452b9a8e98a3340a9dda14af9cac12, type: 3}
   impact_fx: {fileID: 0}
   projectile_speed: 0
 --- !u!212 &4985131046290865424
