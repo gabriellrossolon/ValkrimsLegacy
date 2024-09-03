@@ -18,6 +18,11 @@ public class SwordBehavior : MonoBehaviour
         sword_collider = this.GetComponent<PolygonCollider2D>();
     }
 
+    void OnEnable()
+    {
+        damagedEnemies.Clear();
+    }
+
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
     private void OnTriggerEnter2D(Collider2D collision)

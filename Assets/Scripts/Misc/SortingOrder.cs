@@ -10,7 +10,7 @@ public class SortingOrder : MonoBehaviour
     private SpriteRenderer sprite_renderer;
 
     public float transparence_distance;
-    private float detection_distance = 4f;
+    public float detection_distance = 3f;
 
     private int original_order_layer;
     private bool hasReturnedToOriginalLayer = false;

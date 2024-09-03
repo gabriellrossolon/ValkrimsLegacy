@@ -6,29 +6,59 @@ public class ProjectileBehavior : MonoBehaviour
 {
     private EntityStats player_stats;
 
-    [HideInInspector] public GameObject impact_fx;
+    public GameObject impact_fx;
 
     [HideInInspector] public float projectile_speed;
 
     private AudioClip impact_soundClip;
 
+    [HideInInspector] public bool enemy_projectile;
+
+    [HideInInspector] public GameObject instantiator;
+
     void Start()
     {
         player_stats = GameObject.FindWithTag("Player").GetComponent<EntityStats>();
         Destroy(this.gameObject, 4f);
-        impact_soundClip = SoundManager.Instance.impact_soundClip;
+        
+        if(instantiator.CompareTag("Player"))
+        {
+            enemy_projectile = false;
+            impact_soundClip = SoundManager.Instance.impact_soundClip;
+        }
+
+        if (instantiator.CompareTag("Enemy"))
+        {
+            enemy_projectile = true;
+            impact_soundClip = instantiator.GetComponent<RangedEnemyAttack>().enemyImpact_soundClip;
+        }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<EntityStats>().RemoveHp(player_stats.attack_damage);
-            ImpactPointAnim(collision);
-            SoundManager.Instance.impact_soundSource.PlayOneShot(impact_soundClip);
-            Destroy(this.gameObject, 0.1f);
+            if (!enemy_projectile)
+            {
+                collision.GetComponent<EntityStats>().RemoveHp(player_stats.attack_damage);
+                ImpactPointAnim(collision);
+                SoundManager.Instance.impact_soundSource.PlayOneShot(impact_soundClip);
+                Destroy(this.gameObject, 0.1f);
+            }
+            
         }
-        
+        if (collision.CompareTag("Player"))
+        {
+            if (enemy_projectile)
+            {
+                collision.GetComponent<EntityStats>().RemoveHp(instantiator.GetComponent<EntityStats>().attack_damage);
+                ImpactPointAnim(collision);
+                SoundManager.Instance.impact_soundSource.PlayOneShot(impact_soundClip);
+                Destroy(this.gameObject, 0.1f);
+            }
+        }
+
     }
 
     private void ImpactPointAnim(Collider2D collision)

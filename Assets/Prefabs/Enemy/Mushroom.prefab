@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   impact_fx: {fileID: 6883697184390936198, guid: 059d2f06fb1702a439f1743d85180498, type: 3}
+  enemyImpact_soundClip: {fileID: 8300000, guid: b751109f667a58d48a3f2c1186c2f40d, type: 3}
 --- !u!114 &4939105373957036274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +183,7 @@ MonoBehaviour:
   gold_carry: 0
   min_gold_chance: 1
   max_gold_chance: 5
+  identifier_name: 
 --- !u!114 &5622342499591276596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transparence_distance: 0.7
+  detection_distance: 1
 --- !u!212 &1801282389509952047
 SpriteRenderer:
   m_ObjectHideFlags: 0

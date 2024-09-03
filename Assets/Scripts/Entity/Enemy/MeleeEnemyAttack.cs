@@ -11,6 +11,8 @@ public class MeleeEnemyAttack : MonoBehaviour
     private float cooldown;
     private bool can_attack = true;
 
+    public AudioClip enemyImpact_soundClip;
+
     void Start()
     {
         entity_stats = this.gameObject.GetComponent<EntityStats>();
@@ -33,6 +35,8 @@ public class MeleeEnemyAttack : MonoBehaviour
             StartCoroutine(AttackAnimation(collision));
             can_attack = false;
             cooldown = 0;
+
+            SoundManager.Instance.impact_soundSource.PlayOneShot(enemyImpact_soundClip);
 
             StartCoroutine(TimeToBreath());
         }

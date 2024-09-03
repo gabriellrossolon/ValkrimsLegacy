@@ -131,7 +131,9 @@ public class InventoryManager : MonoBehaviour
             player_stats.attack_damage = selected_weapon.weapon_damage;
             player_stats.attack_speed = selected_weapon.weapon_attack_speed;
 
-            SoundManager.Instance.weaponAttack_audioClip = selected_weapon.attack_soundClip;
+            SoundManager.Instance.weaponAttack_audioClip_one = selected_weapon.attack_soundClip_one;
+            SoundManager.Instance.weaponAttack_audioClip_two = selected_weapon.attack_soundClip_two;
+            SoundManager.Instance.weaponAttack_audioClip_three = selected_weapon.attack_soundClip_three;
             SoundManager.Instance.impact_soundClip = selected_weapon.impact_soundClip;
 
             selected_inv_slot = hotkey;

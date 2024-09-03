@@ -18,7 +18,9 @@ MonoBehaviour:
   sword: 1
   staff: 0
   bow: 0
-  attack_soundClip: {fileID: 8300000, guid: 5e4f9adff939c6e4bb61e8634efff2a1, type: 3}
+  attack_soundClip_one: {fileID: 8300000, guid: 650291e019a003d46bcafa90fc0e56ea, type: 3}
+  attack_soundClip_two: {fileID: 8300000, guid: dfe4d5c1b752e9c42bc513fdaaef56a8, type: 3}
+  attack_soundClip_three: {fileID: 8300000, guid: c1cf3db9728e8d842a220fc6ec9458fb, type: 3}
   weapon_impact_anim: {fileID: 3561149551515574134, guid: 9f0906483d99d2a4ea2165171de9296f, type: 3}
   ranged_projectile: {fileID: 0}
   projectile_speed: 0

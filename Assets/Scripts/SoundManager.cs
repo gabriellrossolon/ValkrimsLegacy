@@ -28,18 +28,22 @@ public class SoundManager : MonoBehaviour
     public AudioClip dash_soundClip;
 
     [Header("AttackImpact")]
-    public AudioSource impact_soundSource;//Quem define o audioCLip do Slash é o ScriptableObject da arma.
-    //Quem define o Impact audioClip dos Projectiles é o proprio Objeto Projectile.
-    public AudioClip impact_soundClip;
+    public AudioSource impact_soundSource;
+    public AudioClip impact_soundClip; //Quem define o audioCLip do Slash é o ScriptableObject da arma.
 
     [Header("AttackSlash")]
     public AudioSource attack_soundSource;
-    public AudioClip weaponAttack_audioClip; //Quem define o audioCLip do Slash é o ScriptableObject da arma.
+    public AudioClip weaponAttack_audioClip_one; //Quem define o audioCLip do Slash é o ScriptableObject da arma.
+    public AudioClip weaponAttack_audioClip_two;
+    public AudioClip weaponAttack_audioClip_three;
 
     [Header("Potion")]
     public AudioSource potion_soundSource;
     public AudioClip potion_drinkClip;
 
+    [Header("Drop Collect")]
+    public AudioSource drop_soundSource;
+    public AudioClip goldCollect_soundClip;
 
 
 

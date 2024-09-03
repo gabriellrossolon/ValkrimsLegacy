@@ -48,6 +48,8 @@ public class EntityStats : MonoBehaviour
     public int min_gold_chance;
     public int max_gold_chance;
 
+    [Header("Identifier (If Necessary)")]
+    public string identifier_name;
 
     void Start()
     {
@@ -89,12 +91,14 @@ public class EntityStats : MonoBehaviour
         {
             if (this.gameObject.CompareTag("Player"))
             {
-                StartCoroutine(ShowGameOverHud(0.5f));
+                StartCoroutine(ShowGameOverHud(0.1f));
                 
             } 
             else if (this.gameObject.CompareTag("Enemy"))
             {
-                this.gameObject.GetComponent<Animator>().SetTrigger("isDie");
+                Animator anim = this.gameObject.GetComponent<Animator>();
+                if(anim != null) { anim.SetTrigger("isDie"); }
+                
                 this.gameObject.GetComponentInChildren<EnemyHpBar>().gameObject.SetActive(false);
 
                 GameObject.FindGameObjectWithTag("Player").GetComponent<EntityStats>().AddExp(xp);
@@ -106,8 +110,8 @@ public class EntityStats : MonoBehaviour
                 DisableEnemyComponents(
                   this.gameObject.GetComponent<MeleeEnemyMove>(),
                   this.gameObject.GetComponent<MeleeEnemyAttack>(),
-                  //this.gameObject.GetComponent<RangedEnemyMove>(),
-                  //this.gameObject.GetComponent<RangedEnemyAttack>(),
+                  this.gameObject.GetComponent<RangedEnemyMove>(),
+                  this.gameObject.GetComponent<RangedEnemyAttack>(),
                   this.gameObject.GetComponent<BoxCollider2D>(),
                   this.gameObject.GetComponent<SortingOrder>(),
                   this.gameObject.GetComponent<CircleCollider2D>()
@@ -207,9 +211,9 @@ public class EntityStats : MonoBehaviour
         if (this.gameObject.CompareTag("Enemy"))
         {
             ShowDamageInCanvas(hp_to_remove);
-            this.gameObject.GetComponent<Animator>().SetTrigger("isHurt");
+            Animator anim = this.gameObject.GetComponent<Animator>();
+            if(anim != null) {anim.SetTrigger("isHurt"); }
         }
-
         if (this.gameObject.CompareTag("Player"))
         {
 

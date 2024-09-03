@@ -64,13 +64,11 @@ public class PlayerMeleeAttack : MonoBehaviour
     //=====//=====//=====//=====//=====//=====//=====//--ATAQUES DE BOTÃO ESQUERDO--//=====//=====//=====//=====//=====//=====//
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
-    private void BasicAttack(float stamina_to_remove)
+    private void BasicAttack(float stamina_cost)
     {
-        if (can_attack == true && Input.GetMouseButtonDown(0) && player_movement.is_dashing == false)
+        if (can_attack == true && Input.GetMouseButtonDown(0) && player_movement.is_dashing == false && (entity_stats.stamina >= stamina_cost))
         {
-            SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip);
-
-            entity_stats.RemoveStamina(stamina_to_remove);
+            entity_stats.RemoveStamina(stamina_cost);
 
             if (attack_step == 1)
             {
@@ -88,6 +86,7 @@ public class PlayerMeleeAttack : MonoBehaviour
                     can_attack = true;
                     cooldown = 0;
                 }
+                SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_one);
                 Invoke("InvokeCollider", 0.1f);
                 StartResetCoroutine();
             } 
@@ -111,6 +110,7 @@ public class PlayerMeleeAttack : MonoBehaviour
                     StopCoroutine(ResetSequence());
                     StartCoroutine(ResetSequence());
                 }
+                SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_two);
                 Invoke("InvokeCollider", 0.1f);
                 StartResetCoroutine();
             }
@@ -134,6 +134,7 @@ public class PlayerMeleeAttack : MonoBehaviour
 
                     StopCoroutine(ResetSequence());
                 }
+                SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_one);
                 Invoke("InvokeCollider", 0.1f);
                 StopCoroutineIfNeeded();
             }
@@ -263,6 +264,8 @@ public class PlayerMeleeAttack : MonoBehaviour
         {
             if (entity_stats.stamina >= stamina_cost)
             {
+                SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_three);
+
                 float original_attack_damage = entity_stats.attack_damage;
                 float original_knockback_force = entity_stats.knockback_force;
 

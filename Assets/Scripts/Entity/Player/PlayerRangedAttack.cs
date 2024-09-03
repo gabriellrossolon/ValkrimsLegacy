@@ -9,12 +9,12 @@ public class PlayerRangedAttack : MonoBehaviour
     private float cooldown;
     private bool can_attack;
 
-    public GameObject projectile_selected;
+    [HideInInspector] public GameObject projectile_selected;
 
     [HideInInspector] public GameObject projectile_instance;
 
-    public bool using_staff;
-    public bool using_bow;
+    [HideInInspector] public bool using_staff;
+    [HideInInspector] public bool using_bow;
 
     void Start()
     {
@@ -73,6 +73,8 @@ public class PlayerRangedAttack : MonoBehaviour
     private void ExecuteBasicAttack()
     {
         projectile_instance = Instantiate(projectile_selected, transform.position, Quaternion.identity);
+        /*projectile_instance.transform.SetParent(transform);*/ //Verificar
+        projectile_instance.gameObject.GetComponent<ProjectileBehavior>().instantiator = this.gameObject;
 
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
@@ -83,11 +85,11 @@ public class PlayerRangedAttack : MonoBehaviour
 
         float angle = Mathf.Atan2(projectile_direction.y, projectile_direction.x) * Mathf.Rad2Deg;
         projectile_instance.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        projectile_direction.Normalize();
+        //projectile_direction.Normalize();
 
         projectile_instance.GetComponent<Rigidbody2D>().AddForce(projectile_direction * projectile_instance.GetComponent<ProjectileBehavior>().projectile_speed, ForceMode2D.Impulse);
 
-        SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip);
+        SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_one);
 
         can_attack = false;
         cooldown = 0;

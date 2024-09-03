@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2967990317983892055}
   - component: {fileID: 9146723271877921408}
   - component: {fileID: 2113556779281472886}
+  - component: {fileID: 3680347932662984876}
   m_Layer: 0
   m_Name: GoldPilon
   m_TagString: GoldDrop
@@ -145,6 +146,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3680347932662984876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3119579134087477070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c4ddb1d9ebc284cb6e8d4568f09f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transparence_distance: 0.5
 --- !u!1001 &8541771576621031220
 PrefabInstance:
   m_ObjectHideFlags: 0
