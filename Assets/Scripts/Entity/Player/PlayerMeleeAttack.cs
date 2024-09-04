@@ -291,7 +291,7 @@ public class PlayerMeleeAttack : MonoBehaviour
 
     private IEnumerator RestoreStrongAttackValues(float original_attack_damage, float original_knockback_force)
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         entity_stats.attack_damage = original_attack_damage;
         entity_stats.knockback_force = original_knockback_force;
     }
