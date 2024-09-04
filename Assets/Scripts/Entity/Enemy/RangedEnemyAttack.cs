@@ -45,7 +45,6 @@ public class RangedEnemyAttack : MonoBehaviour
         AttackAnimation();
 
         GameObject projectile_instance = Instantiate(projectile_prefab, transform.position, Quaternion.identity);
-        //projectile_instance.transform.SetParent(transform);
         projectile_instance.gameObject.GetComponent<ProjectileBehavior>().instantiator = this.gameObject;
 
         Vector3 playerPosition = player_object.transform.position;

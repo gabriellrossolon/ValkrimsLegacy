@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class EnterRoomChecker : MonoBehaviour
+public class TeleporterPad : MonoBehaviour
 {
     private GameObject transition_go;
     private CinemachineVirtualCamera virtual_camera;
+
+    public string roomIdentifier;
+    public Vector3 coords_to_go;
 
     private void Start()
     {
@@ -19,21 +22,21 @@ public class EnterRoomChecker : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (this.gameObject.name == "EnterCamping")
+            if (roomIdentifier == "EnterTent")
             {
-                StartCoroutine(EnterController(collision, new Vector3(24f, -92f, 0), 4));
+                StartCoroutine(TeleportController(collision, coords_to_go, 4));
                 
-                transition_go.gameObject.GetComponent<Animator>().SetTrigger("isTransition");
             } 
-            else if (this.gameObject.name == "LeaveCamping")
+            else if (roomIdentifier == "LeaveTent")
             {
-                StartCoroutine(EnterController(collision, new Vector3(-4.5f, 0.5f, 0), 6));
-                transition_go.gameObject.GetComponent<Animator>().SetTrigger("isTransition");
+                StartCoroutine(TeleportController(collision, coords_to_go, 6));
+
             }
+            transition_go.gameObject.GetComponent<Animator>().SetTrigger("isTransition");
         }
     }
 
-    private IEnumerator EnterController(Collider2D collision, Vector3 destiny_location, int camSize)
+    private IEnumerator TeleportController(Collider2D collision, Vector3 destiny_location, int camSize)
     {
         yield return new WaitForSeconds(1f);
         ChangeCamSize(camSize);

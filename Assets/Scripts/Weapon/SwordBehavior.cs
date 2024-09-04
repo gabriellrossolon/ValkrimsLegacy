@@ -8,7 +8,7 @@ public class SwordBehavior : MonoBehaviour
     [HideInInspector] public PolygonCollider2D sword_collider;
     [HideInInspector] public GameObject impact_fx;
     public GameObject circle_impact_fx;
-    public GameObject strong_attack_charging_fx;
+    //public GameObject strong_attack_charging_fx;
 
     private HashSet<Collider2D> damagedEnemies = new HashSet<Collider2D>();
 

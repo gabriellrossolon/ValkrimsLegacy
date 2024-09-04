@@ -73,19 +73,17 @@ public class PlayerRangedAttack : MonoBehaviour
     private void ExecuteBasicAttack()
     {
         projectile_instance = Instantiate(projectile_selected, transform.position, Quaternion.identity);
-        /*projectile_instance.transform.SetParent(transform);*/ //Verificar
         projectile_instance.gameObject.GetComponent<ProjectileBehavior>().instantiator = this.gameObject;
 
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
         Vector2 projectile_direction = (mousePosition - transform.position).normalized;
 
-        Vector2 spawn_position = (Vector2)transform.position + projectile_direction * 1.2f;
+        Vector2 spawn_position = (Vector2)InventoryManager.Instance.weapon_in_hands.transform.position + projectile_direction * 0.5f;
         projectile_instance.transform.position = spawn_position;
 
         float angle = Mathf.Atan2(projectile_direction.y, projectile_direction.x) * Mathf.Rad2Deg;
         projectile_instance.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        //projectile_direction.Normalize();
 
         projectile_instance.GetComponent<Rigidbody2D>().AddForce(projectile_direction * projectile_instance.GetComponent<ProjectileBehavior>().projectile_speed, ForceMode2D.Impulse);
 

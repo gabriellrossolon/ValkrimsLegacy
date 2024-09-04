@@ -367,7 +367,7 @@ MonoBehaviour:
   strong_attack_cooldown: 0
   attack_speed: 2.5
   knockback_force: 0
-  max_hp: 10
+  max_hp: 15
   hp: 0
   can_regen_hp: 0
   hp_regen_rate: 0

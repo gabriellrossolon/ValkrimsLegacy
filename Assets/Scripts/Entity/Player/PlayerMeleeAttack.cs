@@ -17,10 +17,17 @@ public class PlayerMeleeAttack : MonoBehaviour
     private float cooldown;
 
     [Header("Strong Attack Refs")]
-    public GameObject strong_attack_fx;
+    public GameObject strong_attack_charg_fx;
     private Coroutine strongAttackCoroutine;
     private bool can_strong_attack = true;
     private float strongattack_cooldown;
+
+    private float pressStartTime = 0f;
+    private bool isPressing = false;
+    private bool isStrongAttackQueued = false;
+
+    private bool hasShownStaminaWarning = false;
+    private bool hasShownCooldownWarning = false;
 
     private int attack_step;
     private Coroutine basicAttackCoroutine;
@@ -49,7 +56,7 @@ public class PlayerMeleeAttack : MonoBehaviour
     {
         BasicAttack(3f);
 
-        if (SkillManager.Instance.can_use_powerCutter) { PowerCutter(10f); }
+        if (SkillManager.Instance.can_use_powerCutter) { PowerCutter(15f); }
 
         if (SkillManager.Instance.can_use_bladeDance) { BladeDance(10f); } 
     }
@@ -173,64 +180,92 @@ public class PlayerMeleeAttack : MonoBehaviour
 
     private void PowerCutter(float stamina_cost)
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(1))
         {
-            if (can_strong_attack == true)
+            if (can_strong_attack && entity_stats.stamina >= stamina_cost)
             {
-                if (entity_stats.stamina >= stamina_cost)
+                if (!isPressing)
                 {
-                    can_attack = false;
-                    cooldown = -2f;
-                    // Se a corrotina não está em execução, inicia-a
-                    if (strongAttackCoroutine == null)
-                    {
-                        player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", true);
-                        strongAttackCoroutine = StartCoroutine(ExecuteStrongAttack(2f));
-                        strong_attack_fx.GetComponent<ParticleSystem>().Play();
+                    // Marca o início da pressão do botão
+                    pressStartTime = Time.time;
+                    isPressing = true;
+                    // Inicia o ParticleSystem
+                    strong_attack_charg_fx.GetComponent<ParticleSystem>().Play();
+                }
+                if (!isStrongAttackQueued)
+                {
+                    player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", true);
+                    hasShownStaminaWarning = false;
+                    hasShownCooldownWarning = false;
+                }        
+            }
+            else if (!can_strong_attack)
+            {
+                ShowWarning(ref hasShownCooldownWarning, HudManager.Instance.cooldown_warn);
+            }
+            else if (entity_stats.stamina < stamina_cost)
+            {
+                ShowWarning(ref hasShownStaminaWarning, HudManager.Instance.stamina_warn);
+            }
+        }
+        else
+        {
+            // O botão foi solto
+            if (isPressing)
+            {
+                // Para o ParticleSystem
+                strong_attack_charg_fx.GetComponent<ParticleSystem>().Stop();
 
-                        entity_stats.RemoveStamina(stamina_cost);
-                    }
+                float pressDuration = Time.time - pressStartTime;
+
+                // Verifica se o botão foi pressionado por pelo menos 2 segundos
+                if (pressDuration >= 2f)
+                {
+                    // Marca que o ataque forte deve ser iniciado
+                    isStrongAttackQueued = true;
                 }
                 else
                 {
-                    GameObject stamina_warn_instance = Instantiate(HudManager.Instance.stamina_warn, transform.position, Quaternion.identity);
-                    Destroy(stamina_warn_instance, 1f);
+                    // Se o botão não foi pressionado por tempo suficiente, apenas redefine o estado
+                    CancelStrongAttack();
                 }
+
+                // Reseta o estado de pressão
+                isPressing = false;
+            }
+        }
+
+        // Se o ataque forte foi marcado para ser iniciado e o botão foi solto, realiza o ataque
+        if (isStrongAttackQueued && !Input.GetMouseButton(1))
+        {
+            if (entity_stats.stamina >= stamina_cost)
+            {
+                // Remove a stamina e inicia o ataque forte
+                entity_stats.RemoveStamina(stamina_cost);
+                ExecuteStrongAttack();
             }
             else
             {
-                GameObject cooldown_warn_instance = Instantiate(HudManager.Instance.cooldown_warn, transform.position, Quaternion.identity);
-                Destroy(cooldown_warn_instance, 1f);
+                ShowWarning(ref hasShownStaminaWarning, HudManager.Instance.stamina_warn);
             }
-            
-        }
 
-        //else
-        //{
-        //    // Cancela a corrotina se o botão for solto
-        //    if (strongAttackCoroutine != null)
-        //    {
-        //        StopCoroutine(strongAttackCoroutine);
-        //        strongAttackCoroutine = null;
-        //        player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", false);
-        //        strong_attack_anim.GetComponent<ParticleSystem>().Stop();
-        //    }
-        //}
+            // Reseta o estado após o ataque
+            isStrongAttackQueued = false;
+        }
     }
 
-    private IEnumerator ExecuteStrongAttack(float delay)
+    private void ExecuteStrongAttack()
     {
-        yield return new WaitForSeconds(delay);
+        // Ajusta o ataque forte
         float original_attack_damage = entity_stats.attack_damage;
         float original_knockback_force = entity_stats.knockback_force;
 
-        StartCoroutine(ChangeStrongAttackValues(original_attack_damage, original_knockback_force));
+        ChangeStrongAttackValues(original_attack_damage, original_knockback_force);
 
         EnabledSwordCollider(0.1f);
-        strong_attack_fx.GetComponent<ParticleSystem>().Stop();
-
         player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", false);
-        if (weap_rot_controller.weaponFacingRight == true)
+
+        if (weap_rot_controller.weaponFacingRight)
         {
             player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isStrongAttackR");
         }
@@ -238,21 +273,45 @@ public class PlayerMeleeAttack : MonoBehaviour
         {
             player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isStrongAttackL");
         }
-        // Reseta a referência da corrotina após o término
-        strongAttackCoroutine = null;
 
+        // Atualiza o estado após o ataque
         can_strong_attack = false;
         strongattack_cooldown = 0;
     }
-    private IEnumerator ChangeStrongAttackValues(float original_attack_damage, float original_knockback_force)
+
+    private void ChangeStrongAttackValues(float original_attack_damage, float original_knockback_force)
     {
-        yield return new WaitForSeconds(0.1f);
+        // Altera valores para o ataque forte
         entity_stats.attack_damage *= SkillManager.Instance.powerCutter_damageMultiplier;
         entity_stats.knockback_force = 15;
 
+        // Restaura valores após um curto período
+        StartCoroutine(RestoreStrongAttackValues(original_attack_damage, original_knockback_force));
+    }
+
+    private IEnumerator RestoreStrongAttackValues(float original_attack_damage, float original_knockback_force)
+    {
         yield return new WaitForSeconds(0.1f);
         entity_stats.attack_damage = original_attack_damage;
         entity_stats.knockback_force = original_knockback_force;
+    }
+
+    private void ShowWarning(ref bool hasShownWarning, GameObject warningPrefab)
+    {
+        if (!hasShownWarning)
+        {
+            GameObject warning_instance = Instantiate(warningPrefab, transform.position, Quaternion.identity);
+            Destroy(warning_instance, 1f);
+            hasShownWarning = true;
+        }
+    }
+
+    private void CancelStrongAttack()
+    {
+        player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", false);
+        strong_attack_charg_fx.GetComponent<ParticleSystem>().Stop();
+        hasShownStaminaWarning = false;
+        hasShownCooldownWarning = false;
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
