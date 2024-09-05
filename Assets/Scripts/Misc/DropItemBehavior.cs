@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DropItemBehavior : MonoBehaviour
 {
-    [HideInInspector] public float gold_to_give;
+    [Header("If Gold")]
+    public float gold_to_give;
+
+
+    private string drop_name;
 
     private AudioClip collect_sound;
 
@@ -18,11 +23,16 @@ public class DropItemBehavior : MonoBehaviour
     {
         if (this.gameObject.CompareTag("GoldDrop"))
         {
+            drop_name = "Gold Coin(s)";
             if (collision.gameObject.CompareTag("Player"))
             {
                 SoundManager.Instance.drop_soundSource.PlayOneShot(collect_sound);
                 collision.gameObject.GetComponent<EntityStats>().AddGold(gold_to_give);
                 Destroy(this.gameObject);
+
+                GameObject collect_popup = Instantiate(HudManager.Instance.collects_popup);
+                collect_popup.GetComponentInChildren<Text>().text = $"{gold_to_give} {drop_name}";
+                Destroy(collect_popup, 1f);
             }
         }
     }

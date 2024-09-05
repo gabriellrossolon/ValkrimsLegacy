@@ -42,6 +42,7 @@ public class HudManager : MonoBehaviour
     public GameObject stamina_warn;
     public GameObject cooldown_warn;
     public GameObject damage_popup;
+    public GameObject collects_popup;
 
     [Header("Texts")]
     public Text level_text;
