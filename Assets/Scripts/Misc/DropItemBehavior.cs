@@ -8,6 +8,8 @@ public class DropItemBehavior : MonoBehaviour
     [Header("If Gold")]
     public float gold_to_give;
 
+    [Header("Drop Icon")]
+    public Sprite item_icon;
 
     private string drop_name;
 
@@ -32,6 +34,7 @@ public class DropItemBehavior : MonoBehaviour
 
                 GameObject collect_popup = Instantiate(HudManager.Instance.collects_popup);
                 collect_popup.GetComponentInChildren<Text>().text = $"{gold_to_give} {drop_name}";
+                collect_popup.GetComponentInChildren<Image>().sprite = this.item_icon;
                 Destroy(collect_popup, 1f);
             }
         }

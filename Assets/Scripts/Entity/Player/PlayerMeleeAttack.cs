@@ -73,7 +73,7 @@ public class PlayerMeleeAttack : MonoBehaviour
 
     private void BasicAttack(float stamina_cost)
     {
-        if (can_attack == true && Input.GetMouseButtonDown(0) && player_movement.is_dashing == false && (entity_stats.stamina >= stamina_cost))
+        if (can_attack == true && Input.GetMouseButtonDown(0) && player_movement.is_dashing == false && (entity_stats.stamina >= stamina_cost) && !isPressing)
         {
             entity_stats.RemoveStamina(stamina_cost);
 
@@ -256,6 +256,7 @@ public class PlayerMeleeAttack : MonoBehaviour
 
     private void ExecuteStrongAttack()
     {
+        SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_two);
         // Ajusta o ataque forte
         float original_attack_damage = entity_stats.attack_damage;
         float original_knockback_force = entity_stats.knockback_force;
@@ -319,7 +320,7 @@ public class PlayerMeleeAttack : MonoBehaviour
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
     private void BladeDance(float stamina_cost)
     {
-        if (Input.GetMouseButtonDown(0) && player_movement.is_dashing == true)
+        if (Input.GetMouseButtonDown(0) && player_movement.is_dashing == true && !isPressing)
         {
             if (entity_stats.stamina >= stamina_cost)
             {

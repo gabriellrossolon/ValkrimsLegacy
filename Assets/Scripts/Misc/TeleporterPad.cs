@@ -22,16 +22,17 @@ public class TeleporterPad : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (roomIdentifier == "EnterTent")
-            {
-                StartCoroutine(TeleportController(collision, coords_to_go, 4));
-                
-            } 
-            else if (roomIdentifier == "LeaveTent")
-            {
-                StartCoroutine(TeleportController(collision, coords_to_go, 6));
+            //if (roomIdentifier == "EnterTent")
+            //{
+            //    StartCoroutine(TeleportController(collision, coords_to_go, 4));
 
-            }
+            //} 
+            //else if (roomIdentifier == "LeaveTent")
+            //{
+            //    StartCoroutine(TeleportController(collision, coords_to_go, 6));
+
+            //}
+            StartCoroutine(TeleportController(collision, coords_to_go, 6));
             transition_go.gameObject.GetComponent<Animator>().SetTrigger("isTransition");
         }
     }

@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold_to_give: 0
+  item_icon: {fileID: -304472193, guid: 03291071f13efb24ebf2a182ca85d516, type: 3}
 --- !u!212 &9146723271877921408
 SpriteRenderer:
   m_ObjectHideFlags: 0
