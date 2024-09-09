@@ -46,13 +46,12 @@ public class PlayerMeleeAttack : MonoBehaviour
 
     void Update()
     {
-        AllAtacks();
+        AllAttacks();
         AllCooldowns();
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
-
-    private void AllAtacks()
+    private void AllAttacks()
     {
         BasicAttack(3f);
 
@@ -76,78 +75,70 @@ public class PlayerMeleeAttack : MonoBehaviour
         if (can_attack == true && Input.GetMouseButtonDown(0) && player_movement.is_dashing == false && (entity_stats.stamina >= stamina_cost) && !isPressing)
         {
             entity_stats.RemoveStamina(stamina_cost);
+            switch (attack_step)
+            {
+                case 1:
+                    attack_step++;
+                    can_attack = false;
+                    cooldown = entity_stats.attack_speed;
+                    if (weap_rot_controller.weaponFacingRight == true)
+                    {
+                        weapon_animator.SetTrigger("isAttackR");
+                    }
+                    else
+                    {
+                        weapon_animator.SetTrigger("isAttackL");
+                    }
+                    
+                    SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_one);
+                    Invoke("InvokeCollider", 0.1f);
+                    StartResetCoroutine();
+                    break;
 
-            if (attack_step == 1)
-            {
-                if (weap_rot_controller.weaponFacingRight == true)
-                {
+                case 2:
                     attack_step++;
-                    weapon_animator.SetTrigger("isAttackR");
-                    can_attack = true;
-                    cooldown = 0;
-                }
-                else
-                {
-                    attack_step++;
-                    weapon_animator.SetTrigger("isAttackL");   
-                    can_attack = true;
-                    cooldown = 0;
-                }
-                SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_one);
-                Invoke("InvokeCollider", 0.1f);
-                StartResetCoroutine();
-            } 
-            else if (attack_step == 2)
-            {
-                if (weap_rot_controller.weaponFacingRight == true)
-                {
-                    attack_step++;
-                    weapon_animator.SetTrigger("isAttackR2");
-                    can_attack = true;
-                    cooldown = 0;
+                    can_attack = false;
+                    cooldown = entity_stats.attack_speed;
+                    if (weap_rot_controller.weaponFacingRight == true)
+                    {
+                        weapon_animator.SetTrigger("isAttackR2");
+                    }
+                    else
+                    {
+                        weapon_animator.SetTrigger("isAttackL2");
+                    }
+                   
                     StopCoroutine(ResetSequence());
                     StartCoroutine(ResetSequence());
-                }
-                else
-                {
-                    attack_step++;
-                    weapon_animator.SetTrigger("isAttackL2");
-                    can_attack = true;
-                    cooldown = 0;
-                    StopCoroutine(ResetSequence());
-                    StartCoroutine(ResetSequence());
-                }
-                SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_two);
-                Invoke("InvokeCollider", 0.1f);
-                StartResetCoroutine();
-            }
-            else if (attack_step == 3)
-            {
-                if (weap_rot_controller.weaponFacingRight == true)
-                {
+                    SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_two);
+                    Invoke("InvokeCollider", 0.1f);
+                    StartResetCoroutine();
+                    break;
+
+                case 3:
                     attack_step = 1;
-                    weapon_animator.SetTrigger("isAttackR3");
                     cooldown = 0;
                     can_attack = false;
-
+                    if (weap_rot_controller.weaponFacingRight == true)
+                    {
+                        weapon_animator.SetTrigger("isAttackR3");
+                    }
+                    else
+                    {
+                        weapon_animator.SetTrigger("isAttackL3");
+                    }
+                    
                     StopCoroutine(ResetSequence());
-                }
-                else
-                {
-                    attack_step = 1;
-                    weapon_animator.SetTrigger("isAttackL3");
-                    cooldown = 0;
-                    can_attack = false;
+                    SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_one);
+                    Invoke("InvokeCollider", 0.1f);
+                    StopCoroutineIfNeeded();
+                    break;
 
-                    StopCoroutine(ResetSequence());
-                }
-                SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_one);
-                Invoke("InvokeCollider", 0.1f);
-                StopCoroutineIfNeeded();
+                default:
+                    break;
             }
         }
     }
-
     private void InvokeCollider()
     {
         EnabledSwordCollider(0.1f);
@@ -186,10 +177,8 @@ public class PlayerMeleeAttack : MonoBehaviour
             {
                 if (!isPressing)
                 {
-                    // Marca o início da pressão do botão
                     pressStartTime = Time.time;
                     isPressing = true;
-                    // Inicia o ParticleSystem
                     strong_attack_charg_fx.GetComponent<ParticleSystem>().Play();
                 }
                 if (!isStrongAttackQueued)
@@ -210,37 +199,27 @@ public class PlayerMeleeAttack : MonoBehaviour
         }
         else
         {
-            // O botão foi solto
             if (isPressing)
             {
-                // Para o ParticleSystem
                 strong_attack_charg_fx.GetComponent<ParticleSystem>().Stop();
 
                 float pressDuration = Time.time - pressStartTime;
 
-                // Verifica se o botão foi pressionado por pelo menos 2 segundos
                 if (pressDuration >= 2f)
                 {
-                    // Marca que o ataque forte deve ser iniciado
                     isStrongAttackQueued = true;
                 }
                 else
                 {
-                    // Se o botão não foi pressionado por tempo suficiente, apenas redefine o estado
                     CancelStrongAttack();
                 }
-
-                // Reseta o estado de pressão
                 isPressing = false;
             }
         }
-
-        // Se o ataque forte foi marcado para ser iniciado e o botão foi solto, realiza o ataque
         if (isStrongAttackQueued && !Input.GetMouseButton(1))
         {
             if (entity_stats.stamina >= stamina_cost)
             {
-                // Remove a stamina e inicia o ataque forte
                 entity_stats.RemoveStamina(stamina_cost);
                 ExecuteStrongAttack();
             }
@@ -248,8 +227,6 @@ public class PlayerMeleeAttack : MonoBehaviour
             {
                 ShowWarning(ref hasShownStaminaWarning, HudManager.Instance.stamina_warn);
             }
-
-            // Reseta o estado após o ataque
             isStrongAttackQueued = false;
         }
     }
@@ -257,7 +234,6 @@ public class PlayerMeleeAttack : MonoBehaviour
     private void ExecuteStrongAttack()
     {
         SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_two);
-        // Ajusta o ataque forte
         float original_attack_damage = entity_stats.attack_damage;
         float original_knockback_force = entity_stats.knockback_force;
 
@@ -274,19 +250,15 @@ public class PlayerMeleeAttack : MonoBehaviour
         {
             player_weapon.gameObject.GetComponent<Animator>().SetTrigger("isStrongAttackL");
         }
-
-        // Atualiza o estado após o ataque
         can_strong_attack = false;
         strongattack_cooldown = 0;
     }
 
     private void ChangeStrongAttackValues(float original_attack_damage, float original_knockback_force)
     {
-        // Altera valores para o ataque forte
         entity_stats.attack_damage *= SkillManager.Instance.powerCutter_damageMultiplier;
         entity_stats.knockback_force = 15;
 
-        // Restaura valores após um curto período
         StartCoroutine(RestoreStrongAttackValues(original_attack_damage, original_knockback_force));
     }
 
