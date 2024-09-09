@@ -28,7 +28,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 0x72_16x16DungeonTileset_v5 1_24
+  m_Name: Dg1Torch
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:

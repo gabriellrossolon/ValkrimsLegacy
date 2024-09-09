@@ -8,9 +8,12 @@ public class EnemyHpBar : MonoBehaviour
     private Slider hp_slider;
     private EntityStats entity_stats;
 
+    private Text level_text;
+
     void Start()
     {
         hp_slider = GetComponentInChildren<Slider>();
+        level_text = GetComponentInChildren<Text>();
         entity_stats = GetComponentInParent<EntityStats>();
     }
 
@@ -19,6 +22,8 @@ public class EnemyHpBar : MonoBehaviour
     {
         hp_slider.maxValue = entity_stats.max_hp;
         hp_slider.value = entity_stats.hp;
+
+        level_text.text = entity_stats.level.ToString();
     }
 }
 

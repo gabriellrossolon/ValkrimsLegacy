@@ -146,7 +146,14 @@ public class MeleeEnemyMove : MonoBehaviour
 
     private void FlipSprite(Vector3 target)
     {
-        GetComponent<SpriteRenderer>().flipX = transform.position.x < target.x;
+        if (entity_stats.identifier_name == "Skeleton")
+        {
+            GetComponent<SpriteRenderer>().flipX = transform.position.x > target.x;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().flipX = transform.position.x < target.x;
+        }
     }
 
     private void isWalkAnim(bool isMoving)

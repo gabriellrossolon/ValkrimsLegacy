@@ -75,7 +75,7 @@ public class MeleeEnemyAttack : MonoBehaviour
     private IEnumerator TimeToBreath()
     {
         enemy_move.can_move = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         enemy_move.can_move = true;
     }
 

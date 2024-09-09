@@ -17,6 +17,9 @@ public class EntityStats : MonoBehaviour
     public float attack_speed;
     public float knockback_force;
 
+    private float original_enemy_attack_damage;
+    private float original_enemy_max_hp;
+
     [Header("Health Stats")]
     public float max_hp;
     public float hp;
@@ -69,6 +72,13 @@ public class EntityStats : MonoBehaviour
         xp_to_up = level * 10f;
 
         EnemyGoldRandomizer();
+
+        if (this.gameObject.CompareTag("Enemy"))
+        {
+            original_enemy_attack_damage = attack_damage;
+            original_enemy_max_hp = max_hp;
+        }
+        
     }
 
     void Update()
@@ -76,6 +86,8 @@ public class EntityStats : MonoBehaviour
         StaminaControl();
         ManaControl();
         HpControl();
+
+        EnemyLevelBuff();
     }
 
     void FixedUpdate()
@@ -352,13 +364,25 @@ public class EntityStats : MonoBehaviour
 
     private void LevelUp()
     {
-        if(xp >= xp_to_up)
+        if (this.gameObject.CompareTag("Player"))
         {
-            xp -= xp_to_up;
-            level++;
+            if (xp >= xp_to_up)
+            {
+                xp -= xp_to_up;
+                level++;
 
-            xp_to_up = level * 10f;
-            HudManager.Instance.level_text.text = level.ToString();
+                xp_to_up = level * 10f;
+                HudManager.Instance.level_text.text = level.ToString();
+            }
+        }
+    }
+
+    private void EnemyLevelBuff()
+    {
+        if (this.gameObject.CompareTag("Enemy"))
+        {
+            attack_damage = original_enemy_attack_damage + (level - 1) * 0.5f;
+            max_hp = original_enemy_max_hp + (level - 1) * 1.5f;
         }
     }
 
