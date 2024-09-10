@@ -9,11 +9,20 @@ public class MapBehavior : MonoBehaviour
 
     void Start()
     {
+        
+    }
+
+    void Update()
+    {
         map_pointers = GameObject.FindGameObjectsWithTag("MapPointer");
-        foreach (GameObject pointer in map_pointers)
+        if(map_pointers != null)
         {
-            pointer.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            foreach (GameObject pointer in map_pointers)
+            {
+                pointer.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            }
         }
+        
     }
 
     void LateUpdate()

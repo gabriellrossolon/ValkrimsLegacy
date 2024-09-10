@@ -19,9 +19,23 @@ public class SoundManager : MonoBehaviour
             Instance = this;
         }
     }
+    [Header("Ambient Sound")]
+    public AudioSource ambient_soundSource;
+
+    public AudioClip florest_ambient_AudioClip;
+    public AudioClip dungeon_ambient_audioClip;
+
+    [Header("Music Sound")]
+    public AudioSource music_soundSource;
+
+    public AudioClip peace_music_audioClip;
+    public AudioClip dungeon_music_audioClip;
 
     [Header("Steps")]
-    public AudioSource step_grass;
+    public AudioSource step_soundSource;
+
+    public AudioClip step_grass_audioClip;
+    public AudioClip step_stone_audioClip;
 
     [Header("Dash")]
     public AudioSource dash_soundSource;
@@ -45,6 +59,36 @@ public class SoundManager : MonoBehaviour
     public AudioSource drop_soundSource;
     public AudioClip goldCollect_soundClip;
 
+    [Header("Ambient Location")]
+    public string player_ambient;
 
+    public void SoundChecker()
+    {
+        if(player_ambient == "Florest")
+        {
+            ambient_soundSource.clip = florest_ambient_AudioClip;
+            
+            music_soundSource.clip = peace_music_audioClip;
+
+            step_soundSource.clip = step_grass_audioClip;
+        } 
+        else if (player_ambient == "Dungeon1")
+        {
+            ambient_soundSource.clip = dungeon_ambient_audioClip;
+
+            music_soundSource.clip = null;
+
+            step_soundSource.clip = step_stone_audioClip;
+        }
+
+        ambient_soundSource.loop = true;
+        ambient_soundSource.Play();
+
+        music_soundSource.loop = true;
+        music_soundSource.Play();
+
+        step_soundSource.loop = true;
+        step_soundSource.Play();
+    }
 
 }

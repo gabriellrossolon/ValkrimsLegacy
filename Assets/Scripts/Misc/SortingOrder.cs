@@ -11,6 +11,8 @@ public class SortingOrder : MonoBehaviour
 
     public float transparence_distance;
     public float detection_distance = 3f;
+    public int max_sort_order = 13;
+    public int min_sort_order = 10;
 
     private int original_order_layer;
     private bool hasReturnedToOriginalLayer = false;
@@ -39,11 +41,11 @@ public class SortingOrder : MonoBehaviour
             {
                 if (player_object.transform.position.y > transform.position.y)
                 {
-                    sprite_renderer.sortingOrder = 13;
+                    sprite_renderer.sortingOrder = max_sort_order;
                 }
                 else
                 {
-                    sprite_renderer.sortingOrder = 10;
+                    sprite_renderer.sortingOrder = min_sort_order;
                 }
 
                 if (distance_to_player < transparence_distance)

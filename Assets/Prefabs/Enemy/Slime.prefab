@@ -572,7 +572,7 @@ MonoBehaviour:
   can_regen_mana: 0
   mana_regen_rate: 0
   level: 1
-  xp: 7
+  xp: 4
   xp_to_up: 0
   gold_carry: 0
   min_gold_chance: 2
@@ -1088,7 +1088,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 23
+  m_Text: 0
 --- !u!114 &1463490747981169182
 MonoBehaviour:
   m_ObjectHideFlags: 0
