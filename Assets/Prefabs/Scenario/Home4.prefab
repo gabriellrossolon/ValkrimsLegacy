@@ -98,8 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1c4ddb1d9ebc284cb6e8d4568f09f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transparence_distance: 5
-  detection_distance: 5
+  transparence_distance: 6
+  detection_distance: 8
+  max_sort_order: 13
+  min_sort_order: 10
 --- !u!61 &1673660167056722474
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -15,14 +15,32 @@ public class MapBehavior : MonoBehaviour
     void Update()
     {
         map_pointers = GameObject.FindGameObjectsWithTag("MapPointer");
-        if(map_pointers != null)
+        MapPointerControll();
+    }
+
+    void MapPointerControll()
+    {
+        if (map_pointers != null)
         {
             foreach (GameObject pointer in map_pointers)
             {
-                pointer.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+                if (pointer != null)
+                {
+                    SpriteRenderer spriteRenderer = pointer.GetComponent<SpriteRenderer>();
+                    if (spriteRenderer != null)
+                    {
+                        if (pointer.GetComponentInParent<EntityStats>() != null && pointer.GetComponentInParent<EntityStats>().hp <= 0)
+                        {
+                            spriteRenderer.enabled = false;
+                        }
+                        else
+                        {
+                            spriteRenderer.enabled = true;
+                        }
+                    }
+                }
             }
         }
-        
     }
 
     void LateUpdate()
