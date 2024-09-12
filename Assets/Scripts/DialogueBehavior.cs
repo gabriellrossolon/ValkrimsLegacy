@@ -7,8 +7,21 @@ public class DialogueBehavior : MonoBehaviour
 {
     private Image button_image;
 
-    private bool dialogue_actived = false;
-    private bool is_player_in_range = false;
+    public bool dialogue_actived = false;
+    private int currentDialogueIndex = 0;
+
+    public bool is_player_in_range = false;
+
+    public Sprite npc_char_img;
+    public string npc_name;
+
+    private Coroutine dialogueCoroutine; // Armazena a referência da coroutine
+    private bool isDialogueComplete = false; // Controla se o diálogo está completo
+
+
+
+    [TextArea(3, 10)]
+    public List<string> dialogues = new List<string>();
 
     void Start()
     {
@@ -17,11 +30,9 @@ public class DialogueBehavior : MonoBehaviour
 
     private void Update()
     {
-        if (is_player_in_range && Input.GetKeyDown(KeyCode.E) && !dialogue_actived)
-        {
-            Debug.Log("Startou Dialogo");
-            dialogue_actived = true;
-        }
+        StartDialogue();
+        NextDialogue();
+        //EndDialogue();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -40,6 +51,90 @@ public class DialogueBehavior : MonoBehaviour
             button_image.enabled = false;
             dialogue_actived = false;
             is_player_in_range = false;
+
+
+            DialogueManager.Instance.dialogue_box.SetActive(false);
+            dialogue_actived = false;
+
+            DialogueManager.Instance.hotbar.SetActive(true);
+            DialogueManager.Instance.buttons.SetActive(true);
         }
     }
+
+    private void StartDialogue()
+    {
+        if (is_player_in_range && Input.GetKeyDown(KeyCode.E) && !dialogue_actived)
+        {
+            dialogue_actived = true;
+            currentDialogueIndex = 0;
+
+            DialogueManager.Instance.hotbar.SetActive(false);
+            DialogueManager.Instance.buttons.SetActive(false);
+
+            if (dialogues.Count > 0)
+            {
+                DialogueManager.Instance.dialogue_box.SetActive(true);
+                DialogueManager.Instance.char_image.sprite = npc_char_img;
+                DialogueManager.Instance.char_name.text = npc_name;
+
+                // Inicia a nova coroutine e armazena a referência
+                if (dialogueCoroutine != null)
+                {
+                    StopCoroutine(dialogueCoroutine);
+                }
+                dialogueCoroutine = StartCoroutine(ShowDialogue());
+            }
+        }
+    }
+
+    private IEnumerator ShowDialogue()
+    {
+        DialogueManager.Instance.dialogue_text.text = "";
+        isDialogueComplete = false; // Define que o diálogo não está completo ainda
+        foreach (char letter in dialogues[currentDialogueIndex])
+        {
+            DialogueManager.Instance.dialogue_text.text += letter;
+            yield return new WaitForSeconds(0.03f);
+        }
+        isDialogueComplete = true; // Define que o diálogo está completo
+    }
+
+    private void NextDialogue()
+    {
+        if (dialogue_actived && Input.GetMouseButtonDown(0))
+        {
+            if (isDialogueComplete)
+            {
+                if (currentDialogueIndex < dialogues.Count - 1)
+                {
+                    currentDialogueIndex++;
+
+                    // Inicia a nova coroutine e armazena a referência
+                    if (dialogueCoroutine != null)
+                    {
+                        StopCoroutine(dialogueCoroutine);
+                    }
+                    dialogueCoroutine = StartCoroutine(ShowDialogue());
+                }
+                else
+                {
+                    DialogueManager.Instance.dialogue_box.SetActive(false);
+                    dialogue_actived = false;
+
+                    DialogueManager.Instance.hotbar.SetActive(true);
+                    DialogueManager.Instance.buttons.SetActive(true);
+                }
+            }
+            else
+            {
+                // Completa a exibição do texto atual imediatamente
+                StopCoroutine(dialogueCoroutine);
+                DialogueManager.Instance.dialogue_text.text = "";
+                DialogueManager.Instance.dialogue_text.text = dialogues[currentDialogueIndex];
+                isDialogueComplete = true; // Marca o diálogo como completo
+            }
+        }
+    }
+
+   
 }

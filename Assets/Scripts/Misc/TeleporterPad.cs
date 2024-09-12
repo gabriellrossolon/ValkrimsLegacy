@@ -10,6 +10,7 @@ public class TeleporterPad : MonoBehaviour
 
     public string roomIdentifier;
     public Vector3 coords_to_go;
+    public int room_cam_size;
 
     private void Start()
     {
@@ -22,17 +23,7 @@ public class TeleporterPad : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //if (roomIdentifier == "EnterTent")
-            //{
-            //    StartCoroutine(TeleportController(collision, coords_to_go, 4));
-
-            //} 
-            //else if (roomIdentifier == "LeaveTent")
-            //{
-            //    StartCoroutine(TeleportController(collision, coords_to_go, 6));
-
-            //}
-            StartCoroutine(TeleportController(collision, coords_to_go, 6));
+            StartCoroutine(TeleportController(collision, coords_to_go, room_cam_size));
             transition_go.gameObject.GetComponent<Animator>().SetTrigger("isTransition");
         }
     }

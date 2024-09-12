@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e7cda31eadbb8b7498161ba5b0322f5c
+guid: 838ab209b195b5b43b8fdac32b32bfe4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Hud Paper_0
+      name: Hud Paper 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,41 +131,62 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f67ca87faf8f1a340aba699cd254c4fb
-      internalID: 1872168012
+      spriteID: 54ab02adb907f634f80a9a7e9e8faed8
+      internalID: 1619346384
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hud Paper_1
+      name: Hud Paper 1_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 46
         y: 32
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 96d2211fbddf62d4c8f50605ae54a1b8
-      internalID: 562434072
+      spriteID: 35113f8c0c0a51241a3a6e37dfd9007d
+      internalID: -1556261153
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hud Paper_2
+      name: Hud Paper 1_3
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 32
+        width: 38
+        height: 32
+      alignment: 9
+      pivot: {x: 0.42105263, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1847ed6c179de34498e63a4b842e2fbb
+      internalID: 1870358217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hud Paper 1_4
       rect:
         serializedVersion: 2
         x: 0
@@ -173,77 +194,98 @@ TextureImporter:
         width: 64
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0db6adf47e8bb444bb085e504bc383cd
-      internalID: 1216786372
+      spriteID: 3adfa1deac164e0408eb80d5c0c51156
+      internalID: -1425536999
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hud Paper_3
+      name: Hud Paper 1_2
       rect:
         serializedVersion: 2
-        x: 1
-        y: 0
+        x: 74
+        y: 16
         width: 8
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af5c00b6338bfdc489525051defa79e6
-      internalID: 1049005052
+      spriteID: 162623ae079c2ad4685cbaa2e5c2420d
+      internalID: 755762349
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hud Paper_4
+      name: Hud Paper 1_5
       rect:
         serializedVersion: 2
-        x: 10
-        y: 0
+        x: 83
+        y: 16
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4320f32beac6b1e4cb5829b9f7a552d0
-      internalID: -1540750759
+      spriteID: 69d722c9d31dc3d4c966b85b2f6161fe
+      internalID: 1201945069
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hud Paper_5
+      name: Hud Paper 1_6
       rect:
         serializedVersion: 2
-        x: 27
-        y: 0
+        x: 100
+        y: 16
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 578869262ba95d947975fd06f305edb7
-      internalID: -1827116529
+      spriteID: 3e9ca44dc9a95bf4e86f122dd2b55eba
+      internalID: -927457744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hud Paper 1_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0be53060854369c4980f60b6e3bcc888
+      internalID: 1348271283
       vertices: []
       indices: 
       edges: []
@@ -259,12 +301,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Hud Paper_0: 1872168012
-      Hud Paper_1: 562434072
-      Hud Paper_2: 1216786372
-      Hud Paper_3: 1049005052
-      Hud Paper_4: -1540750759
-      Hud Paper_5: 150526624
+      Hud Paper 1_0: 1619346384
+      Hud Paper 1_1: -1556261153
+      Hud Paper 1_2: 755762349
+      Hud Paper 1_3: 1870358217
+      Hud Paper 1_4: -1425536999
+      Hud Paper 1_5: 1201945069
+      Hud Paper 1_6: -927457744
+      Hud Paper 1_7: 1348271283
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
