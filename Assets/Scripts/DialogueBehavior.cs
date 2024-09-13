@@ -18,8 +18,6 @@ public class DialogueBehavior : MonoBehaviour
     private Coroutine dialogueCoroutine; // Armazena a referência da coroutine
     private bool isDialogueComplete = false; // Controla se o diálogo está completo
 
-
-
     [TextArea(3, 10)]
     public List<string> dialogues = new List<string>();
 
@@ -44,6 +42,21 @@ public class DialogueBehavior : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            if (collision.GetComponent<PlayerMeleeAttack>().enabled)
+            {
+                collision.GetComponent<PlayerMeleeAttack>().enabled = false;
+            }
+            else if (collision.GetComponent<PlayerRangedAttack>().enabled)
+            {
+                collision.GetComponent<PlayerRangedAttack>().enabled = false;
+            }
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -52,12 +65,22 @@ public class DialogueBehavior : MonoBehaviour
             dialogue_actived = false;
             is_player_in_range = false;
 
-
             DialogueManager.Instance.dialogue_box.SetActive(false);
             dialogue_actived = false;
 
             DialogueManager.Instance.hotbar.SetActive(true);
             DialogueManager.Instance.buttons.SetActive(true);
+
+            if(InventoryManager.Instance.weapon_in_hands == InventoryManager.Instance.weapon_sword)
+            {
+                collision.GetComponent<PlayerMeleeAttack>().enabled = true;
+            } 
+            else if (InventoryManager.Instance.weapon_in_hands == InventoryManager.Instance.weapon_staff || InventoryManager.Instance.weapon_bow)
+            {
+                collision.GetComponent<PlayerRangedAttack>().enabled = true;
+            }
+
+            InventoryManager.Instance.RefreshInventory();
         }
     }
 
@@ -123,6 +146,8 @@ public class DialogueBehavior : MonoBehaviour
 
                     DialogueManager.Instance.hotbar.SetActive(true);
                     DialogueManager.Instance.buttons.SetActive(true);
+
+                    InventoryManager.Instance.RefreshInventory();
                 }
             }
             else

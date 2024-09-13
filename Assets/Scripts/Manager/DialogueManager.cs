@@ -27,7 +27,4 @@ public class DialogueManager : MonoBehaviour
 
     public GameObject hotbar;
     public GameObject buttons;
-
-
-
 }

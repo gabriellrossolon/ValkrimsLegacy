@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance { get; private set; }
-
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -65,7 +64,7 @@ public class InventoryManager : MonoBehaviour
         InventorySelection();
     }
 
-    private void RefreshInventory()
+    public void RefreshInventory()
     {
         //Slot da Poção
         Image potion_icon_image = potion_slot.transform.Find("Icon").GetComponent<Image>();
