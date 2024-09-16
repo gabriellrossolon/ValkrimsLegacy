@@ -5,6 +5,12 @@ using UnityEngine;
 public class AmbientChecker : MonoBehaviour
 {
     public string ambient_type;
+    private GameObject player_object;
+
+    void Start()
+    {
+        player_object = GameObject.FindGameObjectWithTag("Player");
+    }
 
    private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,13 +19,17 @@ public class AmbientChecker : MonoBehaviour
             if(this.ambient_type == "Florest")
             {
                 SoundManager.Instance.player_ambient = "Florest";
+                player_object.GetComponent<EntityStats>().player_ambient = "Florest";
             }   
             else if (this.ambient_type == "Dungeon1")
             {
                 SoundManager.Instance.player_ambient = "Dungeon1";
+                player_object.GetComponent<EntityStats>().player_ambient = "Dungeon1";
             }
 
             SoundManager.Instance.SoundChecker();
+
+            QuestManager.Instance.ReloadQuest();
         }
     }
 }

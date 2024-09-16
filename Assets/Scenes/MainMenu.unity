@@ -540,7 +540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   song_player: {fileID: 79955940}
-  song_to_play: {fileID: 8300000, guid: 40e013c65145bee4e86b886aa7b2a544, type: 3}
+  song_to_play: {fileID: 8300000, guid: 95864baa93c14174d997c006350d8569, type: 3}
 --- !u!1 &326267391
 GameObject:
   m_ObjectHideFlags: 0
@@ -1487,7 +1487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   song_player: {fileID: 79955940}
-  song_to_play: {fileID: 8300000, guid: 40e013c65145bee4e86b886aa7b2a544, type: 3}
+  song_to_play: {fileID: 8300000, guid: 95864baa93c14174d997c006350d8569, type: 3}
 --- !u!1 &1572395349
 GameObject:
   m_ObjectHideFlags: 0
@@ -1876,7 +1876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   song_player: {fileID: 79955940}
-  song_to_play: {fileID: 8300000, guid: 40e013c65145bee4e86b886aa7b2a544, type: 3}
+  song_to_play: {fileID: 8300000, guid: 95864baa93c14174d997c006350d8569, type: 3}
 --- !u!1 &1897671817
 GameObject:
   m_ObjectHideFlags: 0

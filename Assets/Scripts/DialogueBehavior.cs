@@ -21,6 +21,10 @@ public class DialogueBehavior : MonoBehaviour
     [TextArea(3, 10)]
     public List<string> dialogues = new List<string>();
 
+    [Header("Quest Controll")]
+    public bool quester_npc;
+    public string quest_to_active;
+
     void Start()
     {
         button_image = GetComponentInChildren<Image>();
@@ -30,7 +34,6 @@ public class DialogueBehavior : MonoBehaviour
     {
         StartDialogue();
         NextDialogue();
-        //EndDialogue();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -148,6 +151,13 @@ public class DialogueBehavior : MonoBehaviour
                     DialogueManager.Instance.buttons.SetActive(true);
 
                     InventoryManager.Instance.RefreshInventory();
+
+
+                    if (quester_npc)
+                    {
+                        QuestManager.Instance.ActiveQuest(quest_to_active);
+                    }
+                    
                 }
             }
             else

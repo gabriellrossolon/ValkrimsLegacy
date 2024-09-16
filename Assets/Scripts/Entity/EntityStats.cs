@@ -51,6 +51,9 @@ public class EntityStats : MonoBehaviour
     public int min_gold_chance;
     public int max_gold_chance;
 
+    [Header("Player Ambient")]
+    public string player_ambient;
+
     [Header("Identifier (If Necessary)")]
     public string identifier_name;
 
@@ -117,6 +120,16 @@ public class EntityStats : MonoBehaviour
 
                 GameObject gold_drop = Instantiate(DropManager.Instance.gold_pilon, transform.position, Quaternion.identity);
                 gold_drop.gameObject.GetComponent<DropItemBehavior>().gold_to_give = gold_carry;
+
+
+                if(QuestManager.Instance.mushroom_investigation == true)
+                {
+                    if(identifier_name == "Mushroom")
+                    {
+                        QuestManager.Instance.enemy_killed += 1;
+                    }
+                }
+                QuestManager.Instance.ReloadQuest();
 
 
                 DisableEnemyComponents(
@@ -356,7 +369,7 @@ public class EntityStats : MonoBehaviour
 
     //=====//=====//=====//=====//=====//=====//=====//=====--> Experience Control <--=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
-    private void AddExp(float xp_gained)
+    public void AddExp(float xp_gained)
     {
         xp += xp_gained;
         LevelUp();
