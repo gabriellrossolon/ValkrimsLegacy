@@ -48,6 +48,15 @@ public class HudManager : MonoBehaviour
     public Text level_text;
     public Text gold_text;
 
+    [Header("Player Info Panel")]
+    public GameObject player_info_panel;
+    public Text max_hp_text;
+    public Text attack_damage_text;
+    public Text max_stamina_text;
+    public Text max_mana_text;
+    public Text speed_text;
+
+
     void Start()
     {
         player_object = GameObject.FindGameObjectWithTag("Player");
@@ -64,6 +73,17 @@ public class HudManager : MonoBehaviour
         }
 
         ShowPlayerHud();
+
+        if(player_info_panel != null)
+        {
+            PlayerInfoPanel();
+
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                bool isActive = player_info_panel.activeSelf;
+                player_info_panel.SetActive(!isActive);
+            }
+        }
     }
 
     private void ShowPlayerHud()
@@ -119,6 +139,16 @@ public class HudManager : MonoBehaviour
             Time.timeScale = 1;
             pausedgame_hud.SetActive(false);
         }
+    }
+
+    private void PlayerInfoPanel()
+    {
+        max_hp_text.text = player_stats.max_hp.ToString();
+        attack_damage_text.text = player_stats.attack_damage.ToString();
+        max_stamina_text.text = player_stats.max_stamina.ToString();
+        max_mana_text.text = player_stats.max_mana.ToString();
+        float speed_units = player_stats.base_speed / 1000;
+        speed_text.text = speed_units.ToString();
     }
 
     public void QuiteGame()

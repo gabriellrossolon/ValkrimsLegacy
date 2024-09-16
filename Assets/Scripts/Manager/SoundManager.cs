@@ -59,6 +59,10 @@ public class SoundManager : MonoBehaviour
     public AudioSource drop_soundSource;
     public AudioClip goldCollect_soundClip;
 
+    [Header("Level XP Sound")]
+    public AudioSource exp_soundSource;
+    public AudioClip levelUp_soundClip;
+
     [Header("Ambient Location")]
     public string player_ambient;
 

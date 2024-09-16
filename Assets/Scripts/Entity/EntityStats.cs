@@ -121,7 +121,6 @@ public class EntityStats : MonoBehaviour
                 GameObject gold_drop = Instantiate(DropManager.Instance.gold_pilon, transform.position, Quaternion.identity);
                 gold_drop.gameObject.GetComponent<DropItemBehavior>().gold_to_give = gold_carry;
 
-
                 if(QuestManager.Instance.mushroom_investigation == true)
                 {
                     if(identifier_name == "Mushroom")
@@ -129,8 +128,6 @@ public class EntityStats : MonoBehaviour
                         QuestManager.Instance.enemy_killed += 1;
                     }
                 }
-                QuestManager.Instance.ReloadQuest();
-
 
                 DisableEnemyComponents(
                   this.gameObject.GetComponent<MeleeEnemyMove>(),
@@ -168,19 +165,45 @@ public class EntityStats : MonoBehaviour
         Destroy(new_popup, 1);
     }
 
+    private Color originalColor;
+    private Color[] childOriginalColors;
+
     private void RedDamageIndicator()
     {
         SpriteRenderer spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
+        SpriteRenderer[] childSpriteRenderers = this.gameObject.GetComponentsInChildren<SpriteRenderer>();
+
+        childOriginalColors = new Color[childSpriteRenderers.Length];
+        for (int i = 0; i < childSpriteRenderers.Length; i++)
+        {
+            childOriginalColors[i] = childSpriteRenderers[i].color;
+        }
+
         spriteRenderer.color = Color.red;
-        StartCoroutine(ResetColor(spriteRenderer, 0.1f));
+        foreach (SpriteRenderer sr in childSpriteRenderers)
+        {
+            sr.color = Color.red;
+        }
+
+        StartCoroutine(ResetColor(spriteRenderer, childSpriteRenderers, 0.1f));
     }
 
-    private IEnumerator ResetColor(SpriteRenderer spriteRenderer, float delay)
+    private IEnumerator ResetColor(SpriteRenderer spriteRenderer, SpriteRenderer[] childSpriteRenderers, float delay)
     {
         yield return new WaitForSeconds(delay);
-        if(spriteRenderer != null)
+
+        if (spriteRenderer != null)
         {
-            spriteRenderer.color = Color.white;
+            spriteRenderer.color = originalColor;
+
+            for (int i = 0; i < childSpriteRenderers.Length; i++)
+            {
+                if (childSpriteRenderers[i] != null)
+                {
+                    childSpriteRenderers[i].color = childOriginalColors[i];
+                }
+            }
         }
     }
 
@@ -386,6 +409,7 @@ public class EntityStats : MonoBehaviour
 
                 xp_to_up = level * 10f;
                 HudManager.Instance.level_text.text = level.ToString();
+                SoundManager.Instance.exp_soundSource.PlayOneShot(SoundManager.Instance.levelUp_soundClip);
             }
         }
     }
