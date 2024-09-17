@@ -56,6 +56,10 @@ public class HudManager : MonoBehaviour
     public Text max_mana_text;
     public Text speed_text;
 
+    [Header("Map")]
+    public GameObject map;
+    private bool map_opened = false;
+
 
     void Start()
     {
@@ -83,6 +87,11 @@ public class HudManager : MonoBehaviour
                 bool isActive = player_info_panel.activeSelf;
                 player_info_panel.SetActive(!isActive);
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            OpenMap();
         }
     }
 
@@ -149,6 +158,21 @@ public class HudManager : MonoBehaviour
         max_mana_text.text = player_stats.max_mana.ToString();
         float speed_units = player_stats.base_speed / 1000;
         speed_text.text = speed_units.ToString();
+    }
+
+    private void OpenMap()
+    {
+        if (!map_opened)
+        {
+            map.GetComponent<Animator>().SetTrigger("openMap");
+            map_opened = true;
+        }
+        else if (map_opened)
+        {
+            map.GetComponent<Animator>().SetTrigger("closeMap");
+            map_opened = false;
+        }
+       
     }
 
     public void QuiteGame()
