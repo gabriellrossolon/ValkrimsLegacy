@@ -34,6 +34,19 @@ public class DialogueBehavior : MonoBehaviour
     {
         StartDialogue();
         NextDialogue();
+
+        if (this.gameObject.GetComponent<NPCMovement>() != null)
+        {
+            if (dialogue_actived)
+            {
+                this.gameObject.GetComponent<NPCMovement>().speed = 0f;
+            }
+            else if (!dialogue_actived)
+            {
+                this.gameObject.GetComponent<NPCMovement>().speed = 2f;
+            }
+        }
+       
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

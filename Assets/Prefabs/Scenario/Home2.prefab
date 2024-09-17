@@ -98,8 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1c4ddb1d9ebc284cb6e8d4568f09f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transparence_distance: 6
-  detection_distance: 8
+  transparence_distance: 7
+  detection_distance: 9
   max_sort_order: 13
   min_sort_order: 10
 --- !u!61 &5038019406636955960
