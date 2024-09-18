@@ -99,9 +99,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transparence_distance: 7
-  detection_distance: 9
+  detection_distance_above: 8
+  detection_distance_below: 3
   max_sort_order: 13
   min_sort_order: 10
+  detection_distance: 9
 --- !u!61 &5038019406636955960
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -169,6 +169,7 @@ public class DialogueBehavior : MonoBehaviour
                     if (quester_npc)
                     {
                         QuestManager.Instance.ActiveQuest(quest_to_active);
+                        QuestManager.Instance.ShowQuestPanel();
                     }
                     
                 }

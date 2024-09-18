@@ -21,6 +21,7 @@ public class QuestManager : MonoBehaviour
     }
 
     public GameObject quest_panel;
+    private bool opened_quest_panel = false;
 
     [Header("Quests")]
     public bool mushroom_investigation;
@@ -45,14 +46,14 @@ public class QuestManager : MonoBehaviour
     void Update()
     {
         ReloadQuest();
-        if (quest_actived)
-        {
-            quest_panel.SetActive(true);
-        } 
-        else if (!quest_actived)
-        {
-            quest_panel.SetActive(false);
-        }
+        //if (quest_actived)
+        //{
+        //    quest_panel.SetActive(true);
+        //} 
+        //else if (!quest_actived)
+        //{
+        //    quest_panel.SetActive(false);
+        //}
     }
 
     public void ActiveQuest(string quest_to_active)
@@ -123,5 +124,19 @@ public class QuestManager : MonoBehaviour
     {
         player_object.GetComponent<EntityStats>().AddExp(xp_to_give);
         player_object.GetComponent<EntityStats>().AddGold(gold_to_give);
+    }
+
+    public void ShowQuestPanel()
+    {
+        if (!opened_quest_panel)
+        {
+            opened_quest_panel = true;
+            quest_panel.GetComponent<Animator>().SetBool("panelOpen", opened_quest_panel);
+        } else
+        {
+            opened_quest_panel = false;
+            quest_panel.GetComponent<Animator>().SetBool("panelOpen", opened_quest_panel);
+        }
+        
     }
 }

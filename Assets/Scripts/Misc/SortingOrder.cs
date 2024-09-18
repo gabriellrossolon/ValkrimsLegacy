@@ -7,12 +7,19 @@ public class SortingOrder : MonoBehaviour
     //Objetos
     private GameObject player_object;
     private GameObject[] enemy_objects;
+    private GameObject[] npc_objects;
     private SpriteRenderer sprite_renderer;
 
     public float transparence_distance;
-    public float detection_distance = 3f;
+
+    [Header("Between NPC || Enemy X Enviroment")]
+    public float detection_distance_above = 7.0f; // Distância de detecção quando o NPC está acima
+    public float detection_distance_below = 2.0f; // Distância de detecção quando o NPC está abaixo
+
+    [Header("Between Player X Enviroment")]
     public int max_sort_order = 13;
     public int min_sort_order = 10;
+    public float detection_distance = 3f;
 
     private int original_order_layer;
     private bool hasReturnedToOriginalLayer = false;
@@ -21,6 +28,7 @@ public class SortingOrder : MonoBehaviour
     {
         player_object = GameObject.FindWithTag("Player");
         enemy_objects = GameObject.FindGameObjectsWithTag("Enemy");
+        npc_objects = GameObject.FindGameObjectsWithTag("NPC");
         sprite_renderer = GetComponent<SpriteRenderer>();
         original_order_layer = sprite_renderer.sortingOrder;
     }
@@ -29,6 +37,7 @@ public class SortingOrder : MonoBehaviour
     {
         VerifyPositionForPlayer();
         VerifyPositionForEnemy();
+        VerifyPositionForNpc();
     }
 
     private void VerifyPositionForPlayer()
@@ -100,27 +109,66 @@ public class SortingOrder : MonoBehaviour
                 if (enemy != null)
                 {
                     SpriteRenderer enemySpriteRenderer = enemy.GetComponent<SpriteRenderer>();
-                    if (enemySpriteRenderer != null)
+                    if (enemy != null)
                     {
                         float distance_to_enemy = Vector2.Distance(enemy.transform.position, transform.position);
 
-                        if (distance_to_enemy <= detection_distance)
+                        if (enemy.transform.position.y > transform.position.y)
                         {
-                            // Ajusta a camada do inimigo com base na posição do objeto atual
-                            if (enemy.transform.position.y > transform.position.y)
+                            // Enemy está acima do objeto
+                            if (distance_to_enemy <= detection_distance_above)
                             {
-                                enemySpriteRenderer.sortingOrder = 8;
+                                // Ajusta a camada do inimigo com base na posição do objeto atual
+                                enemySpriteRenderer.sortingOrder = 3;
                             }
-                            else
+                        }
+                        else if ((enemy.transform.position.y < transform.position.y))
+                        {
+                            // Enemy está abaixo do objeto
+                            if (distance_to_enemy <= detection_distance_below)
                             {
+                                // Ajusta a camada do inimigo com base na posição do objeto atual
                                 enemySpriteRenderer.sortingOrder = 13;
                             }
                         }
-                        //else
-                        //{
-                        //    // Volta ao valor original se não estiver perto
-                        //    enemySpriteRenderer.sortingOrder = original_order_layer;
-                        //}
+                    }
+                }
+            }
+        }
+    }
+
+    private void VerifyPositionForNpc()
+    {
+        if (!this.gameObject.CompareTag("NPC"))
+        {
+            // Itera sobre todos os inimigos
+            foreach (GameObject npc in npc_objects)
+            {
+                if (npc != null)
+                {
+                    SpriteRenderer npcSpriteRenderer = npc.GetComponent<SpriteRenderer>();
+                    if (npc != null)
+                    {
+                        float distance_to_npc = Vector2.Distance(npc.transform.position, transform.position);
+
+                        if (npc.transform.position.y > transform.position.y)
+                        {
+                            // NPC está acima do objeto
+                            if (distance_to_npc <= detection_distance_above)
+                            {
+                                // Ajusta a camada do inimigo com base na posição do objeto atual
+                                npcSpriteRenderer.sortingOrder = 3;
+                            }
+                        }
+                        else if((npc.transform.position.y < transform.position.y))
+                        {
+                            // NPC está abaixo do objeto
+                            if (distance_to_npc <= detection_distance_below)
+                            {
+                                // Ajusta a camada do inimigo com base na posição do objeto atual
+                                npcSpriteRenderer.sortingOrder = 13;
+                            }
+                        }
                     }
                 }
             }

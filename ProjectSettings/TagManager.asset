@@ -11,6 +11,7 @@ TagManager:
   - CMCam
   - MapPointer
   - GoldDrop
+  - NPC
   layers:
   - Default
   - TransparentFX

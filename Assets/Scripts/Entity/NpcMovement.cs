@@ -14,6 +14,7 @@ public class NPCMovement : MonoBehaviour
     private Animator anim;
 
     private Vector2 previousPosition; // Posição anterior
+    private bool movingForward = true; // Direção do movimento
 
     void Start()
     {
@@ -41,7 +42,7 @@ public class NPCMovement : MonoBehaviour
 
         if (Vector2.Distance(transform.position, targetWaypoint.position) < waypointThreshold)
         {
-            currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+            UpdateWaypointIndex();
             targetWaypoint = waypoints[currentWaypointIndex];
         }
     }
@@ -52,19 +53,36 @@ public class NPCMovement : MonoBehaviour
         rb.velocity = direction * speed;
     }
 
+    void UpdateWaypointIndex()
+    {
+        if (movingForward)
+        {
+            currentWaypointIndex++;
+            if (currentWaypointIndex >= waypoints.Length)
+            {
+                currentWaypointIndex = waypoints.Length - 1; // Fique no último waypoint
+                movingForward = false; // Mude para a direção reversa
+            }
+        }
+        else
+        {
+            currentWaypointIndex--;
+            if (currentWaypointIndex < 0)
+            {
+                currentWaypointIndex = 0; // Fique no primeiro waypoint
+                movingForward = true; // Mude para a direção normal
+            }
+        }
+    }
+
     void VerifyAnim()
     {
-        // Defina um valor pequeno para considerar como "zero"
         float threshold = 0.01f;
-
-        // Verifique se a magnitude da velocidade é maior que o limiar
         bool isMoving = rb.velocity.magnitude >= threshold;
 
-        // Determine a direção predominante com base na velocidade
         Vector2 velocity = rb.velocity;
         Vector2 direction = velocity.normalized;
 
-        // Desative todos os parâmetros primeiro
         anim.SetBool("isMovingUp", false);
         anim.SetBool("isMovingDown", false);
         anim.SetBool("isMovingRight", false);
@@ -72,10 +90,8 @@ public class NPCMovement : MonoBehaviour
 
         if (isMoving)
         {
-            // Defina a direção predominante
             if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
             {
-                // Movimento horizontal predomina
                 if (direction.x > 0)
                 {
                     anim.SetBool("isMovingRight", true);
@@ -87,7 +103,6 @@ public class NPCMovement : MonoBehaviour
             }
             else
             {
-                // Movimento vertical predomina
                 if (direction.y > 0)
                 {
                     anim.SetBool("isMovingUp", true);
@@ -99,7 +114,6 @@ public class NPCMovement : MonoBehaviour
             }
         }
 
-        // Atualize o parâmetro isWalk com base no movimento
         anim.SetBool("isWalk", isMoving);
     }
 }
