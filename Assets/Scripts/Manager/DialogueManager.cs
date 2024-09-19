@@ -24,7 +24,11 @@ public class DialogueManager : MonoBehaviour
     public Image char_image;
     public Text char_name;
     public Text dialogue_text;
+    public GameObject dialogue_option_one;
+    public GameObject dialogue_option_two;
+
 
     public GameObject hotbar;
     public GameObject buttons;
+
 }

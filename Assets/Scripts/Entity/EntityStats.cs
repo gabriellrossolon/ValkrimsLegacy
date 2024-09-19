@@ -410,8 +410,16 @@ public class EntityStats : MonoBehaviour
                 xp_to_up = level * 10f;
                 HudManager.Instance.level_text.text = level.ToString();
                 SoundManager.Instance.exp_soundSource.PlayOneShot(SoundManager.Instance.levelUp_soundClip);
+                ShowLevelUpInCanvas();
             }
         }
+    }
+
+    private void ShowLevelUpInCanvas()
+    {
+        GameObject new_popup = Instantiate(HudManager.Instance.levelUp_popup, this.gameObject.transform.position, Quaternion.identity);
+        new_popup.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 2f), ForceMode2D.Impulse);
+        Destroy(new_popup, 1);
     }
 
     private void EnemyLevelBuff()

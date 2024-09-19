@@ -25,6 +25,9 @@ public class DialogueBehavior : MonoBehaviour
     public bool quester_npc;
     public string quest_to_active;
 
+    [Header("Merchant Controll")]
+    public bool merchant_npc;
+
     void Start()
     {
         button_image = GetComponentInChildren<Image>();
@@ -87,7 +90,10 @@ public class DialogueBehavior : MonoBehaviour
             DialogueManager.Instance.hotbar.SetActive(true);
             DialogueManager.Instance.buttons.SetActive(true);
 
-            if(InventoryManager.Instance.weapon_in_hands == InventoryManager.Instance.weapon_sword)
+            DialogueManager.Instance.dialogue_option_one.SetActive(false);
+            DialogueManager.Instance.dialogue_option_two.SetActive(false);
+
+            if (InventoryManager.Instance.weapon_in_hands == InventoryManager.Instance.weapon_sword)
             {
                 collision.GetComponent<PlayerMeleeAttack>().enabled = true;
             } 
@@ -155,6 +161,19 @@ public class DialogueBehavior : MonoBehaviour
                     }
                     dialogueCoroutine = StartCoroutine(ShowDialogue());
                 }
+                else if (merchant_npc == true)
+                {
+                    currentDialogueIndex = 0;
+                    GameObject button_one = DialogueManager.Instance.dialogue_option_one;
+                    button_one.GetComponentInChildren<Text>().text = "Shop";
+                    button_one.GetComponent<Button>().onClick.AddListener(OpenShop);
+                    button_one.SetActive(true);
+
+                    GameObject button_two = DialogueManager.Instance.dialogue_option_two;
+                    button_two.GetComponentInChildren<Text>().text = "Exit";
+                    button_two.GetComponent<Button>().onClick.AddListener(EndDialogue);
+                    button_two.SetActive(true);
+                }
                 else
                 {
                     DialogueManager.Instance.dialogue_box.SetActive(false);
@@ -185,5 +204,20 @@ public class DialogueBehavior : MonoBehaviour
         }
     }
 
+    private void EndDialogue()
+    {
+        DialogueManager.Instance.dialogue_box.SetActive(false);
+        dialogue_actived = false;
+
+        DialogueManager.Instance.hotbar.SetActive(true);
+        DialogueManager.Instance.buttons.SetActive(true);
+
+        InventoryManager.Instance.RefreshInventory();
+    }
+
+    private void OpenShop()
+    {
+        Debug.Log("Oppened Shop");
+    }
    
 }
