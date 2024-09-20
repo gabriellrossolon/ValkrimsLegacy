@@ -12,6 +12,7 @@ TagManager:
   - MapPointer
   - GoldDrop
   - NPC
+  - ShopItem
   layers:
   - Default
   - TransparentFX

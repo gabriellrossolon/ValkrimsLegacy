@@ -27,10 +27,14 @@ public class DialogueBehavior : MonoBehaviour
 
     [Header("Merchant Controll")]
     public bool merchant_npc;
+    public List<Weapon> weapons_sold;
+    private List<Weapon> selectedWeapons = new List<Weapon>();
 
     void Start()
     {
         button_image = GetComponentInChildren<Image>();
+
+        SortItensForSell();
     }
 
     private void Update()
@@ -92,6 +96,8 @@ public class DialogueBehavior : MonoBehaviour
 
             DialogueManager.Instance.dialogue_option_one.SetActive(false);
             DialogueManager.Instance.dialogue_option_two.SetActive(false);
+
+            DialogueManager.Instance.CloseShop();
 
             if (InventoryManager.Instance.weapon_in_hands == InventoryManager.Instance.weapon_sword)
             {
@@ -166,11 +172,16 @@ public class DialogueBehavior : MonoBehaviour
                     currentDialogueIndex = 0;
                     GameObject button_one = DialogueManager.Instance.dialogue_option_one;
                     button_one.GetComponentInChildren<Text>().text = "Shop";
+
+                    button_one.GetComponent<Button>().onClick.RemoveAllListeners();
                     button_one.GetComponent<Button>().onClick.AddListener(OpenShop);
                     button_one.SetActive(true);
 
+
                     GameObject button_two = DialogueManager.Instance.dialogue_option_two;
                     button_two.GetComponentInChildren<Text>().text = "Exit";
+
+                    button_two.GetComponent<Button>().onClick.RemoveAllListeners();
                     button_two.GetComponent<Button>().onClick.AddListener(EndDialogue);
                     button_two.SetActive(true);
                 }
@@ -215,9 +226,39 @@ public class DialogueBehavior : MonoBehaviour
         InventoryManager.Instance.RefreshInventory();
     }
 
-    private void OpenShop()
+    ////////////PARTE DE SHOP///////////
+
+    public void OpenShop()
     {
-        Debug.Log("Oppened Shop");
+        DialogueManager.Instance.shop_panel.SetActive(true);
+        CreateShopItem();
     }
-   
+
+    private void SortItensForSell() //Sorteia os Itens que o NPC ira Vender quando o jogo Starta
+    {
+        int maxItems = Mathf.Min(3, weapons_sold.Count);
+        List<int> chosenIndices = new List<int>();
+
+        for (int i = 0; i < maxItems; i++)
+        {
+            int randomIndex;
+            do
+            {
+                randomIndex = Random.Range(0, weapons_sold.Count);
+            }
+            while (chosenIndices.Contains(randomIndex));
+
+            chosenIndices.Add(randomIndex);
+            selectedWeapons.Add(weapons_sold[randomIndex]); // Armazena os itens sorteados
+        }
+    }
+
+    public void CreateShopItem() //Mostra os Itens pra Venda sempre que abrir a loja do NPC (Itens fixos, mas sorteados aleatoriamente no game Start
+    {
+        foreach (var weapon in selectedWeapons)
+        {
+            GameObject shop_item = Instantiate(DialogueManager.Instance.shop_item, DialogueManager.Instance.shop_item_holder.transform);
+            shop_item.GetComponent<ShopItemBehavior>().w_ = weapon;
+        }
+    }
 }

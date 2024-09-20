@@ -5,6 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Weapon")]
 public class Weapon : ScriptableObject
 {
+    [Header("Weapon Info")]
+    public string weapon_name;
+    public string weapon_atk_speed_type;
+    public string weapon_range_type;
+    public float weapon_gold_value;
+
     [Header("Basic Status")]
     public float weapon_damage;
     public float weapon_attack_speed;

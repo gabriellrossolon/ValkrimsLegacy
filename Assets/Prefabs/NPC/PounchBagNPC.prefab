@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7317565358553329167}
   - component: {fileID: 8679577194252638914}
   m_Layer: 0
-  m_Name: Dummy
+  m_Name: PounchBagNPC
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

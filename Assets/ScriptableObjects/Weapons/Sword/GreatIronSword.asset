@@ -10,10 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf3723194584c0943b722616302b0f0a, type: 3}
-  m_Name: MetalSword
+  m_Name: GreatIronSword
   m_EditorClassIdentifier: 
-  weapon_damage: 3
-  weapon_attack_speed: 1.5
+  weapon_name: Great Iron Sword
+  weapon_atk_speed_type: Slow
+  weapon_range_type: Melee
+  weapon_gold_value: 16
+  weapon_damage: 5
+  weapon_attack_speed: 3
   weapon_icon: {fileID: 1141525709, guid: 977690a507cad5a43bddf92644b2d31a, type: 3}
   sword: 1
   staff: 0

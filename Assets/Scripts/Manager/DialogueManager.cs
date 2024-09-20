@@ -27,8 +27,21 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialogue_option_one;
     public GameObject dialogue_option_two;
 
-
     public GameObject hotbar;
     public GameObject buttons;
 
+    public GameObject shop_panel;
+    public GameObject shop_item_holder;
+    public GameObject shop_item;
+
+    public void CloseShop()
+    {
+        GameObject[] shopItems = GameObject.FindGameObjectsWithTag("ShopItem");
+        foreach (GameObject shopItem in shopItems)
+        {
+            Destroy(shopItem);
+        }
+
+        shop_panel.SetActive(false);
+    }
 }

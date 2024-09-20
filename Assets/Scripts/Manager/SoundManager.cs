@@ -63,6 +63,11 @@ public class SoundManager : MonoBehaviour
     public AudioSource exp_soundSource;
     public AudioClip levelUp_soundClip;
 
+    [Header("Shop Sound Sound")]
+    public AudioSource shop_soundSource;
+    public AudioClip buy_soundClip;
+    public AudioClip denied_buy_soundClip;
+
     [Header("Ambient Location")]
     public string player_ambient;
 

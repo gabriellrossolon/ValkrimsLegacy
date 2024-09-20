@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf3723194584c0943b722616302b0f0a, type: 3}
   m_Name: WoodemBow
   m_EditorClassIdentifier: 
-  weapon_damage: 2
+  weapon_name: Wood Bow
+  weapon_atk_speed_type: Fast
+  weapon_range_type: Ranged
+  weapon_gold_value: 7
+  weapon_damage: 3
   weapon_attack_speed: 0.5
   weapon_icon: {fileID: 618710233, guid: 3c4e8fc330808c047a0e53a17d11f04c, type: 3}
   sword: 0
