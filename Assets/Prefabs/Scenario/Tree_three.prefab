@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1397105748403710167}
   - component: {fileID: 1127914323797310363}
   - component: {fileID: 8128312923366706071}
+  - component: {fileID: -8132918841334756684}
+  - component: {fileID: 3888230325383704287}
   m_Layer: 0
   m_Name: Tree_three
   m_TagString: Untagged
@@ -149,3 +151,73 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.47, y: 0.48}
   m_EdgeRadius: 0
+--- !u!114 &-8132918841334756684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3637132557298785046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2285c4410efb5df4b8bfc8f5b9fe87b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3888230325383704287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3637132557298785046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.6817579, y: -0.14391422, z: 0}
+  - {x: -0.47105503, y: 0.108502865, z: -0.00000007264316}
+  - {x: -0.5448854, y: 0.2510023, z: -0.00000007264316}
+  - {x: -0.85482883, y: 0.37646413, z: -0.00000007264316}
+  - {x: -1.1265497, y: 0.6625755, z: -0.00000007264316}
+  - {x: -1.2841635, y: 0.97892547, z: -0.00000007264316}
+  - {x: -1.1069102, y: 1.1644762, z: -0.00000007264316}
+  - {x: -1.436192, y: 1.2326035, z: -0.00000007264316}
+  - {x: -1.4359317, y: 1.7225895, z: -0.00000007264316}
+  - {x: -1.3320551, y: 2.3006563, z: -0.00000007264316}
+  - {x: -1.0047188, y: 2.492959, z: -0.00000007264316}
+  - {x: -0.9312749, y: 2.77597, z: -0.00000007264316}
+  - {x: -0.9267807, y: 3.0213838, z: -0.00000007264316}
+  - {x: -0.3649645, y: 3.3001485, z: 0}
+  - {x: -0.016872644, y: 3.3331957, z: -0.00000007264316}
+  - {x: 0.36698532, y: 3.3098183, z: 0}
+  - {x: 0.7438824, y: 3.0606866, z: -0.00000007264316}
+  - {x: 0.9255552, y: 2.96985, z: -0.00000007264316}
+  - {x: 0.9709734, y: 2.7086954, z: -0.00000007264316}
+  - {x: 1.033388, y: 2.4405088, z: -0.00000007264316}
+  - {x: 1.1753553, y: 2.4702497, z: -0.00000007264316}
+  - {x: 1.2889009, y: 2.288577, z: -0.00000007264316}
+  - {x: 1.2889009, y: 1.9479403, z: -0.00000007264316}
+  - {x: 1.3865026, y: 1.8529992, z: -0.00000007264316}
+  - {x: 1.4024464, y: 1.5732403, z: -0.00000007264316}
+  - {x: 1.3797373, y: 1.2780218, z: -0.00000007264316}
+  - {x: 1.3166898, y: 0.73845935, z: -0.00000007264316}
+  - {x: 1.0145024, y: 0.36870766, z: -0.00000007264316}
+  - {x: 0.48353958, y: 0.3335197, z: -0.00000007264316}
+  - {x: 0.48272753, y: 0.06308484, z: -0.00000007264316}
+  - {x: 0.7211733, y: 0.06308484, z: -0.00000007264316}
+  - {x: 0.77474856, y: -0.24076223, z: 0}
+  m_ShapePathHash: 197139796
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 366750
+  m_LocalBounds:
+    m_Center: {x: -0.016872883, y: 1.5462167, z: 0}
+    m_Extent: {x: 1.4193192, y: 1.786979, z: 0}

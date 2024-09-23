@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2089959531016765283}
   - component: {fileID: 7672181828240382108}
   - component: {fileID: 6473185569334405764}
+  - component: {fileID: 4050148861320147282}
   m_Layer: 0
   m_Name: Buttlerfly_one
   m_TagString: Untagged
@@ -126,6 +127,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4050148861320147282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821914121455213705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2285c4410efb5df4b8bfc8f5b9fe87b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4288163304301350746
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +186,7 @@ MonoBehaviour:
   m_ComponentVersion: 1
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.167
+  m_FalloffIntensity: 0.37
   m_Color: {r: 0.9960785, g: 0.9960785, b: 0.1254902, a: 1}
   m_Intensity: 0.5
   m_LightVolumeIntensity: 1
@@ -187,8 +200,8 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowIntensityEnabled: 0
-  m_ShadowIntensity: 0.75
+  m_ShadowIntensityEnabled: 1
+  m_ShadowIntensity: 0.5
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
@@ -196,8 +209,8 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 1
+  m_PointLightInnerRadius: 0.79
+  m_PointLightOuterRadius: 2.9110754
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1

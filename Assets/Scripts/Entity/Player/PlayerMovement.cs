@@ -101,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (is_running)
         {
-            SoundManager.Instance.step_soundSource.pitch = 2f;
+            SoundManager.Instance.step_soundSource.pitch = 1.5f;
 
             entity_stats.actual_speed = entity_stats.max_speed;
             animator.SetBool("isRun", true);

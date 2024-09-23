@@ -13,6 +13,7 @@ TagManager:
   - GoldDrop
   - NPC
   - ShopItem
+  - CullingObject
   layers:
   - Default
   - TransparentFX

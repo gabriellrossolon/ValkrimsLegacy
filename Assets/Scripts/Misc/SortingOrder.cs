@@ -166,7 +166,7 @@ public class SortingOrder : MonoBehaviour
                             if (distance_to_npc <= detection_distance_below)
                             {
                                 // Ajusta a camada do inimigo com base na posição do objeto atual
-                                npcSpriteRenderer.sortingOrder = 13;
+                                npcSpriteRenderer.sortingOrder = 11;
                             }
                         }
                     }

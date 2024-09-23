@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8165148906543073655}
   - component: {fileID: 948730864309588880}
   - component: {fileID: 4089356833054676673}
+  - component: {fileID: 8783410663032753022}
   m_Layer: 0
   m_Name: TreeLog_one
   m_TagString: Untagged
@@ -149,3 +150,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.03, y: 0.75}
   m_EdgeRadius: 0
+--- !u!114 &8783410663032753022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5359450862700716724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2285c4410efb5df4b8bfc8f5b9fe87b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

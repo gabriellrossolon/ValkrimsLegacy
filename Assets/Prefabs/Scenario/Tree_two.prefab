@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 7420399078447659310}
   - component: {fileID: 4428652927964617281}
   - component: {fileID: 1042090573709061234}
+  - component: {fileID: 2577081510038288845}
+  - component: {fileID: 9116697762769339196}
   m_Layer: 0
   m_Name: Tree_two
   m_TagString: Untagged
@@ -149,3 +151,51 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.54, y: 0.71}
   m_EdgeRadius: 0
+--- !u!114 &2577081510038288845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7972241837561965816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2285c4410efb5df4b8bfc8f5b9fe87b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9116697762769339196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7972241837561965816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.66920364, y: -0.29422808, z: 0}
+  - {x: -0.31230766, y: 0.08269417, z: -0.00000007264316}
+  - {x: -0.18187156, y: 0.7549417, z: -0.00000007264316}
+  - {x: -0.44846565, y: 1.6685578, z: 0}
+  - {x: 0.9300759, y: 1.688625, z: 0}
+  - {x: 0.4703089, y: 0.8753443, z: -0.00000007264316}
+  - {x: 0.39004052, y: 0.6345391, z: -0.00000007264316}
+  - {x: 0.44020832, y: 0.29339856, z: -0.00000007264316}
+  - {x: 0.7612817, y: -0.43905032, z: -0.00000007264316}
+  - {x: 0.09729147, y: -0.49489903, z: 0}
+  m_ShapePathHash: 100797421
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -113654
+  m_LocalBounds:
+    m_Center: {x: 0.13043612, y: 0.59686303, z: 0}
+    m_Extent: {x: 0.79963976, y: 1.0917621, z: 0}
