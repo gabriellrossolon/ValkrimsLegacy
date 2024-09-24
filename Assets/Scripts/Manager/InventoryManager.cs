@@ -189,6 +189,8 @@ public class InventoryManager : MonoBehaviour
                 player_ranged_attack.enabled = false;
                 player_ranged_attack.using_staff = false; player_ranged_attack.using_bow = false;
                 player_object.GetComponentInChildren<SwordBehavior>().impact_fx = selected_weapon.weapon_impact_anim;
+
+                weapon_sword.GetComponent<SwordBehavior>().great_sword = selected_weapon.great_sword;
             }
             else if (selected_weapon.staff == true)
             {

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7950284481768909835}
   - component: {fileID: 964662407457678315}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpotLight 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 1497282152536663711}
   - component: {fileID: 7169388621296276030}
   - component: {fileID: 4861407480750860875}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LightPost
   m_TagString: Untagged
   m_Icon: {fileID: 0}

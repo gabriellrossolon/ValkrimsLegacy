@@ -9,13 +9,13 @@ public class MapBehavior : MonoBehaviour
 
     void Start()
     {
-        
+        map_pointers = GameObject.FindGameObjectsWithTag("MapPointer");
+        MapPointerControll();
     }
 
     void Update()
     {
-        map_pointers = GameObject.FindGameObjectsWithTag("MapPointer");
-        MapPointerControll();
+       
     }
 
     void MapPointerControll()

@@ -17,7 +17,7 @@ MonoBehaviour:
   weapon_range_type: Melee
   weapon_gold_value: 3
   weapon_damage: 2
-  weapon_attack_speed: 1.5
+  weapon_attack_speed: 1
   weapon_icon: {fileID: 509996094, guid: 9f8ce43324babbb4085ac2dfab8a9798, type: 3}
   sword: 1
   staff: 0
@@ -28,4 +28,5 @@ MonoBehaviour:
   weapon_impact_anim: {fileID: 3561149551515574134, guid: 9f0906483d99d2a4ea2165171de9296f, type: 3}
   ranged_projectile: {fileID: 0}
   projectile_speed: 0
+  great_sword: 0
   impact_soundClip: {fileID: 8300000, guid: 0979bdf0ea624ec4eaf0aab410e33df6, type: 3}

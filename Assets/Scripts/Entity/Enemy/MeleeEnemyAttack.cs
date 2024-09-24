@@ -31,8 +31,8 @@ public class MeleeEnemyAttack : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && can_attack == true)
         {
-            StartCoroutine(DoDamage(collision, 0.2f));
             StartCoroutine(AttackAnimation(collision));
+            StartCoroutine(DoDamage(collision, 0.3f));
             can_attack = false;
             cooldown = 0;
 

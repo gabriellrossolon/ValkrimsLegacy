@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833638751738763786}
   - component: {fileID: 5145661315411897467}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpotLight 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 8294622914945267255}
   - component: {fileID: 7534125228011584453}
   - component: {fileID: -39209089503895651}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CampFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}

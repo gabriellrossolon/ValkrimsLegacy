@@ -146,7 +146,7 @@ public class MeleeEnemyMove : MonoBehaviour
 
     private void FlipSprite(Vector3 target)
     {
-        if (entity_stats.identifier_name == "Skeleton")
+        if (entity_stats.identifier_name == "Skeleton" || entity_stats.identifier_name == "Brain" || entity_stats.identifier_name == "Golem")
         {
             GetComponent<SpriteRenderer>().flipX = transform.position.x > target.x;
         }

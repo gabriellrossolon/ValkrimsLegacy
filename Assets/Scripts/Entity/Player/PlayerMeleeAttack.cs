@@ -15,23 +15,26 @@ public class PlayerMeleeAttack : MonoBehaviour
 
     private bool can_attack = true;
     private float cooldown;
+    private int attack_step;
+    private Coroutine basicAttackCoroutine;
 
     [Header("Strong Attack Refs")]
     public GameObject strong_attack_charg_fx;
     private Coroutine strongAttackCoroutine;
     private bool can_strong_attack = true;
     private float strongattack_cooldown;
-
     private float pressStartTime = 0f;
     private bool isPressing = false;
     private bool isStrongAttackQueued = false;
 
+    private float dashattack_cooldown;
+    private bool can_dash_attack = true;
+
     private bool hasShownStaminaWarning = false;
     private bool hasShownCooldownWarning = false;
 
-    private int attack_step;
-    private Coroutine basicAttackCoroutine;
-
+    private float original_attack_damage;
+    private float original_knockback_force;
     void Start()
     {
         entity_stats = GetComponent<EntityStats>();
@@ -42,6 +45,8 @@ public class PlayerMeleeAttack : MonoBehaviour
         weapon_animator = player_weapon.gameObject.GetComponent<Animator>();
 
         attack_step = 1;
+
+        KeepAttackValues();
     }
 
     void Update()
@@ -53,7 +58,7 @@ public class PlayerMeleeAttack : MonoBehaviour
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
     private void AllAttacks()
     {
-        BasicAttack(3f);
+        BasicAttack(1f);
 
         if (SkillManager.Instance.can_use_powerCutter) { PowerCutter(15f); }
 
@@ -64,6 +69,7 @@ public class PlayerMeleeAttack : MonoBehaviour
     {
         AttackCooldown();
         StrongAttackCooldown();
+        DashAttackCooldown();
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
@@ -78,65 +84,109 @@ public class PlayerMeleeAttack : MonoBehaviour
             switch (attack_step)
             {
                 case 1:
-                    attack_step++;
-                    can_attack = false;
-                    cooldown = entity_stats.attack_speed;
-                    if (weap_rot_controller.weaponFacingRight == true)
-                    {
-                        weapon_animator.SetTrigger("isAttackR");
-                    }
-                    else
-                    {
-                        weapon_animator.SetTrigger("isAttackL");
-                    }
+                    attack_step = 2;
+                    
                     
                     SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_one);
                     Invoke("InvokeCollider", 0.1f);
-                    StartResetCoroutine();
+
+
+                    //Se for Great Sword:
+                    if(sword_behavior.great_sword == true)
+                    {
+                        if (weap_rot_controller.weaponFacingRight == true)
+                        {
+                            weapon_animator.SetTrigger("isGreatAttackR");
+                        }
+                        else
+                        {
+                            weapon_animator.SetTrigger("isGreatAttackL");
+                        }
+                        cooldown = entity_stats.attack_speed - 0.5f;
+                    }
+                    else  //Se for Normal Sword:
+                    {
+                        if (weap_rot_controller.weaponFacingRight == true)
+                        {
+                            weapon_animator.SetTrigger("isAttackR");
+                        }
+                        else
+                        {
+                            weapon_animator.SetTrigger("isAttackL");
+                        }
+                        cooldown = entity_stats.attack_speed;
+                    }
+                    
                     break;
 
                 case 2:
-                    attack_step++;
-                    can_attack = false;
-                    cooldown = entity_stats.attack_speed;
-                    if (weap_rot_controller.weaponFacingRight == true)
-                    {
-                        weapon_animator.SetTrigger("isAttackR2");
-                    }
-                    else
-                    {
-                        weapon_animator.SetTrigger("isAttackL2");
-                    }
+                    attack_step = 3;
                    
-                    StopCoroutine(ResetSequence());
-                    StartCoroutine(ResetSequence());
                     SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_two);
                     Invoke("InvokeCollider", 0.1f);
-                    StartResetCoroutine();
+
+                    //Se for Great Sword:
+                    if (sword_behavior.great_sword == true)
+                    {
+                        if (weap_rot_controller.weaponFacingRight == true)
+                        {
+                            weapon_animator.SetTrigger("isGreatAttackR2");
+                        }
+                        else
+                        {
+                            weapon_animator.SetTrigger("isGreatAttackL2");
+                        }
+                        cooldown = 0;
+                        attack_step = 1;
+                    }
+                    else //Se for Normal Sword:
+                    {
+                        if (weap_rot_controller.weaponFacingRight == true)
+                        {
+                            weapon_animator.SetTrigger("isAttackR2");
+                        }
+                        else
+                        {
+                            weapon_animator.SetTrigger("isAttackL2");
+                        }
+
+                        cooldown = entity_stats.attack_speed;
+                    }
+
                     break;
 
                 case 3:
                     attack_step = 1;
-                    cooldown = 0;
-                    can_attack = false;
-                    if (weap_rot_controller.weaponFacingRight == true)
-                    {
-                        weapon_animator.SetTrigger("isAttackR3");
-                    }
-                    else
-                    {
-                        weapon_animator.SetTrigger("isAttackL3");
-                    }
                     
-                    StopCoroutine(ResetSequence());
                     SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_one);
                     Invoke("InvokeCollider", 0.1f);
-                    StopCoroutineIfNeeded();
+
+                    //Se for Great Sword:
+                    if (sword_behavior.great_sword == true)
+                    {
+                        
+                    }
+                    else //Se for Normal Sword:
+                    {
+                        if (weap_rot_controller.weaponFacingRight == true)
+                        {
+                            weapon_animator.SetTrigger("isAttackR3");
+                        }
+                        else
+                        {
+                            weapon_animator.SetTrigger("isAttackL3");
+                        }
+                    }
+
+                    cooldown = 0;
+
                     break;
 
                 default:
                     break;
             }
+            can_attack = false;
+            //cooldown = 0;
         }
     }
     private void InvokeCollider()
@@ -234,10 +284,10 @@ public class PlayerMeleeAttack : MonoBehaviour
     private void ExecuteStrongAttack()
     {
         SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_two);
-        float original_attack_damage = entity_stats.attack_damage;
-        float original_knockback_force = entity_stats.knockback_force;
+        //float original_attack_damage = entity_stats.attack_damage;
+        //float original_knockback_force = entity_stats.knockback_force;
 
-        ChangeStrongAttackValues(original_attack_damage, original_knockback_force);
+        ChangeStrongAttackValues();
 
         EnabledSwordCollider(0.1f);
         player_weapon.gameObject.GetComponent<Animator>().SetBool("isStrongAttackCharg", false);
@@ -254,15 +304,15 @@ public class PlayerMeleeAttack : MonoBehaviour
         strongattack_cooldown = 0;
     }
 
-    private void ChangeStrongAttackValues(float original_attack_damage, float original_knockback_force)
+    private void ChangeStrongAttackValues()
     {
         entity_stats.attack_damage *= SkillManager.Instance.powerCutter_damageMultiplier;
         entity_stats.knockback_force = 15;
 
-        StartCoroutine(RestoreStrongAttackValues(original_attack_damage, original_knockback_force));
+        StartCoroutine(RestoreStrongAttackValues());
     }
 
-    private IEnumerator RestoreStrongAttackValues(float original_attack_damage, float original_knockback_force)
+    private IEnumerator RestoreStrongAttackValues()
     {
         yield return new WaitForSeconds(0.5f);
         entity_stats.attack_damage = original_attack_damage;
@@ -294,14 +344,11 @@ public class PlayerMeleeAttack : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && player_movement.is_dashing == true && !isPressing)
         {
-            if (entity_stats.stamina >= stamina_cost)
-            {
+            if (entity_stats.stamina >= stamina_cost && can_dash_attack)
+            {   
                 SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_three);
 
-                float original_attack_damage = entity_stats.attack_damage;
-                float original_knockback_force = entity_stats.knockback_force;
-
-                StartCoroutine(ChangeDashAttackValues(original_attack_damage, original_knockback_force));
+                StartCoroutine(ChangeDashAttackValues());
 
                 EnabledSwordCollider(0.3f);
 
@@ -320,17 +367,23 @@ public class PlayerMeleeAttack : MonoBehaviour
                 }
 
                 entity_stats.RemoveStamina(stamina_cost);
+                can_dash_attack = false;
+                dashattack_cooldown = 0;
             }
-            else
+            else if(entity_stats.stamina < stamina_cost)
             {
                 GameObject stamina_warn_instance = Instantiate(HudManager.Instance.stamina_warn, transform.position, Quaternion.identity);
                 Destroy(stamina_warn_instance, 1f);
+            }   
+            else if (!can_dash_attack)
+            {
+                GameObject cooldown_warn_instance = Instantiate(HudManager.Instance.cooldown_warn, transform.position, Quaternion.identity);
+                Destroy(cooldown_warn_instance, 1f);
             }
-            
         }
     }
 
-    private IEnumerator ChangeDashAttackValues(float original_attack_damage, float original_knockback_force)
+    private IEnumerator ChangeDashAttackValues()
     {
         yield return new WaitForSeconds(0.1f);
         entity_stats.attack_damage *= SkillManager.Instance.bladeDance_damageMultiplier;
@@ -368,6 +421,19 @@ public class PlayerMeleeAttack : MonoBehaviour
         }
     }
 
+    private void DashAttackCooldown()
+    {
+        if (dashattack_cooldown >= entity_stats.dash_attack_cooldown && can_dash_attack == false)
+        {
+            can_dash_attack = true;
+            dashattack_cooldown = 0;
+        }
+        else
+        {
+            dashattack_cooldown += Time.deltaTime;
+        }
+    }
+
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
     private void EnabledSwordCollider(float collision_actived_time)
@@ -382,4 +448,10 @@ public class PlayerMeleeAttack : MonoBehaviour
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+
+    private void KeepAttackValues()
+    {
+        original_attack_damage = entity_stats.attack_damage;
+        original_knockback_force = entity_stats.knockback_force;
+    }
 }

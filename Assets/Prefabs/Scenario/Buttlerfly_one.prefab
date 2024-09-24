@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7672181828240382108}
   - component: {fileID: 6473185569334405764}
   - component: {fileID: 4050148861320147282}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Buttlerfly_one
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5253146978469176906}
   - component: {fileID: 1968602981806221396}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

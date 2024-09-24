@@ -14,6 +14,7 @@ public class EntityStats : MonoBehaviour
     [Header("Attack Stats")]
     public float attack_damage;
     public float strong_attack_cooldown;
+    public float dash_attack_cooldown;
     public float attack_speed;
     public float knockback_force;
 
@@ -181,9 +182,13 @@ public class EntityStats : MonoBehaviour
         }
 
         spriteRenderer.color = Color.red;
-        foreach (SpriteRenderer sr in childSpriteRenderers)
+
+        if (this.gameObject.CompareTag("Player"))
         {
-            sr.color = Color.red;
+            foreach (SpriteRenderer sr in childSpriteRenderers)
+            {
+                sr.color = Color.red;
+            }
         }
 
         StartCoroutine(ResetColor(spriteRenderer, childSpriteRenderers, 0.1f));

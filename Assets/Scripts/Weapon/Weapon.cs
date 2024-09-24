@@ -35,6 +35,9 @@ public class Weapon : ScriptableObject
     public GameObject ranged_projectile;
     public float projectile_speed;
 
+    [Header("Only if Melee")]
+    public bool great_sword;
+
     [Header("Impact Sound")]
     public AudioClip impact_soundClip;
 
