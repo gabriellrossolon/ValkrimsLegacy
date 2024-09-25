@@ -27,6 +27,9 @@ public class PlayerMovement : MonoBehaviour
     private float last_input_x;
     private float last_input_y;
 
+    private float mouseX;
+    private float mouseY;
+
     void Start()
     {
         rigid_body = GetComponent<Rigidbody2D>();
@@ -87,10 +90,45 @@ public class PlayerMovement : MonoBehaviour
 
     private void Animate()
     {
-        //animator.SetFloat("MovementX", movement_input.x);
-        //animator.SetFloat("MovementY", movement_input.y);
-        animator.SetFloat("MovementX", last_input_x);
-        animator.SetFloat("MovementY", last_input_y);
+        ////////LÓGICA PARA O PLAYER OLHAR PARA A POSIÇÃO QUE ESTA SE MOVENDO
+        if (is_moving) 
+        {
+            animator.SetFloat("MovementX", last_input_x);
+            animator.SetFloat("MovementY", last_input_y);
+        }
+        else
+        {
+            ////////LÓGICA PRA O PLAYER OLHAR PARA A POSIÇÃO DO MOUSE
+            Vector3 mousePosition = Input.mousePosition;
+
+            // Normaliza a posição do mouse em relação ao centro da tela
+            float screenWidth = Screen.width;
+            float screenHeight = Screen.height;
+
+            float normalizedX = (mousePosition.x - (screenWidth / 2)) / (screenWidth / 2);
+            float normalizedY = (mousePosition.y - (screenHeight / 2)) / (screenHeight / 2);
+
+            // Inicializa MovementX e MovementY
+            float movementX = 0;
+            float movementY = 0;
+
+            // Lógica para determinar a direção
+            if (Mathf.Abs(normalizedX) > Mathf.Abs(normalizedY)) // Se X é maior que Y
+            {
+                movementX = normalizedX > 0 ? 1 : -1; // 1 para direita, -1 para esquerda
+                movementY = 0; // Y é 0
+            }
+            else if (Mathf.Abs(normalizedY) > Mathf.Abs(normalizedX)) // Se Y é maior que X
+            {
+                movementY = normalizedY > 0 ? 1 : -1; // 1 para cima, -1 para baixo
+                movementX = 0; // X é 0
+            }
+
+            // Atualiza os parâmetros do animator
+            animator.SetFloat("MovementX", movementX);
+            animator.SetFloat("MovementY", movementY);
+        }
+       
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
