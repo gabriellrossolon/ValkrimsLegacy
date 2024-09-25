@@ -90,6 +90,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Animate()
     {
+        animator.SetFloat("MovementX", last_input_x);
+        animator.SetFloat("MovementY", last_input_y);
         ////////LÓGICA PARA O PLAYER OLHAR PARA A POSIÇÃO QUE ESTA SE MOVENDO
         if (is_moving) 
         {
@@ -101,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
             ////////LÓGICA PRA O PLAYER OLHAR PARA A POSIÇÃO DO MOUSE
             Vector3 mousePosition = Input.mousePosition;
 
-            // Normaliza a posição do mouse em relação ao centro da tela
+            // Normaliza a posição do mouse em relação ao centro da tela 
             float screenWidth = Screen.width;
             float screenHeight = Screen.height;
 

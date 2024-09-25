@@ -31,7 +31,7 @@ public class TeleporterPad : MonoBehaviour
     private IEnumerator TeleportController(Collider2D collision, Vector3 destiny_location, int camSize)
     {
         yield return new WaitForSeconds(1f);
-        ChangeCamSize(camSize);
+        //ChangeCamSize(camSize);
         collision.transform.position = destiny_location;
     }
 
