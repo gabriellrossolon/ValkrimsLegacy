@@ -121,7 +121,26 @@ AnimationClip:
     path: 
   m_ScaleCurves: []
   m_FloatCurves: []
-  m_PPtrCurves: []
+  m_PPtrCurves:
+  - serializedVersion: 2
+    curve:
+    - time: 0.16666667
+      value: {fileID: 430052171, guid: 1680b05381cc6a047b2f788f53ffed82, type: 3}
+    - time: 0.18333334
+      value: {fileID: 291093427, guid: 1680b05381cc6a047b2f788f53ffed82, type: 3}
+    - time: 0.2
+      value: {fileID: -1738728796, guid: 1680b05381cc6a047b2f788f53ffed82, type: 3}
+    - time: 0.21666667
+      value: {fileID: -991701191, guid: 1680b05381cc6a047b2f788f53ffed82, type: 3}
+    - time: 0.23333333
+      value: {fileID: -1487959377, guid: 1680b05381cc6a047b2f788f53ffed82, type: 3}
+    - time: 0.26666668
+      value: {fileID: 0}
+    attribute: m_Sprite
+    path: SwordVFX
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -147,7 +166,22 @@ AnimationClip:
       isPPtrCurve: 0
       isIntCurve: 0
       isSerializeReferenceCurve: 0
-    pptrCurveMapping: []
+    - serializedVersion: 2
+      path: 4061317338
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    pptrCurveMapping:
+    - {fileID: 430052171, guid: 1680b05381cc6a047b2f788f53ffed82, type: 3}
+    - {fileID: 291093427, guid: 1680b05381cc6a047b2f788f53ffed82, type: 3}
+    - {fileID: -1738728796, guid: 1680b05381cc6a047b2f788f53ffed82, type: 3}
+    - {fileID: -991701191, guid: 1680b05381cc6a047b2f788f53ffed82, type: 3}
+    - {fileID: -1487959377, guid: 1680b05381cc6a047b2f788f53ffed82, type: 3}
+    - {fileID: 0}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

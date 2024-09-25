@@ -768,7 +768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   impact_fx: {fileID: 6883697184390936198, guid: 059d2f06fb1702a439f1743d85180498, type: 3}
-  enemyImpact_soundClip: {fileID: 8300000, guid: ce452b9a8e98a3340a9dda14af9cac12, type: 3}
+  enemyImpact_soundClip: {fileID: 8300000, guid: b751109f667a58d48a3f2c1186c2f40d, type: 3}
 --- !u!114 &2655587788225040499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -781,12 +781,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3be51644f15424144bf6357bcf61f8ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  base_speed: 0.5
+  base_speed: 1
   actual_speed: 0
   max_speed: 0
   original_speed: 0
   attack_damage: 8
   strong_attack_cooldown: 0
+  dash_attack_cooldown: 0
   attack_speed: 0.5
   knockback_force: 50
   max_hp: 50
@@ -922,7 +923,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.43, y: 1.44}
+  m_Size: {x: 2.8, y: 1.44}
   m_EdgeRadius: 0
 --- !u!50 &8060737343084229567
 Rigidbody2D:

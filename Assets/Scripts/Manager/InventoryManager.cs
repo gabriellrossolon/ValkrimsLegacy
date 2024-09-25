@@ -78,6 +78,8 @@ public class InventoryManager : MonoBehaviour
         {
             potion_icon_image.enabled = false;
         }
+
+        player_melee_attack.attack_step = 1;
        
 
         //Slots das Armas
@@ -191,6 +193,8 @@ public class InventoryManager : MonoBehaviour
                 player_object.GetComponentInChildren<SwordBehavior>().impact_fx = selected_weapon.weapon_impact_anim;
 
                 weapon_sword.GetComponent<SwordBehavior>().great_sword = selected_weapon.great_sword;
+                weapon_sword.GetComponent<SwordBehavior>().normal_sword = selected_weapon.normal_sword;
+                weapon_sword.GetComponent<SwordBehavior>().dagger_sword = selected_weapon.dagger_sword;
             }
             else if (selected_weapon.staff == true)
             {

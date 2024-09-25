@@ -15,7 +15,7 @@ public class PlayerMeleeAttack : MonoBehaviour
 
     private bool can_attack = true;
     private float cooldown;
-    private int attack_step;
+    public int attack_step;
     private Coroutine basicAttackCoroutine;
 
     [Header("Strong Attack Refs")]
@@ -104,7 +104,7 @@ public class PlayerMeleeAttack : MonoBehaviour
                         }
                         cooldown = entity_stats.attack_speed - 0.5f;
                     }
-                    else  //Se for Normal Sword:
+                    else if(sword_behavior.normal_sword == true)  //Se for Normal Sword:
                     {
                         if (weap_rot_controller.weaponFacingRight == true)
                         {
@@ -113,6 +113,18 @@ public class PlayerMeleeAttack : MonoBehaviour
                         else
                         {
                             weapon_animator.SetTrigger("isAttackL");
+                        }
+                        cooldown = entity_stats.attack_speed - 0.2f;
+                    } 
+                    else if (sword_behavior.dagger_sword == true)
+                    {
+                        if (weap_rot_controller.weaponFacingRight == true)
+                        {
+                            weapon_animator.SetTrigger("isDaggerAttackR");
+                        }
+                        else
+                        {
+                            weapon_animator.SetTrigger("isDaggerAttackL");
                         }
                         cooldown = entity_stats.attack_speed;
                     }
@@ -139,7 +151,7 @@ public class PlayerMeleeAttack : MonoBehaviour
                         cooldown = 0;
                         attack_step = 1;
                     }
-                    else //Se for Normal Sword:
+                    else if (sword_behavior.normal_sword == true)
                     {
                         if (weap_rot_controller.weaponFacingRight == true)
                         {
@@ -150,6 +162,18 @@ public class PlayerMeleeAttack : MonoBehaviour
                             weapon_animator.SetTrigger("isAttackL2");
                         }
 
+                        cooldown = entity_stats.attack_speed - 0.2f;
+                    }
+                    else if (sword_behavior.dagger_sword == true)
+                    {
+                        if (weap_rot_controller.weaponFacingRight == true)
+                        {
+                            weapon_animator.SetTrigger("isDaggerAttackR2");
+                        }
+                        else
+                        {
+                            weapon_animator.SetTrigger("isDaggerAttackL2");
+                        }
                         cooldown = entity_stats.attack_speed;
                     }
 
@@ -164,9 +188,9 @@ public class PlayerMeleeAttack : MonoBehaviour
                     //Se for Great Sword:
                     if (sword_behavior.great_sword == true)
                     {
-                        
+                        //Great Sword não tem 3 hit no combo
                     }
-                    else //Se for Normal Sword:
+                    else if (sword_behavior.normal_sword == true)
                     {
                         if (weap_rot_controller.weaponFacingRight == true)
                         {
@@ -175,6 +199,17 @@ public class PlayerMeleeAttack : MonoBehaviour
                         else
                         {
                             weapon_animator.SetTrigger("isAttackL3");
+                        }
+                    }
+                    else if (sword_behavior.dagger_sword == true)
+                    {
+                        if (weap_rot_controller.weaponFacingRight == true)
+                        {
+                            weapon_animator.SetTrigger("isDaggerAttackR2");
+                        }
+                        else
+                        {
+                            weapon_animator.SetTrigger("isDaggerAttackL2");
                         }
                     }
 

@@ -34,9 +34,7 @@ public class MeleeEnemyAttack : MonoBehaviour
             StartCoroutine(AttackAnimation(collision));
             StartCoroutine(DoDamage(collision, 0.3f));
             can_attack = false;
-            cooldown = 0;
-
-            SoundManager.Instance.impact_soundSource.PlayOneShot(enemyImpact_soundClip);
+            cooldown = 0;         
 
             StartCoroutine(TimeToBreath());
         }
@@ -53,6 +51,7 @@ public class MeleeEnemyAttack : MonoBehaviour
     {
         this.gameObject.GetComponent<Animator>().SetTrigger("isAttack");      
         yield return new WaitForSeconds(0.1f);
+        SoundManager.Instance.impact_soundSource.PlayOneShot(enemyImpact_soundClip);
         EnemyImpactPointAnim(collision);
     }
 

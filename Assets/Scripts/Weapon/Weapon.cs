@@ -11,6 +11,11 @@ public class Weapon : ScriptableObject
     public string weapon_range_type;
     public float weapon_gold_value;
 
+    [Header("Only if Melee")]
+    public bool great_sword;
+    public bool dagger_sword;
+    public bool normal_sword;
+
     [Header("Basic Status")]
     public float weapon_damage;
     public float weapon_attack_speed;
@@ -34,9 +39,6 @@ public class Weapon : ScriptableObject
     [Header("Only if Ranged")]
     public GameObject ranged_projectile;
     public float projectile_speed;
-
-    [Header("Only if Melee")]
-    public bool great_sword;
 
     [Header("Impact Sound")]
     public AudioClip impact_soundClip;

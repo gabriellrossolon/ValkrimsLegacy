@@ -10,6 +10,8 @@ public class SwordBehavior : MonoBehaviour
     public GameObject circle_impact_fx;
     //public GameObject strong_attack_charging_fx;
     public bool great_sword;
+    public bool normal_sword;
+    public bool dagger_sword;
 
     private HashSet<Collider2D> damagedEnemies = new HashSet<Collider2D>();
 

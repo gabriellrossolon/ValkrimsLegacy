@@ -15,7 +15,7 @@ public class MapBehavior : MonoBehaviour
 
     void Update()
     {
-       
+        
     }
 
     void MapPointerControll()
