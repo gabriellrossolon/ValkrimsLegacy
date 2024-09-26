@@ -180,7 +180,7 @@ public class HudManager : MonoBehaviour
     {
         //Ajustar pro Application Quit na build final.
 
-        //Application.Quit();
-        UnityEditor.EditorApplication.isPlaying = false;
+        Application.Quit();
+        //UnityEditor.EditorApplication.isPlaying = false;
     }
 }

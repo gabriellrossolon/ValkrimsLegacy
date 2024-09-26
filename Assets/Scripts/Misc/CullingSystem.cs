@@ -3,15 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
+using UnityEngine;
+
 public class CullingSystem : MonoBehaviour
 {
- private Camera mainCamera;
+    private Camera mainCamera;
+    private SpriteRenderer spriteRenderer;
+    private ShadowCaster2D shadowCaster;
+    private Animator animator;
+    private SortingOrder sortingOrder;
+    private Light2D light2D;
+
     void Start()
     {
         mainCamera = Camera.main;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        shadowCaster = GetComponent<ShadowCaster2D>();
+        animator = GetComponentInChildren<Animator>();
+        sortingOrder = GetComponentInChildren<SortingOrder>();
+        light2D = GetComponentInChildren<Light2D>();
     }
 
     void Update()
+    {
+        CullyingVerify();
+    }
+
+    private void CullyingVerify()
     {
         Vector3 screenPoint = mainCamera.WorldToViewportPoint(transform.position);
         float margin = 1f; // Ajuste este valor para aumentar ou diminuir a margem
@@ -20,33 +38,37 @@ public class CullingSystem : MonoBehaviour
             screenPoint.x >= -margin && screenPoint.x <= 1 + margin &&
             screenPoint.y >= -margin && screenPoint.y <= 1 + margin;
 
-        gameObject.GetComponent<SpriteRenderer>().enabled = isVisible;
-        if(gameObject.GetComponent<ShadowCaster2D>() != null)
+        // Ativar ou desativar o SpriteRenderer
+        spriteRenderer.enabled = isVisible;
+
+        // Ativar ou desativar o ShadowCaster2D
+        if (shadowCaster != null)
         {
-            gameObject.GetComponent<ShadowCaster2D>().enabled = isVisible;
-        }
-        if (gameObject.GetComponentInChildren<Animator>() != null)
-        {
-            gameObject.GetComponentInChildren<Animator>().enabled = isVisible;
+            shadowCaster.enabled = isVisible;
         }
 
-        if (gameObject.GetComponentInChildren<Light2D>() != null)
+        // Ativar ou desativar o Animator
+        if (animator != null)
         {
-            if (DayManager.Instance.is_day == true && isVisible == false)
+            animator.enabled = isVisible;
+        }
+
+        // Ativar ou desativar o SortingOrder
+        if (sortingOrder != null)
+        {
+            sortingOrder.enabled = isVisible;
+        }
+
+        // Lógica para Light2D
+        if (light2D != null)
+        {
+            if (DayManager.Instance.is_day)
             {
-                gameObject.GetComponentInChildren<Light2D>().enabled = false;
-            } 
-            else if (DayManager.Instance.is_day == true && isVisible == true)
+                light2D.enabled = false; // Desativa durante o dia
+            }
+            else
             {
-                gameObject.GetComponentInChildren<Light2D>().enabled = false;
-            } 
-            else if (DayManager.Instance.is_day == false && isVisible == true)
-            {
-                gameObject.GetComponentInChildren<Light2D>().enabled = true;
-            } 
-            else if (DayManager.Instance.is_day == false && isVisible == false)
-            {
-                gameObject.GetComponentInChildren<Light2D>().enabled = false;
+                light2D.enabled = isVisible; // Ativa ou desativa com base na visibilidade
             }
         }
     }

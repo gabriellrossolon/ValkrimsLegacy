@@ -203,6 +203,7 @@ MonoBehaviour:
   original_speed: 0
   attack_damage: 1
   strong_attack_cooldown: 0
+  dash_attack_cooldown: 0
   attack_speed: 1
   knockback_force: 25
   max_hp: 20
@@ -707,7 +708,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &7898193464970882092
 MonoBehaviour:
@@ -792,7 +793,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5598764772305227485}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

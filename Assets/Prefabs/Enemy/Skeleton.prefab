@@ -74,7 +74,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &131093572613754934
 MonoBehaviour:
@@ -579,6 +579,7 @@ MonoBehaviour:
   original_speed: 0
   attack_damage: 2
   strong_attack_cooldown: 0
+  dash_attack_cooldown: 0
   attack_speed: 0.5
   knockback_force: 30
   max_hp: 25
