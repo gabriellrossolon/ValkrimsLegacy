@@ -61,6 +61,11 @@ public class HudManager : MonoBehaviour
     public GameObject map;
     private bool map_opened = false;
 
+    [Header("Skills CDR")]
+    public Slider dash_slider;
+    public Slider dashAttack_slider;
+    public Slider strongAttack_slider;
+
 
     void Start()
     {

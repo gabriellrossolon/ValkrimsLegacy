@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3944563471841651963}
   - component: {fileID: 4805326481964609807}
   - component: {fileID: 1882486729339053496}
+  - component: {fileID: -4061170691793188406}
   m_Layer: 0
   m_Name: Spike1
   m_TagString: Untagged
@@ -149,3 +150,44 @@ MonoBehaviour:
   max_sort_order: 13
   min_sort_order: 10
   detection_distance: 3
+--- !u!114 &-4061170691793188406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3210743932602909105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.48986816, y: -1.3723297, z: 0}
+  - {x: -1.0406799, y: -1.174469, z: 0}
+  - {x: -1.2190552, y: -0.5005188, z: 0}
+  - {x: -1.2884521, y: 0.25273132, z: 0}
+  - {x: -0.7872009, y: 1.4515991, z: 0}
+  - {x: -0.32705688, y: 0.8176727, z: 0}
+  - {x: -0.10900879, y: 1.065445, z: 0}
+  - {x: 0.2180481, y: 0.7681122, z: 0}
+  - {x: 0.4460144, y: 1.2339325, z: 0}
+  - {x: 0.886322, y: 0.5992584, z: 0}
+  - {x: 1.0406799, y: -0.17344666, z: 0}
+  - {x: 1.2686157, y: -0.38157654, z: 0}
+  - {x: 1.2332458, y: -0.6884613, z: 0}
+  - {x: 0.84243774, y: -1.065445, z: 0}
+  - {x: 0.41625977, y: -1.3925171, z: 0}
+  m_ShapePathHash: -1961804537
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 1901730
+  m_LocalBounds:
+    m_Center: {x: -0.009918213, y: 0.029541016, z: 0}
+    m_Extent: {x: 1.2785339, y: 1.4220581, z: 0}

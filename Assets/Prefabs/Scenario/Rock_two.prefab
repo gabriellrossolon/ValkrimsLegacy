@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4576524836131568077}
   - component: {fileID: 4826626703752929461}
   - component: {fileID: 3497711736663909284}
+  - component: {fileID: 4757964392036271751}
   m_Layer: 6
   m_Name: Rock_two
   m_TagString: Untagged
@@ -162,3 +163,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2285c4410efb5df4b8bfc8f5b9fe87b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4757964392036271751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3761379504797354056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.5799923, y: -0.10357666, z: 0}
+  - {x: -0.8024559, y: 0.06989288, z: -0.00000007264316}
+  - {x: -0.8070345, y: 0.6412296, z: -0.00000007264316}
+  - {x: -0.36674976, y: 0.94063187, z: 0}
+  - {x: -0.10902786, y: 1.3638611, z: -0.00000007264316}
+  - {x: 0.36634445, y: 1.2805939, z: -0.00000007264316}
+  - {x: 0.692997, y: 0.9321461, z: 0}
+  - {x: 0.7833109, y: 0.2095604, z: -0.00000007264316}
+  - {x: 0.45933723, y: -0.18323517, z: 0}
+  - {x: 0.20856667, y: -0.16921425, z: -0.00000007264316}
+  - {x: -0.16098595, y: -0.27145767, z: -0.00000007264316}
+  m_ShapePathHash: 131351959
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 2111074
+  m_LocalBounds:
+    m_Center: {x: -0.011861801, y: 0.5462017, z: 0}
+    m_Extent: {x: 0.7951727, y: 0.8176594, z: 0}

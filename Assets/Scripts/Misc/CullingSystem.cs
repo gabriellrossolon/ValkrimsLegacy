@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-using UnityEngine;
-
 public class CullingSystem : MonoBehaviour
 {
     private Camera mainCamera;

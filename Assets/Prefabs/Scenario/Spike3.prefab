@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8167196156795915351}
   - component: {fileID: 6195472396477889638}
   - component: {fileID: 286887425901112708}
+  - component: {fileID: -5408395168187447668}
   m_Layer: 0
   m_Name: Spike3
   m_TagString: Untagged
@@ -149,3 +150,39 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.53125, y: 0.71}
   m_EdgeRadius: 0
+--- !u!114 &-5408395168187447668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3527836809351389191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.47616577, y: -0.66633606, z: 0}
+  - {x: -0.6243286, y: -0.4682312, z: 0}
+  - {x: -0.4767456, y: 0.036895752, z: 0}
+  - {x: -0.31726074, y: 0.78552246, z: 0}
+  - {x: 0.22644043, y: 0.78552246, z: 0}
+  - {x: 0.3859558, y: 0.22418213, z: 0}
+  - {x: 0.67541504, y: -0.2695923, z: 0}
+  - {x: 0.78323364, y: -0.479599, z: 0}
+  - {x: 0.6578064, y: -0.68336487, z: 0}
+  - {x: 0.3121643, y: -0.7690582, z: 0}
+  m_ShapePathHash: 403232877
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 1902126
+  m_LocalBounds:
+    m_Center: {x: 0.079452515, y: 0.008232117, z: 0}
+    m_Extent: {x: 0.7037811, y: 0.77729034, z: 0}

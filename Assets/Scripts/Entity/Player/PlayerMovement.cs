@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -231,6 +232,19 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             timer += Time.deltaTime;
+        }
+
+        HudManager.Instance.dash_slider.maxValue = dash_cooldown;
+        HudManager.Instance.dash_slider.value = timer;
+        if(can_dash)
+        {
+            HudManager.Instance.dash_slider.GetComponent<Image>().color = new Color(0.431f, 0.945f, 0.431f);
+            HudManager.Instance.dash_slider.transform.Find("Fill").GetComponent<Image>().enabled = false;
+        } 
+        else
+        {
+            HudManager.Instance.dash_slider.GetComponent<Image>().color = Color.white;
+            HudManager.Instance.dash_slider.transform.Find("Fill").GetComponent<Image>().enabled = true;
         }
     }
 

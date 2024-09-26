@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMeleeAttack : MonoBehaviour
 {
@@ -226,7 +227,7 @@ public class PlayerMeleeAttack : MonoBehaviour
     }
     private void InvokeCollider()
     {
-        EnabledSwordCollider(0.1f);
+        EnabledSwordCollider(0.2f);
     }
 
     private void StartResetCoroutine()
@@ -454,6 +455,19 @@ public class PlayerMeleeAttack : MonoBehaviour
         {
             strongattack_cooldown += Time.deltaTime;
         }
+
+        HudManager.Instance.strongAttack_slider.maxValue = entity_stats.strong_attack_cooldown;
+        HudManager.Instance.strongAttack_slider.value = strongattack_cooldown;
+        if (can_strong_attack)
+        {
+            HudManager.Instance.strongAttack_slider.GetComponent<Image>().color = new Color(0.431f, 0.945f, 0.431f);
+            HudManager.Instance.strongAttack_slider.transform.Find("Fill").GetComponent<Image>().enabled = false;
+        }
+        else
+        {
+            HudManager.Instance.strongAttack_slider.GetComponent<Image>().color = Color.white;
+            HudManager.Instance.strongAttack_slider.transform.Find("Fill").GetComponent<Image>().enabled = true;
+        }
     }
 
     private void DashAttackCooldown()
@@ -466,6 +480,19 @@ public class PlayerMeleeAttack : MonoBehaviour
         else
         {
             dashattack_cooldown += Time.deltaTime;
+        }
+
+        HudManager.Instance.dashAttack_slider.maxValue = entity_stats.dash_attack_cooldown;
+        HudManager.Instance.dashAttack_slider.value = dashattack_cooldown;
+        if (can_dash_attack)
+        {
+            HudManager.Instance.dashAttack_slider.GetComponent<Image>().color = new Color(0.431f, 0.945f, 0.431f);
+            HudManager.Instance.dashAttack_slider.transform.Find("Fill").GetComponent<Image>().enabled = false;
+        }
+        else
+        {
+            HudManager.Instance.dashAttack_slider.GetComponent<Image>().color = Color.white;
+            HudManager.Instance.dashAttack_slider.transform.Find("Fill").GetComponent<Image>().enabled = true;
         }
     }
 
@@ -489,4 +516,5 @@ public class PlayerMeleeAttack : MonoBehaviour
         original_attack_damage = entity_stats.attack_damage;
         original_knockback_force = entity_stats.knockback_force;
     }
+
 }
