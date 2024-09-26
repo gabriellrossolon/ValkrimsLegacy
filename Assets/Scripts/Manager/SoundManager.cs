@@ -24,6 +24,7 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip florest_ambient_AudioClip;
     public AudioClip dungeon_ambient_audioClip;
+    public AudioClip cave_ambient_audioClip;
 
     [Header("Music Sound")]
     public AudioSource music_soundSource;
@@ -84,6 +85,14 @@ public class SoundManager : MonoBehaviour
         else if (player_ambient == "Dungeon1")
         {
             ambient_soundSource.clip = dungeon_ambient_audioClip;
+
+            music_soundSource.clip = null;
+
+            step_soundSource.clip = step_stone_audioClip;
+        }
+        else if(player_ambient == "Cave1")
+        {
+            ambient_soundSource.clip = cave_ambient_audioClip;
 
             music_soundSource.clip = null;
 

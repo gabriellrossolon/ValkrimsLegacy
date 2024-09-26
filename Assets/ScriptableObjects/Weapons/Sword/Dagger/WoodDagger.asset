@@ -15,7 +15,7 @@ MonoBehaviour:
   weapon_name: Wood Dagger
   weapon_atk_speed_type: Fast
   weapon_range_type: Melee
-  weapon_gold_value: 6
+  weapon_gold_value: 4
   great_sword: 0
   dagger_sword: 1
   normal_sword: 0

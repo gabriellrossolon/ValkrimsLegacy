@@ -16,6 +16,11 @@ public class WeaponRotateController : MonoBehaviour
 
     void Update()
     {
+        
+    }
+
+    void LateUpdate()
+    {
         WeaponLookAtPoint();
     }
 
@@ -30,12 +35,18 @@ public class WeaponRotateController : MonoBehaviour
         if (weapon.gameObject.name == "Sword")
         {
             WeaponFlipController(mousePos);
-            weapon.rotation = Quaternion.Euler(weapon.rotation.eulerAngles.x, weapon.rotation.eulerAngles.y, 0);
+            //weapon.rotation = Quaternion.Euler(weapon.rotation.eulerAngles.x, weapon.rotation.eulerAngles.y, 0);
+            //sword_parent.position = transform.position + Quaternion.Euler(0, 0, angle) * new Vector3(weaponDistance, 0, 0);
+
+            sword_parent.rotation = Quaternion.Euler(weapon.rotation.eulerAngles.x, weapon.rotation.eulerAngles.y, angle);
             sword_parent.position = transform.position + Quaternion.Euler(0, 0, angle) * new Vector3(weaponDistance, 0, 0);
-        } else
+        } 
+        else
         {
             weapon.rotation = Quaternion.Euler(weapon.rotation.eulerAngles.x, weapon.rotation.eulerAngles.y, angle);
             weapon.position = transform.position + Quaternion.Euler(0, 0, angle) * new Vector3(weaponDistance, 0, 0);
+
+            //WeaponFlipController(mousePos); //
         }
     }
 
@@ -54,6 +65,10 @@ public class WeaponRotateController : MonoBehaviour
     private void WeaponFlip()
     {
         weaponFacingRight = !weaponFacingRight;
-        weapon.localScale = new Vector3(weapon.localScale.x * -1, weapon.localScale.y, weapon.localScale.z);
+        //weapon.localScale = new Vector3(weapon.localScale.x * -1, weapon.localScale.y, weapon.localScale.z);
+
+
+
+        weapon.localScale = new Vector3(weapon.localScale.x, weapon.localScale.y * -1, weapon.localScale.z); //
     }
 }

@@ -15,7 +15,7 @@ MonoBehaviour:
   weapon_name: Nature Sword
   weapon_atk_speed_type: Normal
   weapon_range_type: Melee
-  weapon_gold_value: 3
+  weapon_gold_value: 5
   great_sword: 0
   dagger_sword: 0
   normal_sword: 1

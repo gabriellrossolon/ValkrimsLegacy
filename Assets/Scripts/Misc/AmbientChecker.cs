@@ -26,6 +26,11 @@ public class AmbientChecker : MonoBehaviour
                 SoundManager.Instance.player_ambient = "Dungeon1";
                 player_object.GetComponent<EntityStats>().player_ambient = "Dungeon1";
             }
+            else if (this.ambient_type == "Cave1")
+            {
+                SoundManager.Instance.player_ambient = "Cave1";
+                player_object.GetComponent<EntityStats>().player_ambient = "Cave1";
+            }
 
             SoundManager.Instance.SoundChecker();
 
