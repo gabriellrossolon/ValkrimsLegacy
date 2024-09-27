@@ -159,7 +159,7 @@ public class HudManager : MonoBehaviour
     private void PlayerInfoPanel()
     {
         max_hp_text.text = player_stats.max_hp.ToString();
-        attack_damage_text.text = player_stats.attack_damage.ToString();
+        attack_damage_text.text = player_stats.base_attack_damage.ToString() + " + " + player_stats.attack_damage.ToString();
         max_stamina_text.text = player_stats.max_stamina.ToString();
         max_mana_text.text = player_stats.max_mana.ToString();
         float speed_units = player_stats.base_speed / 1000;

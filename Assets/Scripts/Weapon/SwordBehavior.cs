@@ -53,7 +53,7 @@ public class SwordBehavior : MonoBehaviour
     private IEnumerator DoDamage(Collider2D collision, float delay)
     {
         yield return new WaitForSeconds(delay);
-        collision.GetComponent<EntityStats>().RemoveHp(player_status.attack_damage);
+        collision.GetComponent<EntityStats>().RemoveHp(player_status.attack_damage + player_status.base_attack_damage);
         ImpactPointAnim(collision);
         Knockback(collision);
     }

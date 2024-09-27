@@ -12,6 +12,7 @@ public class EntityStats : MonoBehaviour
     [HideInInspector] public float original_speed;
 
     [Header("Attack Stats")]
+    public float base_attack_damage;
     public float attack_damage;
     public float strong_attack_cooldown;
     public float dash_attack_cooldown;

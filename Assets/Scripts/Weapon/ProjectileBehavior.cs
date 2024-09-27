@@ -41,7 +41,7 @@ public class ProjectileBehavior : MonoBehaviour
         {
             if (!enemy_projectile)
             {
-                collision.GetComponent<EntityStats>().RemoveHp(player_stats.attack_damage);
+                collision.GetComponent<EntityStats>().RemoveHp(player_stats.attack_damage + player_stats.base_attack_damage);
                 ImpactPointAnim(collision);
                 SoundManager.Instance.impact_soundSource.PlayOneShot(impact_soundClip);
                 Destroy(this.gameObject, 0.1f);
