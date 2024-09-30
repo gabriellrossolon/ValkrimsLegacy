@@ -32,25 +32,40 @@ public class StatusManager : MonoBehaviour
     {
         player_stats.max_hp += 2;
         player_stats.hp = player_stats.max_hp;
+        player_stats.level_up_points -= 1;
+        HudManager.Instance.ActiveAttributeUpButtons();
+        SoundManager.Instance.button_soundSource.PlayOneShot(SoundManager.Instance.button_click_soundClip);
     }
     public void ImproveAttack()
     {
         player_stats.base_attack_damage += 1;
+        player_stats.level_up_points -= 1;
+        HudManager.Instance.ActiveAttributeUpButtons();
+        SoundManager.Instance.button_soundSource.PlayOneShot(SoundManager.Instance.button_click_soundClip);
     }
     public void ImproveStamina()
     {
         player_stats.max_stamina += 10;
         player_stats.stamina = player_stats.max_stamina;
+        player_stats.level_up_points -= 1;
+        HudManager.Instance.ActiveAttributeUpButtons();
+        SoundManager.Instance.button_soundSource.PlayOneShot(SoundManager.Instance.button_click_soundClip);
     }
     public void ImproveMana()
     {
         player_stats.max_mana += 10;
         player_stats.mana = player_stats.max_mana;
+        player_stats.level_up_points -= 1;
+        HudManager.Instance.ActiveAttributeUpButtons();
+        SoundManager.Instance.button_soundSource.PlayOneShot(SoundManager.Instance.button_click_soundClip);
     }
     public void ImproveSpeed()
     {
         player_stats.base_speed += 100;
         player_stats.actual_speed = player_stats.base_speed;
         player_stats.max_speed = player_stats.base_speed * 1.5f;
+        player_stats.level_up_points -= 1;
+        HudManager.Instance.ActiveAttributeUpButtons();
+        SoundManager.Instance.button_soundSource.PlayOneShot(SoundManager.Instance.button_click_soundClip);
     }
 }

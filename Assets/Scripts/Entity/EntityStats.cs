@@ -47,6 +47,7 @@ public class EntityStats : MonoBehaviour
     public int level = 1;
     public float xp = 0;
     [HideInInspector] public float xp_to_up;
+    public int level_up_points;
 
     [Header("Gold Stats")]
     public float gold_carry;
@@ -93,6 +94,8 @@ public class EntityStats : MonoBehaviour
         HpControl();
 
         EnemyLevelBuff();
+
+        LevelUp();
     }
 
     void FixedUpdate()
@@ -412,6 +415,7 @@ public class EntityStats : MonoBehaviour
             {
                 xp -= xp_to_up;
                 level++;
+                level_up_points++;
 
                 xp_to_up = level * 10f;
                 HudManager.Instance.level_text.text = level.ToString();

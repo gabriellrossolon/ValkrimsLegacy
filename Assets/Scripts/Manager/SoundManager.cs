@@ -64,10 +64,15 @@ public class SoundManager : MonoBehaviour
     public AudioSource exp_soundSource;
     public AudioClip levelUp_soundClip;
 
-    [Header("Shop Sound Sound")]
+    [Header("Shop Sound")]
     public AudioSource shop_soundSource;
     public AudioClip buy_soundClip;
     public AudioClip denied_buy_soundClip;
+
+    [Header("Misc Button Sound")]
+    public AudioSource button_soundSource;
+    public AudioClip button_hover_soundClip;
+    public AudioClip button_click_soundClip;
 
     [Header("Ambient Location")]
     public string player_ambient;

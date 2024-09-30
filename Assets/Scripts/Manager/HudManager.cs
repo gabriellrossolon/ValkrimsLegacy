@@ -66,6 +66,13 @@ public class HudManager : MonoBehaviour
     public Slider dashAttack_slider;
     public Slider strongAttack_slider;
 
+    [Header("Hud Key Button")]
+    public GameObject buttons_go;
+
+
+    private GameObject[] attribute_buttons;
+    public List<Image> button_images;
+
 
     void Start()
     {
@@ -73,6 +80,18 @@ public class HudManager : MonoBehaviour
         player_stats = GameObject.FindWithTag("Player").gameObject.GetComponent<EntityStats>();
 
         level_text.text = player_stats.level.ToString();
+
+        attribute_buttons = GameObject.FindGameObjectsWithTag("UpButton");
+        foreach (GameObject button in attribute_buttons)
+        {
+            Image buttonImage = button.GetComponent<Image>();
+            if (buttonImage != null)
+            {
+                button_images.Add(buttonImage); // Armazena o Image na lista
+                buttonImage.enabled = false;  // Desabilita o componente Image
+            }
+        }
+        player_info_panel.SetActive(false);
     }
 
     void Update()
@@ -92,12 +111,22 @@ public class HudManager : MonoBehaviour
             {
                 bool isActive = player_info_panel.activeSelf;
                 player_info_panel.SetActive(!isActive);
+                ActiveAttributeUpButtons();
             }
         }
 
         if (Input.GetKeyDown(KeyCode.M))
         {
             OpenMap();
+        }
+
+        if(player_stats.level_up_points > 0)
+        {
+            buttons_go.gameObject.GetComponent<Animator>().SetBool("isWarning", true);
+        } 
+        else
+        {
+            buttons_go.gameObject.GetComponent<Animator>().SetBool("isWarning", false);
         }
     }
 
@@ -164,6 +193,24 @@ public class HudManager : MonoBehaviour
         max_mana_text.text = player_stats.max_mana.ToString();
         float speed_units = player_stats.base_speed / 1000;
         speed_text.text = speed_units.ToString();
+    }
+
+    public void ActiveAttributeUpButtons()
+    {
+        if (player_stats.level_up_points > 0)
+        {
+            foreach (Image image in button_images)
+            {
+                image.enabled = true;
+            }
+        }
+        else
+        {
+            foreach (Image image in button_images)
+            {
+                image.enabled = false;
+            }
+        }
     }
 
     private void OpenMap()
