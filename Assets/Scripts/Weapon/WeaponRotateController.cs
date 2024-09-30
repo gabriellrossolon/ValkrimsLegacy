@@ -13,6 +13,7 @@ public class WeaponRotateController : MonoBehaviour
     public Transform bow_transform;
 
     [HideInInspector] public bool weaponFacingRight = true;
+    public float flipDuration = 0.5f;
 
     void Update()
     {
@@ -54,21 +55,38 @@ public class WeaponRotateController : MonoBehaviour
     {
         if (mousePos.x < transform.position.x && weaponFacingRight)
         {
-            WeaponFlip();
+            StartCoroutine(WeaponFlipSmooth()); // Inicia a troca suave
         }
         else if (mousePos.x > transform.position.x && !weaponFacingRight)
         {
-            WeaponFlip();
+            StartCoroutine(WeaponFlipSmooth()); // Inicia a troca suave
         }
     }
 
-    private void WeaponFlip()
+    //private void WeaponFlip()
+    //{
+    //    weaponFacingRight = !weaponFacingRight;
+    //    //weapon.localScale = new Vector3(weapon.localScale.x * -1, weapon.localScale.y, weapon.localScale.z);
+
+    //    weapon.localScale = new Vector3(weapon.localScale.x, weapon.localScale.y * -1, weapon.localScale.z); //
+    //}
+
+    private IEnumerator WeaponFlipSmooth()
     {
-        weaponFacingRight = !weaponFacingRight;
-        //weapon.localScale = new Vector3(weapon.localScale.x * -1, weapon.localScale.y, weapon.localScale.z);
+        weaponFacingRight = !weaponFacingRight; // Alterna o estado do flip
 
+        Vector3 initialScale = weapon.localScale;
+        Vector3 targetScale = new Vector3(initialScale.x, initialScale.y * -1, initialScale.z); // Inverte o eixo Y
+        float elapsedTime = 0;
 
+        while (elapsedTime < flipDuration)
+        {
+            weapon.localScale = Vector3.Lerp(initialScale, targetScale, elapsedTime / flipDuration); // Interpola a escala
+            elapsedTime += Time.deltaTime;
+            yield return null; // Espera até o próximo frame
+        }
 
-        weapon.localScale = new Vector3(weapon.localScale.x, weapon.localScale.y * -1, weapon.localScale.z); //
+        // Garante que a escala final seja aplicada corretamente
+        weapon.localScale = targetScale;
     }
 }

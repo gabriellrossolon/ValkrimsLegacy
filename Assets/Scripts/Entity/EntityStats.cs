@@ -273,7 +273,7 @@ public class EntityStats : MonoBehaviour
         }
         if (this.gameObject.CompareTag("Player"))
         {
-
+            HudManager.Instance.player_bars_go.GetComponent<Animator>().SetTrigger("isDamaged");
         }
 
         hp -= hp_to_remove;

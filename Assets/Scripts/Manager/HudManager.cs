@@ -23,6 +23,7 @@ public class HudManager : MonoBehaviour
     }
 
     [Header("Status Bar")]
+    public GameObject player_bars_go;
     public Slider player_hp_bar;
     public Slider player_stamina_bar;
     public Slider player_mana_bar;
@@ -56,6 +57,7 @@ public class HudManager : MonoBehaviour
     public Text max_stamina_text;
     public Text max_mana_text;
     public Text speed_text;
+    public Text up_points_text;
 
     [Header("Map")]
     public GameObject map;
@@ -112,6 +114,7 @@ public class HudManager : MonoBehaviour
                 bool isActive = player_info_panel.activeSelf;
                 player_info_panel.SetActive(!isActive);
                 ActiveAttributeUpButtons();
+                ControlPlayerCanAttack(!isActive);
             }
         }
 
@@ -128,6 +131,7 @@ public class HudManager : MonoBehaviour
         {
             buttons_go.gameObject.GetComponent<Animator>().SetBool("isWarning", false);
         }
+        
     }
 
     private void ShowPlayerHud()
@@ -197,6 +201,7 @@ public class HudManager : MonoBehaviour
 
     public void ActiveAttributeUpButtons()
     {
+        up_points_text.text = player_stats.level_up_points.ToString();
         if (player_stats.level_up_points > 0)
         {
             foreach (Image image in button_images)
@@ -224,6 +229,38 @@ public class HudManager : MonoBehaviour
         {
             map.GetComponent<Animator>().SetTrigger("closeMap");
             map_opened = false;
+        }
+
+        ControlPlayerCanAttack(map_opened);
+    }
+
+    private void ControlPlayerCanAttack(bool value)
+    {
+        bool window_opened = value;
+
+        if (window_opened == true)
+        {
+            if (player_object.GetComponent<PlayerMeleeAttack>().enabled)
+            {
+                player_object.GetComponent<PlayerMeleeAttack>().enabled = false;
+            }
+            else if (player_object.GetComponent<PlayerRangedAttack>().enabled)
+            {
+                player_object.GetComponent<PlayerRangedAttack>().enabled = false;
+            }
+        }
+        else
+        {
+            if (InventoryManager.Instance.weapon_in_hands == InventoryManager.Instance.weapon_sword)
+            {
+                player_object.GetComponent<PlayerMeleeAttack>().enabled = true;
+            }
+            else if (InventoryManager.Instance.weapon_in_hands == InventoryManager.Instance.weapon_staff || InventoryManager.Instance.weapon_bow)
+            {
+                player_object.GetComponent<PlayerRangedAttack>().enabled = true;
+            }
+
+            InventoryManager.Instance.RefreshInventory();
         }
        
     }
