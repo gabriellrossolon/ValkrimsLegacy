@@ -227,7 +227,7 @@ public class PlayerMeleeAttack : MonoBehaviour
     }
     private void InvokeCollider()
     {
-        EnabledSwordCollider(0.2f);
+        EnabledSwordCollider(0.1f);
     }
 
     private void StartResetCoroutine()
@@ -323,6 +323,7 @@ public class PlayerMeleeAttack : MonoBehaviour
         //float original_attack_damage = entity_stats.attack_damage;
         //float original_knockback_force = entity_stats.knockback_force;
 
+        KeepAttackValues();
         ChangeStrongAttackValues();
 
         EnabledSwordCollider(0.1f);
@@ -384,6 +385,7 @@ public class PlayerMeleeAttack : MonoBehaviour
             {   
                 SoundManager.Instance.attack_soundSource.PlayOneShot(SoundManager.Instance.weaponAttack_audioClip_three);
 
+                KeepAttackValues();
                 StartCoroutine(ChangeDashAttackValues());
 
                 EnabledSwordCollider(0.3f);

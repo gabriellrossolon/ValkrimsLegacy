@@ -19,7 +19,7 @@ MonoBehaviour:
   great_sword: 0
   dagger_sword: 0
   normal_sword: 1
-  weapon_damage: 1
+  weapon_damage: 2
   weapon_attack_speed: 1
   weapon_icon: {fileID: 1993175834, guid: b4d28bd25c04328489a19e70b74c308a, type: 3}
   sword: 1

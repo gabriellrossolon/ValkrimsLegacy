@@ -32,7 +32,7 @@ public class HudManager : MonoBehaviour
     private GameObject player_object;
     private EntityStats player_stats;
 
-    [Header("HUDs")]
+    [Header("Misc HUDs")]
     public GameObject pausedgame_hud;
     private bool isPaused;
 
@@ -71,6 +71,14 @@ public class HudManager : MonoBehaviour
     [Header("Hud Key Button")]
     public GameObject buttons_go;
 
+    [Header("Quests Panel")]
+    public GameObject quests_panel;
+    private bool quests_panel_opened;
+    public GameObject quests_banner;
+    public GameObject quest_panel_one;
+    public GameObject quest_panel_two;
+
+
 
     private GameObject[] attribute_buttons;
     public List<Image> button_images;
@@ -101,6 +109,13 @@ public class HudManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            bool isActive = quests_panel.activeSelf;
+            quests_panel.SetActive(!isActive);
+            ControlPlayerCanAttack(!isActive);
         }
 
         ShowPlayerHud();
@@ -176,7 +191,7 @@ public class HudManager : MonoBehaviour
     public void PauseGame()
     {
         isPaused = !isPaused;
-
+        ControlPlayerCanAttack(isPaused);
         if (isPaused)
         {
             Time.timeScale = 0;
@@ -267,8 +282,6 @@ public class HudManager : MonoBehaviour
 
     public void QuiteGame()
     {
-        //Ajustar pro Application Quit na build final.
-
         Application.Quit();
         //UnityEditor.EditorApplication.isPlaying = false;
     }

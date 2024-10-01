@@ -73,20 +73,19 @@ public class WeaponRotateController : MonoBehaviour
 
     private IEnumerator WeaponFlipSmooth()
     {
-        weaponFacingRight = !weaponFacingRight; // Alterna o estado do flip
+        weaponFacingRight = !weaponFacingRight;
 
         Vector3 initialScale = weapon.localScale;
-        Vector3 targetScale = new Vector3(initialScale.x, initialScale.y * -1, initialScale.z); // Inverte o eixo Y
+        Vector3 targetScale = new Vector3(initialScale.x, initialScale.y * -1, initialScale.z);
         float elapsedTime = 0;
 
         while (elapsedTime < flipDuration)
         {
-            weapon.localScale = Vector3.Lerp(initialScale, targetScale, elapsedTime / flipDuration); // Interpola a escala
+            weapon.localScale = Vector3.Lerp(initialScale, targetScale, elapsedTime / flipDuration);
             elapsedTime += Time.deltaTime;
-            yield return null; // Espera até o próximo frame
+            yield return null;
         }
 
-        // Garante que a escala final seja aplicada corretamente
         weapon.localScale = targetScale;
     }
 }

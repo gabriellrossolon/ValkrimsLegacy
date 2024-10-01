@@ -24,6 +24,7 @@ public class DialogueBehavior : MonoBehaviour
     [Header("Quest Controll")]
     public bool quester_npc;
     public string quest_to_active;
+    public bool quest_gived;
 
     [Header("Merchant Controll")]
     public bool merchant_npc;
@@ -196,10 +197,11 @@ public class DialogueBehavior : MonoBehaviour
                     InventoryManager.Instance.RefreshInventory();
 
 
-                    if (quester_npc)
+                    if (quester_npc && !quest_gived)
                     {
+                        quest_gived = true;
                         QuestManager.Instance.ActiveQuest(quest_to_active);
-                        QuestManager.Instance.ShowQuestPanel();
+                        //QuestManager.Instance.ShowQuestPanel();
                     }
                     
                 }

@@ -131,6 +131,7 @@ public class EntityStats : MonoBehaviour
                     if(identifier_name == "Mushroom")
                     {
                         QuestManager.Instance.enemy_killed += 1;
+                        QuestManager.Instance.VerifyQuestCondition();
                     }
                 }
 

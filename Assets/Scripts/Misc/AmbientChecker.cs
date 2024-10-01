@@ -34,7 +34,7 @@ public class AmbientChecker : MonoBehaviour
 
             SoundManager.Instance.SoundChecker();
 
-            QuestManager.Instance.ReloadQuest();
+            QuestManager.Instance.VerifyQuestCondition();
         }
     }
 }
