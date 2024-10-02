@@ -5,6 +5,7 @@ using UnityEngine;
 public class RangedEnemyAttack : MonoBehaviour
 {
     public AudioClip enemyImpact_soundClip;
+    public AudioClip enemyShot_soundClip;
 
     private EntityStats entity_stats;
     private GameObject player_object;
@@ -43,6 +44,8 @@ public class RangedEnemyAttack : MonoBehaviour
     private void ExecuteBasicAttack()
     {
         AttackAnimation();
+
+        SoundManager.Instance.impact_soundSource.PlayOneShot(enemyShot_soundClip);
 
         GameObject projectile_instance = Instantiate(projectile_prefab, transform.position, Quaternion.identity);
         projectile_instance.gameObject.GetComponent<ProjectileBehavior>().instantiator = this.gameObject;

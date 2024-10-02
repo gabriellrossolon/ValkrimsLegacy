@@ -224,7 +224,8 @@ public class EntityStats : MonoBehaviour
         yield return new WaitForSeconds(delay);
         Time.timeScale = 0;
         HudManager.Instance.gameover_hud.SetActive(true);
-
+        SoundManager.Instance.music_soundSource.Stop();
+        SoundManager.Instance.ambient_soundSource.Stop();
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====--> Health Control <--=====//=====//=====//=====//=====//=====//=====//=====//=====//

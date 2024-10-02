@@ -34,9 +34,13 @@ public class SoundManager : MonoBehaviour
 
     [Header("Steps")]
     public AudioSource step_soundSource;
+    public AudioSource step_run_soundSource;
 
     public AudioClip step_grass_audioClip;
+    public AudioClip step_grass_run_audioClip;
+
     public AudioClip step_stone_audioClip;
+    public AudioClip step_run_stone_audioClip;
 
     [Header("Dash")]
     public AudioSource dash_soundSource;
@@ -86,6 +90,7 @@ public class SoundManager : MonoBehaviour
             music_soundSource.clip = peace_music_audioClip;
 
             step_soundSource.clip = step_grass_audioClip;
+            step_run_soundSource.clip = step_grass_run_audioClip;
         } 
         else if (player_ambient == "Dungeon1")
         {
@@ -94,6 +99,7 @@ public class SoundManager : MonoBehaviour
             music_soundSource.clip = null;
 
             step_soundSource.clip = step_stone_audioClip;
+            step_run_soundSource.clip = step_run_stone_audioClip;
         }
         else if(player_ambient == "Cave1")
         {
@@ -102,6 +108,7 @@ public class SoundManager : MonoBehaviour
             music_soundSource.clip = null;
 
             step_soundSource.clip = step_stone_audioClip;
+            step_run_soundSource.clip = step_run_stone_audioClip;
         }
 
         ambient_soundSource.loop = true;
@@ -112,6 +119,9 @@ public class SoundManager : MonoBehaviour
 
         step_soundSource.loop = true;
         step_soundSource.Play();
+
+        step_run_soundSource.loop = true;
+        step_run_soundSource.Play();
     }
 
 }

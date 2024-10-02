@@ -55,21 +55,21 @@ public class WeaponRotateController : MonoBehaviour
     {
         if (mousePos.x < transform.position.x && weaponFacingRight)
         {
-            StartCoroutine(WeaponFlipSmooth()); // Inicia a troca suave
+            //StartCoroutine(WeaponFlipSmooth());
+            WeaponFlip();
         }
         else if (mousePos.x > transform.position.x && !weaponFacingRight)
         {
-            StartCoroutine(WeaponFlipSmooth()); // Inicia a troca suave
+            //StartCoroutine(WeaponFlipSmooth());
+            WeaponFlip();
         }
     }
 
-    //private void WeaponFlip()
-    //{
-    //    weaponFacingRight = !weaponFacingRight;
-    //    //weapon.localScale = new Vector3(weapon.localScale.x * -1, weapon.localScale.y, weapon.localScale.z);
-
-    //    weapon.localScale = new Vector3(weapon.localScale.x, weapon.localScale.y * -1, weapon.localScale.z); //
-    //}
+    private void WeaponFlip()
+    {
+        weaponFacingRight = !weaponFacingRight;
+        weapon.localScale = new Vector3(weapon.localScale.x, weapon.localScale.y * -1, weapon.localScale.z); //
+    }
 
     private IEnumerator WeaponFlipSmooth()
     {
@@ -78,14 +78,12 @@ public class WeaponRotateController : MonoBehaviour
         Vector3 initialScale = weapon.localScale;
         Vector3 targetScale = new Vector3(initialScale.x, initialScale.y * -1, initialScale.z);
         float elapsedTime = 0;
-
         while (elapsedTime < flipDuration)
         {
             weapon.localScale = Vector3.Lerp(initialScale, targetScale, elapsedTime / flipDuration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
         weapon.localScale = targetScale;
     }
 }

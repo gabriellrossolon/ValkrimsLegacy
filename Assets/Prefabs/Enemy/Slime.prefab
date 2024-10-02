@@ -601,6 +601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyImpact_soundClip: {fileID: 8300000, guid: 9c9f3412a24a63341a5ec665c27db1d8, type: 3}
+  enemyShot_soundClip: {fileID: 8300000, guid: bd25c875d919a26499b0af21264920a1, type: 3}
   projectile_prefab: {fileID: 3980931611621854879, guid: 0c670fbbef5145e42aae95ebcabe70dd, type: 3}
   projectile_speed: 5
   impact_fx: {fileID: 1910134647832119263, guid: 85fc99ef915e8384ca35688ca6f04961, type: 3}
@@ -635,6 +636,7 @@ MonoBehaviour:
   actual_speed: 0
   max_speed: 0
   original_speed: 0
+  base_attack_damage: 0
   attack_damage: 2
   strong_attack_cooldown: 0
   dash_attack_cooldown: 0
@@ -655,6 +657,7 @@ MonoBehaviour:
   level: 1
   xp: 4
   xp_to_up: 0
+  level_up_points: 0
   gold_carry: 0
   min_gold_chance: 2
   max_gold_chance: 7

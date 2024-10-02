@@ -188,22 +188,6 @@ public class HudManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void PauseGame()
-    {
-        isPaused = !isPaused;
-        ControlPlayerCanAttack(isPaused);
-        if (isPaused)
-        {
-            Time.timeScale = 0;
-            pausedgame_hud.SetActive(true);
-        }
-        else
-        {
-            Time.timeScale = 1;
-            pausedgame_hud.SetActive(false);
-        }
-    }
-
     private void PlayerInfoPanel()
     {
         max_hp_text.text = player_stats.max_hp.ToString();
@@ -277,7 +261,26 @@ public class HudManager : MonoBehaviour
 
             InventoryManager.Instance.RefreshInventory();
         }
-       
+    }
+
+    public void PauseGame()
+    {
+        isPaused = !isPaused;
+        ControlPlayerCanAttack(isPaused);
+        if (isPaused)
+        {
+            SoundManager.Instance.ambient_soundSource.Pause();
+            SoundManager.Instance.music_soundSource.Pause();
+            Time.timeScale = 0;
+            pausedgame_hud.SetActive(true);
+        }
+        else
+        {
+            SoundManager.Instance.ambient_soundSource.Play();
+            SoundManager.Instance.music_soundSource.Play();
+            Time.timeScale = 1;
+            pausedgame_hud.SetActive(false);
+        }
     }
 
     public void QuiteGame()
