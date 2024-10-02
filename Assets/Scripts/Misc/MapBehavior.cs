@@ -7,6 +7,9 @@ public class MapBehavior : MonoBehaviour
     public Transform player;
     private GameObject[] map_pointers;
 
+    public int openedCamSize = 75;
+    public int closedCamSize = 30;
+
     void Start()
     {
         map_pointers = GameObject.FindGameObjectsWithTag("MapPointer");
@@ -15,7 +18,14 @@ public class MapBehavior : MonoBehaviour
 
     void Update()
     {
-        
+        if (HudManager.Instance.map_opened == true)
+        {
+            GetComponent<Camera>().orthographicSize = openedCamSize; // Aumenta o "zoom" para abrir o mapa
+        }
+        else
+        {
+            GetComponent<Camera>().orthographicSize = closedCamSize; // Reduz o "zoom" quando o mapa está fechado
+        }
     }
 
     void MapPointerControll()

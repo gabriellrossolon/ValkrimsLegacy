@@ -56,6 +56,8 @@ public class SoundManager : MonoBehaviour
     public AudioClip weaponAttack_audioClip_two;
     public AudioClip weaponAttack_audioClip_three;
 
+    public AudioClip weaponCharge_audioClip;
+
     [Header("Potion")]
     public AudioSource potion_soundSource;
     public AudioClip potion_drinkClip;
@@ -77,6 +79,10 @@ public class SoundManager : MonoBehaviour
     public AudioSource button_soundSource;
     public AudioClip button_hover_soundClip;
     public AudioClip button_click_soundClip;
+
+    [Header("Misc Sounds")]
+    public AudioSource misc_soundSource;
+    public AudioClip gameover_soundClip;
 
     [Header("Ambient Location")]
     public string player_ambient;

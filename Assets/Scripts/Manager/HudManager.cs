@@ -61,7 +61,7 @@ public class HudManager : MonoBehaviour
 
     [Header("Map")]
     public GameObject map;
-    private bool map_opened = false;
+    [HideInInspector] public bool map_opened = false;
 
     [Header("Skills CDR")]
     public Slider dash_slider;

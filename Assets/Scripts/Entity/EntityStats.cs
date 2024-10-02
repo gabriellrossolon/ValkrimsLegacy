@@ -112,7 +112,7 @@ public class EntityStats : MonoBehaviour
             if (this.gameObject.CompareTag("Player"))
             {
                 StartCoroutine(ShowGameOverHud(0.1f));
-                
+                SoundManager.Instance.misc_soundSource.PlayOneShot(SoundManager.Instance.gameover_soundClip);
             } 
             else if (this.gameObject.CompareTag("Enemy"))
             {
