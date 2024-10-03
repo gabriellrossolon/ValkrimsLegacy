@@ -171,6 +171,7 @@ public class DialogueBehavior : MonoBehaviour
                 else if (merchant_npc == true)
                 {
                     currentDialogueIndex = 0;
+
                     GameObject button_one = DialogueManager.Instance.dialogue_option_one;
                     button_one.GetComponentInChildren<Text>().text = "Shop";
 
@@ -180,11 +181,19 @@ public class DialogueBehavior : MonoBehaviour
 
 
                     GameObject button_two = DialogueManager.Instance.dialogue_option_two;
-                    button_two.GetComponentInChildren<Text>().text = "Exit";
+                    button_two.GetComponentInChildren<Text>().text = "Sell";
 
                     button_two.GetComponent<Button>().onClick.RemoveAllListeners();
-                    button_two.GetComponent<Button>().onClick.AddListener(EndDialogue);
+                    button_two.GetComponent<Button>().onClick.AddListener(OpenSellShop);
                     button_two.SetActive(true);
+
+
+                    GameObject button_three = DialogueManager.Instance.dialogue_option_three;
+                    button_three.GetComponentInChildren<Text>().text = "Exit";
+
+                    button_three.GetComponent<Button>().onClick.RemoveAllListeners();
+                    button_three.GetComponent<Button>().onClick.AddListener(EndDialogue);
+                    button_three.SetActive(true);
                 }
                 else
                 {
@@ -233,7 +242,14 @@ public class DialogueBehavior : MonoBehaviour
     public void OpenShop()
     {
         DialogueManager.Instance.shop_panel.SetActive(true);
+        DialogueManager.Instance.shop_panel_txt.text = "Shop";
         CreateShopItem();
+    }
+
+    public void OpenSellShop()
+    {
+        DialogueManager.Instance.shop_panel.SetActive(true);
+        DialogueManager.Instance.shop_panel_txt.text = "Sell";
     }
 
     private void SortItensForSell() //Sorteia os Itens que o NPC ira Vender quando o jogo Starta

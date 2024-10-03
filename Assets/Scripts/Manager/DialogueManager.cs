@@ -26,10 +26,12 @@ public class DialogueManager : MonoBehaviour
     public Text dialogue_text;
     public GameObject dialogue_option_one;
     public GameObject dialogue_option_two;
+    public GameObject dialogue_option_three;
 
     public GameObject hotbar;
     public GameObject buttons;
 
+    public Text shop_panel_txt;
     public GameObject shop_panel;
     public GameObject shop_item_holder;
     public GameObject shop_item;

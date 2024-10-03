@@ -577,6 +577,7 @@ MonoBehaviour:
   actual_speed: 0
   max_speed: 0
   original_speed: 0
+  base_attack_damage: 0
   attack_damage: 2
   strong_attack_cooldown: 0
   dash_attack_cooldown: 0
@@ -597,6 +598,7 @@ MonoBehaviour:
   level: 1
   xp: 6
   xp_to_up: 0
+  level_up_points: 0
   gold_carry: 0
   min_gold_chance: 4
   max_gold_chance: 8
@@ -708,7 +710,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.2}
-    oldSize: {x: 4, y: 2.6666667}
+    oldSize: {x: 6, y: 4}
     newSize: {x: 6, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
