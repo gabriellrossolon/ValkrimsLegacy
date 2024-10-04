@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -47,6 +48,9 @@ public class InventoryManager : MonoBehaviour
     public GameObject weapon_in_hands;
     public GameObject weapon_parent;
 
+
+    private bool options_active = false;
+
     void Start()
     {
         player_stats = GameObject.FindGameObjectWithTag("Player").GetComponent<EntityStats>();
@@ -68,7 +72,7 @@ public class InventoryManager : MonoBehaviour
     {
         //Slot da Poção
         Image potion_icon_image = potion_slot.transform.Find("Icon").GetComponent<Image>();
-        if(potion != null)
+        if (potion != null)
         {
             potion_icon_image.enabled = true;
             potion_icon_image.sprite = potion.potion_icon;
@@ -80,7 +84,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         player_melee_attack.attack_step = 1;
-       
+
 
         //Slots das Armas
         GameObject[] destroy_slots = GameObject.FindGameObjectsWithTag("InventorySlot");
@@ -92,7 +96,7 @@ public class InventoryManager : MonoBehaviour
         {
             GameObject slot_instance = Instantiate(inv_slot, inv_background.transform);
 
-            if(w == null)
+            if (w == null)
             {
                 Image icon_image = slot_instance.transform.Find("Icon").GetComponent<Image>();
                 icon_image.enabled = false;
@@ -114,10 +118,17 @@ public class InventoryManager : MonoBehaviour
                 {
                     slot_instance.GetComponent<Image>().color = Color.red;
                 }
+
+                slot_instance.transform.Find("Icon").GetComponent<Button>().onClick.RemoveAllListeners();
+                slot_instance.transform.Find("Icon").GetComponent<Button>().onClick.AddListener(ItemOptions);
+
+                slot_instance.transform.Find("Options").GetComponent<Button>().onClick.RemoveAllListeners();
+                slot_instance.transform.Find("Options").GetComponent<Button>().onClick.AddListener(DiscardItem);
+
             }
 
             slot_instance.GetComponentInChildren<Text>().text = hotkey.ToString();
-            hotkey++;     
+            hotkey++;
         }
     }
 
@@ -125,7 +136,7 @@ public class InventoryManager : MonoBehaviour
     {
         Weapon selected_weapon = inventory[hotkey - 1];
 
-        if(selected_weapon != null)
+        if (selected_weapon != null)
         {
             VerifyWeaponActive(selected_weapon);
 
@@ -139,7 +150,8 @@ public class InventoryManager : MonoBehaviour
 
             selected_inv_slot = hotkey;
             weapon_in_hands.GetComponent<SpriteRenderer>().sprite = inventory[selected_inv_slot - 1].weapon_icon;
-        } else
+        }
+        else
         {
             VerifyWeaponActive(selected_weapon);
             selected_inv_slot = hotkey;
@@ -177,8 +189,8 @@ public class InventoryManager : MonoBehaviour
     private void VerifyWeaponActive(Weapon selected_weapon)
     {
         WeaponRotateController rotate_controller = weapon_parent.GetComponent<WeaponRotateController>();
-        
-        if(selected_weapon != null)
+
+        if (selected_weapon != null)
         {
             if (selected_weapon.sword == true)
             {
@@ -262,5 +274,34 @@ public class InventoryManager : MonoBehaviour
             Debug.Log("Sem poções");
         }
     }
-       
+
+    public void ItemOptions()
+    {
+        options_active = !options_active;
+
+        GameObject clickedButton = EventSystem.current.currentSelectedGameObject;
+
+        Transform parentTransform = clickedButton.transform.parent;
+
+        Transform optionsTransform = parentTransform.Find("Options");
+        optionsTransform.GetComponent<Image>().enabled = options_active;
+        optionsTransform.GetComponent<Button>().enabled = options_active;
+        optionsTransform.GetComponentInChildren<Text>().enabled = options_active;
+
+        optionsTransform.gameObject.SetActive(options_active);
+    }
+
+    public void DiscardItem()
+    {
+        if (inventory.Count > 0) // Verifica se a lista não está vazia
+        {
+            //inventory[0] = null;
+        }
+        else
+        {
+            Debug.Log("O inventário está vazio, não há itens para descartar.");
+        }
+
+        RefreshInventory();
+    }
 }
