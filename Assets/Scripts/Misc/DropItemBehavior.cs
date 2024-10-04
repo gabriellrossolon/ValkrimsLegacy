@@ -28,7 +28,7 @@ public class DropItemBehavior : MonoBehaviour
             drop_name = "Gold Coin(s)";
             if (collision.gameObject.CompareTag("Player"))
             {
-                SoundManager.Instance.drop_soundSource.PlayOneShot(collect_sound);
+                //SoundManager.Instance.drop_soundSource.PlayOneShot(collect_sound);
                 collision.gameObject.GetComponent<EntityStats>().AddGold(gold_to_give);
                 Destroy(this.gameObject);
 

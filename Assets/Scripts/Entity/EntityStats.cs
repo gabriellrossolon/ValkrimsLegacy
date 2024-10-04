@@ -449,6 +449,7 @@ public class EntityStats : MonoBehaviour
     {
         if (this.gameObject.CompareTag("Player"))
         {
+            SoundManager.Instance.drop_soundSource.PlayOneShot(SoundManager.Instance.goldCollect_soundClip);
             gold_carry += gold_gained;
             HudManager.Instance.gold_text.text = gold_carry.ToString();
         }

@@ -124,8 +124,9 @@ public class InventoryManager : MonoBehaviour
 
                 slot_instance.transform.Find("Options").GetComponent<Button>().onClick.RemoveAllListeners();
                 slot_instance.transform.Find("Options").GetComponent<Button>().onClick.AddListener(DiscardItem);
-
             }
+
+            slot_instance.GetComponent<InvSlotBehavior>().invSlotRefer = hotkey - 1;
 
             slot_instance.GetComponentInChildren<Text>().text = hotkey.ToString();
             hotkey++;
@@ -186,7 +187,7 @@ public class InventoryManager : MonoBehaviour
 
     //Gerenciamento de Mudança das armas Sword/Staff/Bow
 
-    private void VerifyWeaponActive(Weapon selected_weapon)
+    public void VerifyWeaponActive(Weapon selected_weapon)
     {
         WeaponRotateController rotate_controller = weapon_parent.GetComponent<WeaponRotateController>();
 
@@ -293,13 +294,13 @@ public class InventoryManager : MonoBehaviour
 
     public void DiscardItem()
     {
-        if (inventory.Count > 0) // Verifica se a lista não está vazia
+        GameObject clickedButton = EventSystem.current.currentSelectedGameObject;
+        Transform parentTransform = clickedButton.transform.parent;
+        InvSlotBehavior invslot = parentTransform.GetComponent<InvSlotBehavior>();
+
+        if (inventory.Count > 0 && invslot.invSlotRefer >= 0 && invslot.invSlotRefer < inventory.Count)
         {
-            //inventory[0] = null;
-        }
-        else
-        {
-            Debug.Log("O inventário está vazio, não há itens para descartar.");
+            inventory[invslot.invSlotRefer] = null;
         }
 
         RefreshInventory();

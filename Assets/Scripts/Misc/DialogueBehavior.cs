@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class DialogueBehavior : MonoBehaviour
 {
@@ -97,6 +98,7 @@ public class DialogueBehavior : MonoBehaviour
 
             DialogueManager.Instance.dialogue_option_one.SetActive(false);
             DialogueManager.Instance.dialogue_option_two.SetActive(false);
+            DialogueManager.Instance.dialogue_option_three.SetActive(false);
 
             DialogueManager.Instance.CloseShop();
 
@@ -246,12 +248,6 @@ public class DialogueBehavior : MonoBehaviour
         CreateShopItem();
     }
 
-    public void OpenSellShop()
-    {
-        DialogueManager.Instance.shop_panel.SetActive(true);
-        DialogueManager.Instance.shop_panel_txt.text = "Sell";
-    }
-
     private void SortItensForSell() //Sorteia os Itens que o NPC ira Vender quando o jogo Starta
     {
         int maxItems = Mathf.Min(3, weapons_sold.Count);
@@ -278,5 +274,54 @@ public class DialogueBehavior : MonoBehaviour
             GameObject shop_item = Instantiate(DialogueManager.Instance.shop_item, DialogueManager.Instance.shop_item_holder.transform);
             shop_item.GetComponent<ShopItemBehavior>().w_ = weapon;
         }
+    }
+
+    public void OpenSellShop()
+    {
+        DialogueManager.Instance.shop_panel.SetActive(true);
+        DialogueManager.Instance.shop_panel_txt.text = "Sell";
+
+        GameObject[] destroy_slots = GameObject.FindGameObjectsWithTag("InventorySlot");
+        foreach (GameObject slot in destroy_slots) { Destroy(slot); }
+
+        InventoryManager.Instance.RefreshInventory();
+
+        int hotkey = 1;
+        foreach (Weapon w in InventoryManager.Instance.inventory)
+        {  
+            if (w != null)
+            {
+                GameObject slot_instance = Instantiate(InventoryManager.Instance.inv_slot, DialogueManager.Instance.shop_item_sell_holder.transform);
+
+                Image icon_image = slot_instance.transform.Find("Icon").GetComponent<Image>();
+                icon_image.sprite = w.weapon_icon;
+                icon_image.enabled = true;
+
+                slot_instance.transform.Find("Icon").GetComponent<Button>().onClick.RemoveAllListeners();
+                slot_instance.transform.Find("Icon").GetComponent<Button>().onClick.AddListener(SellItem);
+
+                slot_instance.transform.Find("Options").GetComponent<Button>().onClick.RemoveAllListeners();
+
+                slot_instance.GetComponent<InvSlotBehavior>().invSlotRefer = hotkey - 1;
+
+                slot_instance.GetComponentInChildren<Text>().text = null;
+            }
+            hotkey++;
+        }
+    }
+
+    public void SellItem()
+    {
+        GameObject clickedButton = EventSystem.current.currentSelectedGameObject;
+        Transform parentTransform = clickedButton.transform.parent;
+        InvSlotBehavior invslot = parentTransform.GetComponent<InvSlotBehavior>();
+
+        if (InventoryManager.Instance.inventory.Count > 0 && invslot.invSlotRefer >= 0 && invslot.invSlotRefer < InventoryManager.Instance.inventory.Count)
+        {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<EntityStats>().AddGold(InventoryManager.Instance.inventory[invslot.invSlotRefer].weapon_gold_value * 0.5f);
+            InventoryManager.Instance.inventory[invslot.invSlotRefer] = null;
+            Destroy(parentTransform.gameObject);
+        }
+        InventoryManager.Instance.VerifyWeaponActive(InventoryManager.Instance.inventory[invslot.invSlotRefer]);
     }
 }

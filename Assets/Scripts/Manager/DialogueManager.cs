@@ -34,6 +34,7 @@ public class DialogueManager : MonoBehaviour
     public Text shop_panel_txt;
     public GameObject shop_panel;
     public GameObject shop_item_holder;
+    public GameObject shop_item_sell_holder;
     public GameObject shop_item;
 
     public void CloseShop()
