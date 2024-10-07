@@ -45,6 +45,13 @@ public class DialogueManager : MonoBehaviour
             Destroy(shopItem);
         }
 
+        GameObject[] shopSellItems = GameObject.FindGameObjectsWithTag("InventorySlot");
+        foreach (GameObject shopSellItem in shopSellItems)
+        {
+            Destroy(shopSellItem);
+        }
+        InventoryManager.Instance.RefreshInventory();
+
         shop_panel.SetActive(false);
     }
 }

@@ -60,7 +60,7 @@ public class CullingSystem : MonoBehaviour
         // Lógica para Light2D
         if (light2D != null)
         {
-            if (DayManager.Instance.is_day)
+            if (TimeManager.Instance.is_day)
             {
                 light2D.enabled = false; // Desativa durante o dia
             }

@@ -14,7 +14,7 @@ public class LightBehavior : MonoBehaviour
 
     void Update()
     {
-        if(DayManager.Instance.is_day == true)
+        if(TimeManager.Instance.is_day == true)
         {
             object_light.enabled = false;
         }

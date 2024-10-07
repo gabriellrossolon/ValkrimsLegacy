@@ -38,6 +38,8 @@ public class HudManager : MonoBehaviour
 
     public GameObject gameover_hud;
 
+    public Text clock;
+
     [Header("Popups")]
     public GameObject mana_warn;
     public GameObject stamina_warn;
