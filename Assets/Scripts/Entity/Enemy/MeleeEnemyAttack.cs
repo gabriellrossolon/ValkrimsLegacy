@@ -5,13 +5,21 @@ using UnityEngine;
 public class MeleeEnemyAttack : MonoBehaviour
 {
     private EntityStats entity_stats;
-    public GameObject impact_fx;
+    
     private MeleeEnemyMove enemy_move;
 
     private float cooldown;
     private bool can_attack = true;
 
+    [Header("Attack Impact VFX")]
+    public GameObject impact_fx;
+
+    [Header("Attack Impact Sound")]
     public AudioClip enemyImpact_soundClip;
+
+    [Header("Camera Shake Values")]
+    public float shakeIntensity;
+    public float shakeTime;
 
     void Start()
     {
@@ -27,14 +35,14 @@ public class MeleeEnemyAttack : MonoBehaviour
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player") && can_attack == true)
         {
             StartCoroutine(AttackAnimation(collision));
             StartCoroutine(DoDamage(collision, 0.3f));
             can_attack = false;
-            cooldown = 0;         
+            cooldown = 0;
 
             StartCoroutine(TimeToBreath());
         }
@@ -42,8 +50,10 @@ public class MeleeEnemyAttack : MonoBehaviour
 
     private IEnumerator DoDamage(Collision2D collision, float delay)
     {
+        EntityStats collision_stats = collision.gameObject.GetComponent<EntityStats>();
         yield return new WaitForSeconds(delay);
-        collision.gameObject.GetComponent<EntityStats>().RemoveHp(entity_stats.attack_damage);
+        collision_stats.RemoveHp(entity_stats.attack_damage);
+        CameraShake.Instance.ShakeCamera(shakeIntensity, shakeTime);
         Knockback(collision);
     }
 
@@ -57,16 +67,12 @@ public class MeleeEnemyAttack : MonoBehaviour
 
     private void Knockback(Collision2D collision)
     {
-        if (collision.contactCount > 0)
+        if (collision.contactCount > 0 && collision.gameObject.CompareTag("Player"))
         {
-            // Obtém o primeiro ponto de contato da colisão
             ContactPoint2D contact = collision.GetContact(0);
             Vector2 contactNormal = contact.normal;
 
-            // Calcula a direção do knockback (oposta à normal do contato)
             Vector2 knockbackDirection = -contactNormal;
-
-            // Aplica a força de knockback
             collision.gameObject.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * entity_stats.knockback_force, ForceMode2D.Impulse);
         }
     }

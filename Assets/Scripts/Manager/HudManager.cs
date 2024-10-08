@@ -22,15 +22,15 @@ public class HudManager : MonoBehaviour
         }
     }
 
+    private GameObject player_object;
+    private EntityStats player_stats;
+
     [Header("Status Bar")]
     public GameObject player_bars_go;
     public Slider player_hp_bar;
     public Slider player_stamina_bar;
     public Slider player_mana_bar;
     public Slider player_xp_bar;
-
-    private GameObject player_object;
-    private EntityStats player_stats;
 
     [Header("Misc HUDs")]
     public GameObject pausedgame_hud;
@@ -39,6 +39,8 @@ public class HudManager : MonoBehaviour
     public GameObject gameover_hud;
 
     public Text clock;
+
+    public GameObject options_hud;
 
     [Header("Popups")]
     public GameObject mana_warn;
@@ -115,9 +117,7 @@ public class HudManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.J))
         {
-            bool isActive = quests_panel.activeSelf;
-            quests_panel.SetActive(!isActive);
-            ControlPlayerCanAttack(!isActive);
+            OpenCloseQuestsJournal();
         }
 
         ShowPlayerHud();
@@ -128,10 +128,8 @@ public class HudManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.P))
             {
-                bool isActive = player_info_panel.activeSelf;
-                player_info_panel.SetActive(!isActive);
+                OpenClosePlayerInfoPanel();
                 ActiveAttributeUpButtons();
-                ControlPlayerCanAttack(!isActive);
             }
         }
 
@@ -185,9 +183,22 @@ public class HudManager : MonoBehaviour
 
     public void PlayAgain()
     {
-        SceneManager.LoadScene("SampleScene");
-        Debug.Log("Reloading Scene");
+        //SceneManager.LoadScene("SampleScene");
+
+        gameover_hud.SetActive(false);
+        player_stats.hp = player_stats.max_hp;
+        player_stats.stamina = player_stats.max_stamina;
+        player_stats.mana = player_stats.max_mana;
+        player_object.transform.position = new Vector3(-95.89f, 76.02f, 0);
+        SoundManager.Instance.music_soundSource.Play();
         Time.timeScale = 1;
+    }
+
+    public void OpenClosePlayerInfoPanel()
+    {
+        bool isActive = player_info_panel.activeSelf;
+        player_info_panel.SetActive(!isActive);
+        ControlPlayerCanAttack(!isActive);
     }
 
     private void PlayerInfoPanel()
@@ -219,6 +230,13 @@ public class HudManager : MonoBehaviour
         }
     }
 
+    public void OpenCloseQuestsJournal()
+    {
+        bool isActive = quests_panel.activeSelf;
+        quests_panel.SetActive(!isActive);
+        ControlPlayerCanAttack(!isActive);
+    }
+
     private void OpenMap()
     {
         if (!map_opened)
@@ -233,6 +251,13 @@ public class HudManager : MonoBehaviour
         }
 
         ControlPlayerCanAttack(map_opened);
+    }
+
+    public void OpenCloseOptionsHud()
+    {
+        bool isActive = options_hud.activeSelf;
+        options_hud.SetActive(!isActive);
+        ControlPlayerCanAttack(!isActive);
     }
 
     private void ControlPlayerCanAttack(bool value)
@@ -272,14 +297,14 @@ public class HudManager : MonoBehaviour
         if (isPaused)
         {
             SoundManager.Instance.ambient_soundSource.Pause();
-            SoundManager.Instance.music_soundSource.Pause();
+            //SoundManager.Instance.music_soundSource.Pause();
             Time.timeScale = 0;
             pausedgame_hud.SetActive(true);
         }
         else
         {
             SoundManager.Instance.ambient_soundSource.Play();
-            SoundManager.Instance.music_soundSource.Play();
+            //SoundManager.Instance.music_soundSource.Play();
             Time.timeScale = 1;
             pausedgame_hud.SetActive(false);
         }

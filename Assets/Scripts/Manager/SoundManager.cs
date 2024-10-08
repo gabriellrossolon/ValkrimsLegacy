@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
@@ -19,6 +21,11 @@ public class SoundManager : MonoBehaviour
             Instance = this;
         }
     }
+
+
+    public AudioMixer audioMixer; // Arraste o AudioMixer aqui via Inspector
+    public Slider volumeSlider;   // Arraste o Slider da UI aqui via Inspector
+
     [Header("Ambient Sound")]
     public AudioSource ambient_soundSource;
 
@@ -86,6 +93,27 @@ public class SoundManager : MonoBehaviour
 
     [Header("Ambient Location")]
     public string player_ambient;
+
+    public void SetVolume(float volume)
+    {
+        if (volume <= 0.0001f)
+        {
+            audioMixer.SetFloat("MasterVolume", -80f); 
+        }
+        else
+        {
+            audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
+        }
+    }
+
+    void Start()
+    {
+        // Define o valor inicial do slider (exemplo: volume 1 = 100%)
+        volumeSlider.value = 1.0f;
+
+        // Adiciona o listener para chamar o método sempre que o slider mudar
+        volumeSlider.onValueChanged.AddListener(SetVolume);
+    }
 
     public void SoundChecker()
     {

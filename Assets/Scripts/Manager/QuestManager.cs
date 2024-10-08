@@ -27,6 +27,11 @@ public class QuestManager : MonoBehaviour
     [Header("Quests")]
     public bool mushroom_investigation;
     public bool the_strange_cave;
+    public bool the_crystal_creatures;
+
+    public GameObject mushroom_pointer;
+    public GameObject strangecave_pointer;
+    public GameObject crystalcreatures_pointer;
 
     [HideInInspector]
     public Text quest_name;
@@ -49,6 +54,21 @@ public class QuestManager : MonoBehaviour
     {
         //ReloadQuest();
         if (quest_tracking == "mushroom investigation" && mushroom_investigation == true) { quest_count.text = $"{enemy_killed}/3"; }
+
+        if (mushroom_investigation)
+        {
+            mushroom_pointer.SetActive(true);
+        }
+        if (the_strange_cave)
+        {
+            strangecave_pointer.SetActive(true);
+        }
+        if (the_crystal_creatures)
+        {
+            crystalcreatures_pointer.SetActive(true);
+        }
+
+
     }
 
     public void ActiveQuest(string quest_to_active)
@@ -67,6 +87,13 @@ public class QuestManager : MonoBehaviour
             if(the_strange_cave == false)
             {
                 the_strange_cave = true;
+            }
+        }
+        else if(quest_to_active == "the crystal creatures")
+        {
+            if (the_crystal_creatures == false)
+            {
+                the_crystal_creatures = true;
             }
         }
         AddQuestInQuestsPanel(quest_to_active);
@@ -102,6 +129,20 @@ public class QuestManager : MonoBehaviour
 
             quest_banner_instance.GetComponentInChildren<Text>().text = "The Strange Cave";
         }
+        else if (the_crystal_creatures = true && quest_to_active == "the crystal creatures")
+        {
+            GameObject quest_banner_instance = Instantiate(
+            HudManager.Instance.quests_banner,
+            HudManager.Instance.quest_panel_one.transform.position,
+            Quaternion.identity,
+            HudManager.Instance.quest_panel_one.transform
+            );
+
+            Button quest_button = quest_banner_instance.GetComponentInChildren<Button>();
+            quest_button.onClick.AddListener(SelectQuestToTrack);
+
+            quest_banner_instance.GetComponentInChildren<Text>().text = "The Crystal Creatures";
+        }
     }
 
     public void SelectQuestToTrack()
@@ -123,6 +164,13 @@ public class QuestManager : MonoBehaviour
             quest_objective.text = "Follow at North Path of the city and find the mentioned Strange Cave";
             quest_count.text = "";
             quest_tracking = "the strange cave";
+        }
+        else if (buttonText.text == "The Crystal Creatures" && the_strange_cave == true)
+        {
+            quest_name.text = "The Crystal Creatures";
+            quest_objective.text = "Follow at West of the city and find any of the mentioned Crystal Creatures";
+            quest_count.text = "";
+            quest_tracking = "the crystal creatures";
         }
     }
 
@@ -147,7 +195,17 @@ public class QuestManager : MonoBehaviour
                 GiveReward(5f, 0f);
                 the_strange_cave = false;
             }
-        } 
+        }
+
+        if (the_crystal_creatures == true)
+        {
+            if (player_object.GetComponent<EntityStats>().player_ambient == "Dungeon1")
+            {
+                EndQuest("the crystal creatures");
+                GiveReward(8f, 12f);
+                the_crystal_creatures = false;
+            }
+        }
     }
 
     private void EndQuest(string quest_to_complete)
@@ -156,6 +214,7 @@ public class QuestManager : MonoBehaviour
 
         if (quest_to_complete == "mushroom investigation")
         {
+            mushroom_pointer.SetActive(false);
             enemy_killed = 0;
 
             foreach (Text questText in questTexts)
@@ -169,6 +228,8 @@ public class QuestManager : MonoBehaviour
         } 
         else if (quest_to_complete == "the strange cave")
         {
+            strangecave_pointer.SetActive(false);
+
             foreach (Text questText in questTexts)
             {
                 if (questText.text == "The Strange Cave")
@@ -178,6 +239,20 @@ public class QuestManager : MonoBehaviour
                 }
             }
         }
+        else if (quest_to_complete == "the crystal creatures")
+        {
+            crystalcreatures_pointer.SetActive(false);
+
+            foreach (Text questText in questTexts)
+            {
+                if (questText.text == "The Crystal Creatures")
+                {
+                    Destroy(questText.transform.parent.parent.gameObject);
+                    break;
+                }
+            }
+        }
+
         quest_name.text = "";
         quest_objective.text = "";
         quest_count.text = $"";

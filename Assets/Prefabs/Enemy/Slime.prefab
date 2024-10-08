@@ -680,7 +680,7 @@ MonoBehaviour:
   detection_distance_below: 2
   max_sort_order: 13
   min_sort_order: 10
-  detection_distance: 1
+  detection_distance: 2
 --- !u!212 &8104899749099028194
 SpriteRenderer:
   m_ObjectHideFlags: 0

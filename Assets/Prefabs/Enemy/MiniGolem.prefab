@@ -185,6 +185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   impact_fx: {fileID: 6883697184390936198, guid: 059d2f06fb1702a439f1743d85180498, type: 3}
   enemyImpact_soundClip: {fileID: 8300000, guid: 6b0f3a3228d8c4a42855280307146701, type: 3}
+  shakeIntensity: 2
+  shakeTime: 1
 --- !u!114 &9365605460274885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,7 +247,7 @@ MonoBehaviour:
   detection_distance_below: 2
   max_sort_order: 13
   min_sort_order: 10
-  detection_distance: 1
+  detection_distance: 2
 --- !u!212 &7187728036239564005
 SpriteRenderer:
   m_ObjectHideFlags: 0
