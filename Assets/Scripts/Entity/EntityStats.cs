@@ -60,6 +60,8 @@ public class EntityStats : MonoBehaviour
     [Header("Identifier (If Necessary)")]
     public string identifier_name;
 
+    private bool isResettingColor = false;
+
     void Start()
     {
         actual_speed = base_speed;
@@ -113,7 +115,9 @@ public class EntityStats : MonoBehaviour
             {
                 StartCoroutine(ShowGameOverHud(0.1f));
                 SoundManager.Instance.misc_soundSource.PlayOneShot(SoundManager.Instance.gameover_soundClip);
-            } 
+                SoundManager.Instance.step_soundSource.Stop();
+
+            }
             else if (this.gameObject.CompareTag("Enemy"))
             {
                 Animator anim = this.gameObject.GetComponent<Animator>();
@@ -176,6 +180,11 @@ public class EntityStats : MonoBehaviour
 
     private void RedDamageIndicator()
     {
+        if (isResettingColor)
+        {
+            return; // Aguarda a corrotina atual terminar
+        }
+
         SpriteRenderer spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
         SpriteRenderer[] childSpriteRenderers = this.gameObject.GetComponentsInChildren<SpriteRenderer>();
@@ -201,6 +210,7 @@ public class EntityStats : MonoBehaviour
 
     private IEnumerator ResetColor(SpriteRenderer spriteRenderer, SpriteRenderer[] childSpriteRenderers, float delay)
     {
+        isResettingColor = true;
         yield return new WaitForSeconds(delay);
 
         if (spriteRenderer != null)
@@ -215,6 +225,7 @@ public class EntityStats : MonoBehaviour
                 }
             }
         }
+        isResettingColor = false;
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//

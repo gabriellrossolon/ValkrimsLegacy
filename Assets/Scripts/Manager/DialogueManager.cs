@@ -20,6 +20,9 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private GameObject[] npc_objects;
+
+
     public GameObject dialogue_box;
     public Image char_image;
     public Text char_name;
@@ -36,6 +39,31 @@ public class DialogueManager : MonoBehaviour
     public GameObject shop_item_holder;
     public GameObject shop_item_sell_holder;
     public GameObject shop_item;
+
+    private void Start()
+    {
+        npc_objects = GameObject.FindGameObjectsWithTag("NPC");
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (shop_panel.activeSelf)
+            {
+                CloseShop();
+            }
+            else if (dialogue_box.activeSelf)
+            {
+                foreach (GameObject npc in npc_objects)
+                {
+                    npc.GetComponent<CircleCollider2D>().enabled = false;
+                    npc.GetComponent<CircleCollider2D>().enabled = true;
+                }
+            }
+        }
+    }
 
     public void CloseShop()
     {

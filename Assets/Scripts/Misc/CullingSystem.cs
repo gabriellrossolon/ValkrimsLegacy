@@ -12,6 +12,8 @@ public class CullingSystem : MonoBehaviour
     private SortingOrder sortingOrder;
     private Light2D light2D;
 
+    public bool ignoreTimeSys;
+
     void Start()
     {
         mainCamera = Camera.main;
@@ -60,13 +62,22 @@ public class CullingSystem : MonoBehaviour
         // Lógica para Light2D
         if (light2D != null)
         {
-            if (TimeManager.Instance.is_day)
+            if (TimeManager.Instance.is_day && !isVisible && !ignoreTimeSys)
             {
-                light2D.enabled = false; // Desativa durante o dia
+                light2D.enabled = false;
             }
-            else
+            else if (!TimeManager.Instance.is_day && isVisible && !ignoreTimeSys)
             {
-                light2D.enabled = isVisible; // Ativa ou desativa com base na visibilidade
+                light2D.enabled = true;
+            }
+
+            else if (TimeManager.Instance.is_day && !isVisible && ignoreTimeSys)
+            {
+                light2D.enabled = false;
+            }
+            else if (TimeManager.Instance.is_day && isVisible && ignoreTimeSys)
+            {
+                light2D.enabled = true;
             }
         }
     }

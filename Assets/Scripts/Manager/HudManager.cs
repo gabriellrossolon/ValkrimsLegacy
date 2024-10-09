@@ -82,8 +82,6 @@ public class HudManager : MonoBehaviour
     public GameObject quest_panel_one;
     public GameObject quest_panel_two;
 
-
-
     private GameObject[] attribute_buttons;
     public List<Image> button_images;
 
@@ -112,7 +110,26 @@ public class HudManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
+            if (!DialogueManager.Instance.shop_panel.activeSelf && !DialogueManager.Instance.dialogue_box.activeSelf 
+                && !quests_panel.activeSelf && !map_opened && !player_info_panel.activeSelf && !gameover_hud.activeSelf)
+            {
+                PauseGame();
+            }
+
+            if (quests_panel.activeSelf)
+            {
+                OpenCloseQuestsJournal();
+            }
+
+            if (map_opened)
+            {
+                OpenMap();
+            }
+
+            if (player_info_panel.activeSelf)
+            {
+                OpenClosePlayerInfoPanel();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.J))
@@ -179,19 +196,6 @@ public class HudManager : MonoBehaviour
     {
         player_xp_bar.maxValue = player_stats.xp_to_up;
         player_xp_bar.value = player_stats.xp;
-    }
-
-    public void PlayAgain()
-    {
-        //SceneManager.LoadScene("SampleScene");
-
-        gameover_hud.SetActive(false);
-        player_stats.hp = player_stats.max_hp;
-        player_stats.stamina = player_stats.max_stamina;
-        player_stats.mana = player_stats.max_mana;
-        player_object.transform.position = new Vector3(-95.89f, 76.02f, 0);
-        SoundManager.Instance.music_soundSource.Play();
-        Time.timeScale = 1;
     }
 
     public void OpenClosePlayerInfoPanel()
@@ -308,6 +312,25 @@ public class HudManager : MonoBehaviour
             Time.timeScale = 1;
             pausedgame_hud.SetActive(false);
         }
+    }
+
+    public void PlayAgain()
+    {
+        gameover_hud.SetActive(false);
+        player_stats.hp = player_stats.max_hp;
+        player_stats.stamina = player_stats.max_stamina;
+        player_stats.mana = player_stats.max_mana;
+        player_object.transform.position = new Vector3(-95.89f, 76.02f, 0);
+        SoundManager.Instance.music_soundSource.Play();
+        SoundManager.Instance.step_soundSource.Play();
+
+        Time.timeScale = 1;
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1;
     }
 
     public void QuiteGame()

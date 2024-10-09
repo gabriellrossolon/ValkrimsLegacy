@@ -14,13 +14,13 @@ public class LightBehavior : MonoBehaviour
 
     void Update()
     {
-        if(TimeManager.Instance.is_day == true)
-        {
-            object_light.enabled = false;
-        }
-        else
-        {
-            object_light.enabled = true;
-        }
+        //if(TimeManager.Instance.is_day == true)
+        //{
+        //    object_light.enabled = false;
+        //}
+        //else
+        //{
+        //    object_light.enabled = true;
+        //}
     }
 }
