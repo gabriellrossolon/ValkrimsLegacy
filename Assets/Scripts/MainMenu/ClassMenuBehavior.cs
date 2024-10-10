@@ -46,19 +46,22 @@ public class ClassMenuBehavior : MonoBehaviour
     private IEnumerator LoadAsync(string sceneName)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+        operation.allowSceneActivation = false;
 
-        while (!operation.isDone)
+        while (operation.progress < 0.9f)
         {
             currentProgress = Mathf.SmoothDamp(currentProgress, operation.progress, ref velocity, smoothTime);
-            if (progressBar != null)
-            {
-                progressBar.value = currentProgress;
-            }
+            progressBar.value = currentProgress;
             yield return null;
         }
-        if (progressBar != null)
+
+        while (currentProgress < 0.99f)
         {
-            progressBar.value = 1f;
+            currentProgress = Mathf.SmoothDamp(currentProgress, 1f, ref velocity, smoothTime);
+            progressBar.value = currentProgress;
+            yield return null;
         }
+
+        operation.allowSceneActivation = true;
     }
 }

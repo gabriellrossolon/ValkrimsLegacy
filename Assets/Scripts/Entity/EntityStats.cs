@@ -88,7 +88,8 @@ public class EntityStats : MonoBehaviour
             original_enemy_attack_damage = attack_damage;
             original_enemy_max_hp = max_hp;
         }
-        
+        EnemyLevelBuff();
+
     }
 
     void Update()
@@ -96,8 +97,6 @@ public class EntityStats : MonoBehaviour
         StaminaControl();
         ManaControl();
         HpControl();
-
-        EnemyLevelBuff();
 
         LevelUp();
     }
@@ -112,26 +111,29 @@ public class EntityStats : MonoBehaviour
     {
         if (this.gameObject.CompareTag("Player"))
         {
-            if (ClassManager.Instance.choosedClass == "Warrior")
+            if (ClassManager.Instance != null)
             {
-                max_hp = 25f;
-                max_stamina = 50f;
-                max_mana = 30f;
-                base_speed = 4000;
-            }
-            else if (ClassManager.Instance.choosedClass == "Mage")
-            {
-                max_hp = 10f;
-                max_stamina = 40f;
-                max_mana = 70f;
-                base_speed = 4000;
-            }
-            else if (ClassManager.Instance.choosedClass == "Thief")
-            {
-                max_hp = 15f;
-                max_stamina = 80f;
-                max_mana = 30f;
-                base_speed = 5000;
+                if (ClassManager.Instance.choosedClass == "Warrior")
+                {
+                    max_hp = 25f;
+                    max_stamina = 50f;
+                    max_mana = 30f;
+                    base_speed = 4000;
+                }
+                else if (ClassManager.Instance.choosedClass == "Mage")
+                {
+                    max_hp = 10f;
+                    max_stamina = 40f;
+                    max_mana = 70f;
+                    base_speed = 4000;
+                }
+                else if (ClassManager.Instance.choosedClass == "Thief")
+                {
+                    max_hp = 15f;
+                    max_stamina = 80f;
+                    max_mana = 30f;
+                    base_speed = 5000;
+                }
             }
         }
     }
@@ -480,6 +482,7 @@ public class EntityStats : MonoBehaviour
         {
             attack_damage = original_enemy_attack_damage + (level - 1) * 0.5f;
             max_hp = original_enemy_max_hp + (level - 1) * 1.5f;
+            hp = max_hp;
         }
     }
 

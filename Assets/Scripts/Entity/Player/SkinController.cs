@@ -37,26 +37,30 @@ public class SkinController : MonoBehaviour
 
     private void SetInitialArmor()
     {
-        if(ClassManager.Instance.choosedClass == "Warrior")
+        if (ClassManager.Instance != null)
         {
-            using_hair_1 = false;
-            using_hat_1 = false;
-            using_armor_one = true;
-            using_armor_two = false;
-        } 
-        else if (ClassManager.Instance.choosedClass == "Mage")
-        {
-            using_hair_1 = false;
-            using_hat_1 = true;
-            using_armor_one = false;
-            using_armor_two = false;
+            if (ClassManager.Instance.choosedClass == "Warrior")
+            {
+                using_hair_1 = false;
+                using_hat_1 = false;
+                using_armor_one = true;
+                using_armor_two = false;
+            }
+            else if (ClassManager.Instance.choosedClass == "Mage")
+            {
+                using_hair_1 = false;
+                using_hat_1 = true;
+                using_armor_one = false;
+                using_armor_two = false;
+            }
+            else if (ClassManager.Instance.choosedClass == "Thief")
+            {
+                using_hair_1 = true;
+                using_hat_1 = false;
+                using_armor_one = false;
+                using_armor_two = true;
+            }
         }
-        else if (ClassManager.Instance.choosedClass == "Thief")
-        {
-            using_hair_1 = true;
-            using_hat_1 = false;
-            using_armor_one = false;
-            using_armor_two = true;
-        }
+        
     }
 }
