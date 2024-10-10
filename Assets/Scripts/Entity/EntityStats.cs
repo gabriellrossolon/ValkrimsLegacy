@@ -64,6 +64,8 @@ public class EntityStats : MonoBehaviour
 
     void Start()
     {
+        setInitialAttributes();
+
         actual_speed = base_speed;
         original_speed = base_speed;
         max_speed = base_speed * 1.5f;
@@ -106,6 +108,33 @@ public class EntityStats : MonoBehaviour
     }
 
     //=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//=====//
+    private void setInitialAttributes()
+    {
+        if (this.gameObject.CompareTag("Player"))
+        {
+            if (ClassManager.Instance.choosedClass == "Warrior")
+            {
+                max_hp = 25f;
+                max_stamina = 50f;
+                max_mana = 30f;
+                base_speed = 4000;
+            }
+            else if (ClassManager.Instance.choosedClass == "Mage")
+            {
+                max_hp = 10f;
+                max_stamina = 40f;
+                max_mana = 70f;
+                base_speed = 4000;
+            }
+            else if (ClassManager.Instance.choosedClass == "Thief")
+            {
+                max_hp = 15f;
+                max_stamina = 80f;
+                max_mana = 30f;
+                base_speed = 5000;
+            }
+        }
+    }
 
     void Death()
     {

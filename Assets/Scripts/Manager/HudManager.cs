@@ -10,8 +10,6 @@ public class HudManager : MonoBehaviour
 
     private void Awake()
     {
-        // If there is an instance, and it's not me, delete myself.
-
         if (Instance != null && Instance != this)
         {
             Destroy(this);
@@ -87,7 +85,7 @@ public class HudManager : MonoBehaviour
 
 
     void Start()
-    {
+    {      
         player_object = GameObject.FindGameObjectWithTag("Player");
         player_stats = GameObject.FindWithTag("Player").gameObject.GetComponent<EntityStats>();
 

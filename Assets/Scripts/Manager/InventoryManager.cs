@@ -25,6 +25,12 @@ public class InventoryManager : MonoBehaviour
     public List<Weapon> inventory;
     public Potion potion;
 
+    [Header("Initial Weapons")]
+    public Weapon basic_sword;
+    public Weapon basic_staff;
+    public Weapon basic_bow;
+    public Weapon basic_dagger;
+
     [Header("Potion Hud")]
     public GameObject potion_slot;
     public int potion_quantity;
@@ -53,6 +59,8 @@ public class InventoryManager : MonoBehaviour
 
     void Start()
     {
+        ClassInitialItem();
+
         player_stats = GameObject.FindGameObjectWithTag("Player").GetComponent<EntityStats>();
         player_object = GameObject.FindGameObjectWithTag("Player");
 
@@ -186,7 +194,6 @@ public class InventoryManager : MonoBehaviour
     }
 
     //Gerenciamento de Mudança das armas Sword/Staff/Bow
-
     public void VerifyWeaponActive(Weapon selected_weapon)
     {
         WeaponRotateController rotate_controller = weapon_parent.GetComponent<WeaponRotateController>();
@@ -304,5 +311,40 @@ public class InventoryManager : MonoBehaviour
         }
 
         RefreshInventory();
+    }
+
+    private void ClassInitialItem()
+    {
+        if (ClassManager.Instance == null) return;
+
+        Weapon weaponToAdd = null;
+
+        if (ClassManager.Instance.choosedClass == "Warrior")
+        {
+            weaponToAdd = basic_sword;
+        }
+        else if (ClassManager.Instance.choosedClass == "Mage")
+        {
+            weaponToAdd = basic_staff;
+        }
+        else if (ClassManager.Instance.choosedClass == "Thief")
+        {
+            weaponToAdd = basic_bow;
+            AddWeaponToInventory(basic_dagger);
+        }
+
+        AddWeaponToInventory(weaponToAdd);
+    }
+
+    private void AddWeaponToInventory(Weapon weapon)
+    {
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i] == null)
+            {
+                inventory[i] = weapon;
+                return;
+            }
+        }
     }
 }

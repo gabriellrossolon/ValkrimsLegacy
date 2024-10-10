@@ -17,6 +17,7 @@ public class SkinController : MonoBehaviour
 
     void Start()
     {
+        SetInitialArmor();
         player_object = GameObject.FindWithTag("Player");
         anim = player_object.GetComponent<Animator>();
     }
@@ -32,5 +33,30 @@ public class SkinController : MonoBehaviour
         anim.SetBool("usingArmor2", using_armor_two);
         anim.SetBool("usingHair1", using_hair_1);
         anim.SetBool("usingHat1", using_hat_1);
+    }
+
+    private void SetInitialArmor()
+    {
+        if(ClassManager.Instance.choosedClass == "Warrior")
+        {
+            using_hair_1 = false;
+            using_hat_1 = false;
+            using_armor_one = true;
+            using_armor_two = false;
+        } 
+        else if (ClassManager.Instance.choosedClass == "Mage")
+        {
+            using_hair_1 = false;
+            using_hat_1 = true;
+            using_armor_one = false;
+            using_armor_two = false;
+        }
+        else if (ClassManager.Instance.choosedClass == "Thief")
+        {
+            using_hair_1 = true;
+            using_hat_1 = false;
+            using_armor_one = false;
+            using_armor_two = true;
+        }
     }
 }

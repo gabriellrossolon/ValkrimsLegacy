@@ -11,36 +11,23 @@ public class MenuManager : MonoBehaviour
     public GameObject loadingScene;
     public GameObject buttons;
     public GameObject version;
-
-    public float smoothTime = 0.5f; // Tempo para suavização
-
-    private float currentProgress = 0f; // Progresso atual da barra
-    private float velocity = 0f; // Velocidade de suavização
-
-    public AudioMixer audioMixer; // Arraste o AudioMixer aqui via Inspector
-    public Slider volumeSlider;   // Arraste o Slider da UI aqui via Inspector
-
+    public AudioMixer audioMixer;
+    public Slider volumeSlider;
     public GameObject options_hud;
+
+    public float smoothTime = 0.5f;
+    float currentProgress = 0f;
+    float velocity = 0f;
 
     void Start()
     {
-        // Define o valor inicial do slider (exemplo: volume 1 = 100%)
         volumeSlider.value = 1.0f;
-
-        // Adiciona o listener para chamar o método sempre que o slider mudar
         volumeSlider.onValueChanged.AddListener(SetVolume);
     }
 
     public void SetVolume(float volume)
     {
-        if (volume <= 0.0001f)
-        {
-            audioMixer.SetFloat("MasterVolume", -80f);
-        }
-        else
-        {
-            audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
-        }
+        audioMixer.SetFloat("MasterVolume", volume <= 0.0001f ? -80f : Mathf.Log10(volume) * 20);
     }
 
     public void Play()
@@ -48,14 +35,7 @@ public class MenuManager : MonoBehaviour
         loadingScene.SetActive(true);
         buttons.SetActive(false);
         version.SetActive(false);
-
-        StartCoroutine(LoadAsync("SampleScene"));
-    }
-
-    public void OpenCloseOptionsHud()
-    {
-        bool isActive = options_hud.activeSelf;
-        options_hud.SetActive(!isActive);
+        StartCoroutine(LoadAsync("ClassMenu"));
     }
 
     private IEnumerator LoadAsync(string sceneName)
@@ -77,5 +57,13 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    public void OpenCloseOptionsHud()
+    {
+        options_hud.SetActive(!options_hud.activeSelf);
+    }
 
+    public void QuiteGame()
+    {
+        Application.Quit();
+    }
 }
